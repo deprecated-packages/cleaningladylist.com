@@ -13,4 +13,4 @@ jobs:
             coverage: none
 
       -   run: composer install --no-progress
-      -   run: composer fix-cs
+      -   run: composer vendor/bin/ecs check
