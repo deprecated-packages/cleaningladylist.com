@@ -1,0 +1,60 @@
+.between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-header, .card-footer{
+    background-color: transparent;
+}
+
+.card-header-progress .progress-bar{
+    background-color: #222222;
+}
+
+.card-header-progress{
+    border: 0!important;
+    border-radius: 0px!important;
+    height: 5px!important;
+}
+
+.icon-btn-link i {
+    color: #222222;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: rgba(205, 205, 205, 0.15);
+}
+
+.icon-btn-link i:hover {
+    background-color: rgba(0, 0, 0, 0.15);
+    transition: all 0.35s ease-in-out;
+}
+
+
+.notification {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 5%;
+}
+
+.notification.success {
+    background-color: #d4edda;
+    color: #155724
+}
+
+.notification.error {
+    background-color: #f8d7da;
+    color: #721c24
+}
+
+.notification.warning {
+    background-color: #fff3cd;
+    color: #856404
+}
+
+.notification.info {
+    background-color: #d1ecf1;
+    color: #0c5460
+}

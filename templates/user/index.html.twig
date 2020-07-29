@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello UserController!{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row justify-content-center mt-3">
+
+            <div class="col-md-12">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <a class="icon-btn-link" href="{{ path('project.new') }}">
+                            <i class="material-icons">add</i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="row justify-content-center">
+                    {% for project in app.user.projects %}
+                        <div class="col-md-4">
+                            <div class="card mb-3">
+                                <div class="card-header between">
+                                    <div>{{ project.title }}</div>
+                                    <div>{{ project.startDate|date('d.m.y') }}</div>
+                                </div>
+                                <div class="progress card-header-progress">
+                                    <div class="progress-bar" role="progressbar" style="width: 10%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item between">{{ project.framework }}</li>
+                                </ul>
+                                <div class="card-footer text-right">
+                                    <a class="icon-btn-link" href="{{ path('project.show', {"id":project.id}) }}">
+                                        <i class="material-icons">arrow_forward</i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

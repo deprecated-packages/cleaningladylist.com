@@ -3,11 +3,15 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  */
 class User implements UserInterface
 {
@@ -38,6 +42,16 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      */
     private $name;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Project::class, mappedBy="user")
+     */
+    private $projects;
+
+    public function __construct()
+    {
+        $this->projects = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -125,6 +139,37 @@ class User implements UserInterface
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Project[]
+     */
+    public function getProjects(): Collection
+    {
+        return $this->projects;
+    }
+
+    public function addProject(Project $project): self
+    {
+        if (!$this->projects->contains($project)) {
+            $this->projects[] = $project;
+            $project->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProject(Project $project): self
+    {
+        if ($this->projects->contains($project)) {
+            $this->projects->removeElement($project);
+            // set the owning side to null (unless already changed)
+            if ($project->getUser() === $this) {
+                $project->setUser(null);
+            }
+        }
 
         return $this;
     }

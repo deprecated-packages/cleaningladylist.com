@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\CheckList;
+use App\Entity\Checkbox;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method CheckList|null find($id, $lockMode = null, $lockVersion = null)
- * @method CheckList|null findOneBy(array $criteria, array $orderBy = null)
- * @method CheckList[]    findAll()
- * @method CheckList[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Checkbox|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Checkbox|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Checkbox[]    findAll()
+ * @method Checkbox[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class CheckListRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, CheckList::class);
+        parent::__construct($registry, Checkbox::class);
     }
 
     // /**
-    //  * @return CheckList[] Returns an array of CheckList objects
+    //  * @return Checkbox[] Returns an array of Checkbox objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class CheckListRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?CheckList
+    public function findOneBySomeField($value): ?Checkbox
     {
         return $this->createQueryBuilder('c')
             ->andWhere('c.exampleField = :val')
