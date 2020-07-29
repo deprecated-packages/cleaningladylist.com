@@ -13,7 +13,7 @@
                         <div class="card-body between">
                             <div>
                                 <div class="form-check form-switch">
-                                    <input data-id="{{ checkbox.id }}" data-target="{{ not checkbox.isDone }}" class="form-check-input checkbox" type="checkbox"
+                                    <input data-id="{{ checkbox.id }}" class="form-check-input checkbox" type="checkbox"
                                            id="checkbox_{{ checkbox.id }}"
                                            {% if checkbox.isDone %}checked{% endif %}>
                                     <label class="form-check-label"
@@ -57,19 +57,18 @@
     {{ parent() }}
     <script>
         $(".checkbox").on("change", function (element) {
-
-            that = $(this);
             $.ajax({
                 url: '{{ path('checkbox.complete') }}',
                 type: "POST",
                 dataType: "json",
                 data: {
                     "id": $(this).data().id,
-                    "isDone" : $(this).data().target
+                    "isDone" : this.checked ? 1 : 0
                 },
                 async: true,
                 success: function (data) {
-                    $('.progress-bar').css({'width': data + "%" })
+                    $('.progress-bar').css({'width': data + "%" });
+                    console.log("done");
                 }
             });
             return false;

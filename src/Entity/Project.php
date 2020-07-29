@@ -61,6 +61,11 @@ class Project
      */
     private $checkboxes;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $version;
+
 
     public function __construct()
     {
@@ -207,6 +212,18 @@ class Project
                 $checkbox->setProject(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getVersion(): ?string
+    {
+        return $this->version;
+    }
+
+    public function setVersion(string $version): self
+    {
+        $this->version = $version;
 
         return $this;
     }
