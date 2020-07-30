@@ -88,6 +88,9 @@ class ProjectController extends AbstractController
      */
     public function show(Project $project, Request $request)
     {
+
+        $checkboxes = $this->em->getRepository("App:Checkbox")->findByFramework($project->getDesiredFramework());
+
         $projectForm = $this->createForm(ProjectFormType::class, $project);
         $projectForm->handleRequest($request);
 
@@ -106,7 +109,8 @@ class ProjectController extends AbstractController
 
         return $this->render('project/show.html.twig', [
             'projectEditForm' => $projectForm->createView(),
-            'project' => $project
+            'project' => $project,
+            'checkboxes'=>$checkboxes
         ]);
     }
 

@@ -20,7 +20,7 @@ class CheckListRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return Checkbox[] Returns an array of Checkbox objects
+    //  * @return CheckList[] Returns an array of CheckList objects
     //  */
     /*
     public function findByExampleField($value)
@@ -36,15 +36,15 @@ class CheckListRepository extends ServiceEntityRepository
     }
     */
 
-    /*
-    public function findOneBySomeField($value): ?Checkbox
+
+    public function findByFramework(string $framework)
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
+        return $this->createQueryBuilder('checkbox')
+            ->where('checkbox.framework is NULL')
+            ->orWhere('checkbox.framework = :framework')
+            ->setParameter('framework', $framework)
             ->getQuery()
-            ->getOneOrNullResult()
+            ->getResult()
         ;
     }
-    */
 }

@@ -50,28 +50,38 @@ class Project
      */
     private $user;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ProjectCheckbox::class, mappedBy="project")
+     */
+    private $projectCheckLists;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $framework;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Checkbox::class, mappedBy="project")
-     */
-    private $checkboxes;
+    private $currentFramework;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $version;
+    private $desiredFramework;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $currentPhpVersion;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $desiredPhpVersion;
 
 
     public function __construct()
     {
         $this->startDate = new \DateTime();
-        $this->checkboxes = new ArrayCollection();
+        $this->projectCheckLists = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
@@ -150,24 +160,12 @@ class Project
         return $this;
     }
 
-    public function getFramework(): ?string
-    {
-        return $this->framework;
-    }
-
-    public function setFramework(string $framework): self
-    {
-        $this->framework = $framework;
-
-        return $this;
-    }
-
     public function getProgress(Project $project): int
     {
         $checkTotalCount = 0;
         $checksComplete = 0;
 
-        foreach ($project->getCheckboxes() as $check) {
+        foreach ($project->getProjectCheckLists() as $check) {
             if ($check->getIsDone()) {
                 $checksComplete++;
             }
@@ -186,46 +184,83 @@ class Project
     }
 
     /**
-     * @return Collection|Checkbox[]
+     * @return Collection|ProjectCheckbox[]
      */
-    public function getCheckboxes(): Collection
+    public function getProjectCheckLists(): Collection
     {
-        return $this->checkboxes;
+        return $this->projectCheckLists;
     }
 
-    public function addCheckbox(Checkbox $checkbox): self
+    public function addProjectCheckList(ProjectCheckbox $projectCheckList): self
     {
-        if (!$this->checkboxes->contains($checkbox)) {
-            $this->checkboxes[] = $checkbox;
-            $checkbox->setProject($this);
+        if (!$this->projectCheckLists->contains($projectCheckList)) {
+            $this->projectCheckLists[] = $projectCheckList;
+            $projectCheckList->setProject($this);
         }
 
         return $this;
     }
 
-    public function removeCheckbox(Checkbox $checkbox): self
+    public function removeProjectCheckList(ProjectCheckbox $projectCheckList): self
     {
-        if ($this->checkboxes->contains($checkbox)) {
-            $this->checkboxes->removeElement($checkbox);
+        if ($this->projectCheckLists->contains($projectCheckList)) {
+            $this->projectCheckLists->removeElement($projectCheckList);
             // set the owning side to null (unless already changed)
-            if ($checkbox->getProject() === $this) {
-                $checkbox->setProject(null);
+            if ($projectCheckList->getProject() === $this) {
+                $projectCheckList->setProject(null);
             }
         }
 
         return $this;
     }
 
-    public function getVersion(): ?string
+    public function getCurrentFramework(): ?string
     {
-        return $this->version;
+        return $this->currentFramework;
     }
 
-    public function setVersion(string $version): self
+    public function setCurrentFramework(string $currentFramework): self
     {
-        $this->version = $version;
+        $this->currentFramework = $currentFramework;
 
         return $this;
     }
+
+    public function getDesiredFramework(): ?string
+    {
+        return $this->desiredFramework;
+    }
+
+    public function setDesiredFramework(string $desiredFramework): self
+    {
+        $this->desiredFramework = $desiredFramework;
+
+        return $this;
+    }
+
+    public function getCurrentPhpVersion(): ?string
+    {
+        return $this->currentPhpVersion;
+    }
+
+    public function setCurrentPhpVersion(string $currentPhpVersion): self
+    {
+        $this->currentPhpVersion = $currentPhpVersion;
+
+        return $this;
+    }
+
+    public function getDesiredPhpVersion(): ?string
+    {
+        return $this->desiredPhpVersion;
+    }
+
+    public function setDesiredPhpVersion(string $desiredPhpVersion): self
+    {
+        $this->desiredPhpVersion = $desiredPhpVersion;
+
+        return $this;
+    }
+
 
 }

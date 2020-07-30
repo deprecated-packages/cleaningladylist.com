@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CheckListRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -29,19 +31,24 @@ class Checkbox
     private $category;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Project::class, inversedBy="checkboxes")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $project;
+    private $help;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\OneToMany(targetEntity=ProjectCheckbox::class, mappedBy="checkbox")
      */
-    private $isDone;
+    private $projectCheckboxes;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $help;
+    private $framework;
+
+    public function __construct()
+    {
+        $this->projectCheckboxes = new ArrayCollection();
+    }
 
 
     public function getId(): ?int
@@ -72,30 +79,6 @@ class Checkbox
         return $this;
     }
 
-    public function getProject(): ?Project
-    {
-        return $this->project;
-    }
-
-    public function setProject(?Project $project): self
-    {
-        $this->project = $project;
-
-        return $this;
-    }
-
-    public function getIsDone(): ?bool
-    {
-        return $this->isDone;
-    }
-
-    public function setIsDone(bool $isDone): self
-    {
-        $this->isDone = $isDone;
-
-        return $this;
-    }
-
     public function getHelp(): ?string
     {
         return $this->help;
@@ -104,6 +87,49 @@ class Checkbox
     public function setHelp(?string $help): self
     {
         $this->help = $help;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ProjectCheckbox[]
+     */
+    public function getProjectCheckboxes(): Collection
+    {
+        return $this->projectCheckboxes;
+    }
+
+    public function addProjectCheckbox(ProjectCheckbox $projectCheckbox): self
+    {
+        if (!$this->projectCheckboxes->contains($projectCheckbox)) {
+            $this->projectCheckboxes[] = $projectCheckbox;
+            $projectCheckbox->setCheckbox($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProjectCheckbox(ProjectCheckbox $projectCheckbox): self
+    {
+        if ($this->projectCheckboxes->contains($projectCheckbox)) {
+            $this->projectCheckboxes->removeElement($projectCheckbox);
+            // set the owning side to null (unless already changed)
+            if ($projectCheckbox->getCheckbox() === $this) {
+                $projectCheckbox->setCheckbox(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getFramework(): ?string
+    {
+        return $this->framework;
+    }
+
+    public function setFramework(?string $framework): self
+    {
+        $this->framework = $framework;
 
         return $this;
     }

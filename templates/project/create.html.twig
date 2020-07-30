@@ -9,7 +9,43 @@
                 <div class="card mt-5">
                     <div class="card-header">Create Project</div>
                     <div class="card-body">
-                        {{ form(projectForm) }}
+                        {{ form_start(projectForm) }}
+
+                        {{ form_row(projectForm.title) }}
+
+
+                        <div class="card mb-3 mt-3">
+                            <div class="card-header">Current stack</div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        {{ form_row(projectForm.currentFramework) }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{ form_row(projectForm.currentPhpVersion) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="card mb-3">
+                            <div class="card-header">Desired stack</div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        {{ form_row(projectForm.desiredFramework) }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{ form_row(projectForm.desiredPhpVersion) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{ form_row(projectForm.save) }}
+
+                        {{ form_end(projectForm) }}
                     </div>
                 </div>
             </div>

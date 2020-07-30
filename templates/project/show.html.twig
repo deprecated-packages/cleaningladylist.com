@@ -8,14 +8,23 @@
 
 
             <div class="col-md-8">
-                {% for checkbox in project.checkboxes %}
+                {% for checkbox in checkboxes %}
+
+
+
                     <div class="card mb-3">
                         <div class="card-body between">
                             <div>
                                 <div class="form-check form-switch">
                                     <input data-id="{{ checkbox.id }}" class="form-check-input checkbox" type="checkbox"
                                            id="checkbox_{{ checkbox.id }}"
-                                           {% if checkbox.isDone %}checked{% endif %}>
+
+                                            {% for item in project.projectCheckLists %}
+                                                {% if item.checkbox.id == checkbox.id and item.isDone %}
+                                                    checked
+                                                {% endif %}
+                                            {% endfor %}
+                                    >
                                     <label class="form-check-label"
                                            for="checkbox_{{ checkbox.id }}">{{ checkbox.title }}
                                         input</label>
@@ -45,7 +54,46 @@
                              aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                     <div class="card-body">
-                        {{ form(projectEditForm) }}
+
+                        {{ form_start(projectEditForm) }}
+
+                        {{ form_row(projectEditForm.title) }}
+
+
+                        <div class="card mb-3 mt-3">
+                            <div class="card-header">Current stack</div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        {{ form_row(projectEditForm.currentFramework) }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{ form_row(projectEditForm.currentPhpVersion) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="card mb-3">
+                            <div class="card-header">Desired stack</div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        {{ form_row(projectEditForm.desiredFramework) }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{ form_row(projectEditForm.desiredPhpVersion) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{ form_row(projectEditForm.save) }}
+
+                        {{ form_end(projectEditForm) }}
+
+
                     </div>
                 </div>
             </div>
@@ -63,11 +111,12 @@
                 dataType: "json",
                 data: {
                     "id": $(this).data().id,
-                    "isDone" : this.checked ? 1 : 0
+                    "project_id": {{ project.id }},
+                    "isDone": this.checked ? 1 : 0
                 },
                 async: true,
                 success: function (data) {
-                    $('.progress-bar').css({'width': data + "%" });
+                    $('.progress-bar').css({'width': data + "%"});
                     console.log("done");
                 }
             });
