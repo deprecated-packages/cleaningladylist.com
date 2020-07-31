@@ -75,6 +75,11 @@ class Project
      */
     private $desiredPhpVersion;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $CheckboxCount;
+
 
     public function __construct()
     {
@@ -162,25 +167,15 @@ class Project
 
     public function getProgress(Project $project): int
     {
-        $checkTotalCount = 0;
         $checksComplete = 0;
 
         foreach ($project->getProjectCheckLists() as $check) {
             if ($check->getIsDone()) {
                 $checksComplete++;
             }
-            $checkTotalCount++;
         }
 
-
-        dump($checkTotalCount);
-        dump($checksComplete);
-
-        if ($checkTotalCount > 0) {
-            return number_format($checksComplete / $checkTotalCount * 100, 2);
-        }
-
-        return 0;
+        return number_format($checksComplete / $this->getCheckboxCount() * 100, 2);
     }
 
     /**
@@ -258,6 +253,18 @@ class Project
     public function setDesiredPhpVersion(string $desiredPhpVersion): self
     {
         $this->desiredPhpVersion = $desiredPhpVersion;
+
+        return $this;
+    }
+
+    public function getCheckboxCount(): ?int
+    {
+        return $this->CheckboxCount;
+    }
+
+    public function setCheckboxCount(int $CheckboxCount): self
+    {
+        $this->CheckboxCount = $CheckboxCount;
 
         return $this;
     }

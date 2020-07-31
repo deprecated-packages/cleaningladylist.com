@@ -104,6 +104,7 @@ class ProjectController extends AbstractController
                 'Project updated'
             );
             return new RedirectResponse($this->router->generate('project.show', ['id' => $project->getId()]));
+
         }
 
 
@@ -113,5 +114,27 @@ class ProjectController extends AbstractController
             'checkboxes'=>$checkboxes
         ]);
     }
+
+
+    /**
+     * @Route("/project/{id}/remove", name="project.remove")
+     * @param Project $project
+     * @param Request $request
+     * @return Response
+     */
+    public function remove(Project $project, Request $request)
+    {
+        $project->setStatus(2);
+        $this->em->persist($project);
+        $this->em->flush();
+
+        $this->addFlash(
+            'success',
+            'Project removed'
+        );
+        return new RedirectResponse($this->router->generate('user.dashboard'));
+    }
+
+
 
 }

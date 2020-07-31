@@ -68,6 +68,10 @@ class CheckboxController extends AbstractController
                 $projectCheckbox->setIsDone($isDone);
             }
 
+            $checkboxCount = $this->em->getRepository("App:Checkbox")->findByFramework($project->getDesiredFramework());
+            $project->setCheckboxCount(count($checkboxCount));
+
+            $this->em->persist($project);
             $this->em->persist($projectCheckbox);
             $this->em->flush();
 

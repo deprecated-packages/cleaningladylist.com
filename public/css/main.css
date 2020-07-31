@@ -9,13 +9,12 @@
 }
 
 .card-header-progress .progress-bar{
-    background-color: #222222;
+    background-color: #008B00;
 }
 
 .card-header-progress{
     border: 0!important;
     border-radius: 0px!important;
-    height: 5px!important;
 }
 
 .icon-btn-link i {
