@@ -40,6 +40,7 @@ class Kernel extends BaseKernel
 
     protected function configureRoutes(RoutingConfigurator $routingConfigurator): void
     {
+        $routingConfigurator->import(__DIR__ . '/../src/Controller/', 'annotation');
         $routingConfigurator->import(__DIR__ . '/../config/routes/*');
     }
 }
