@@ -1,8 +1,7 @@
 {
-    "type": "project",
-    "license": "proprietary",
+    "name": "rector/cleaningladylist-com",
     "require": {
-        "php": "^7.2.5",
+        "php": "^7.4",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "composer/package-versions-deprecated": "^1.10",
@@ -36,8 +35,9 @@
         "symfony/validator": "5.1.*",
         "symfony/web-link": "5.1.*",
         "symfony/yaml": "5.1.*",
-        "twig/extra-bundle": "^2.12|^3.0",
-        "twig/twig": "^2.12|^3.0"
+        "symplify/flex-loader": "^8.1",
+        "twig/extra-bundle": "^3.0",
+        "twig/twig": "^3.0"
     },
     "require-dev": {
         "migrify/config-transformer": "^0.3.22",
