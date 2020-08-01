@@ -18,22 +18,17 @@ class CheckboxController extends AbstractController
     /**
      * @var EntityManagerInterface
      */
-    private $em;
+    private $entityManager;
 
-    /**
-     * CheckboxController constructor.
-     */
-    public function __construct(
-        EntityManagerInterface $em
-    ) {
-        $this->em = $em;
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
     }
 
     /**
      * @Route("/checkbox/complete", name="checkbox.complete")
-     * @return Response
      */
-    public function index(Request $request)
+    public function index(Request $request): Response
     {
         if ($request->isXmlHttpRequest()) {
             $checkbox_id = $request->get('id');
@@ -41,15 +36,15 @@ class CheckboxController extends AbstractController
             $isDone = $request->get('isDone') ? true : false;
 
             /** @var ProjectCheckbox $projectCheckbox */
-            $projectCheckbox = $this->em->getRepository('App:ProjectCheckbox')->findOneBy([
+            $projectCheckbox = $this->entityManager->getRepository('App:ProjectCheckbox')->findOneBy([
                 'project' => $project_id,
                 'checkbox' => $checkbox_id,
             ]);
             /** @var Project $project */
-            $project = $this->em->getRepository('App:Project')->find($project_id);
+            $project = $this->entityManager->getRepository('App:Project')->find($project_id);
 
             /** @var Checkbox $checkbox */
-            $checkbox = $this->em->getRepository('App:Checkbox')->find($checkbox_id);
+            $checkbox = $this->entityManager->getRepository('App:Checkbox')->find($checkbox_id);
 
             if ($projectCheckbox === null) {
                 $projectCheckbox = new ProjectCheckbox();
@@ -60,12 +55,14 @@ class CheckboxController extends AbstractController
                 $projectCheckbox->setIsDone($isDone);
             }
 
-            $checkboxCount = $this->em->getRepository('App:Checkbox')->findByFramework($project->getDesiredFramework());
+            $checkboxCount = $this->entityManager->getRepository('App:Checkbox')->findByFramework(
+                $project->getDesiredFramework()
+            );
             $project->setCheckboxCount(count($checkboxCount));
 
-            $this->em->persist($project);
-            $this->em->persist($projectCheckbox);
-            $this->em->flush();
+            $this->entityManager->persist($project);
+            $this->entityManager->persist($projectCheckbox);
+            $this->entityManager->flush();
 
             return new Response($project->getProgress($project));
         }

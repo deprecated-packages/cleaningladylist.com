@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
-use Symfony\Component\Routing\RouteCollectionBuilder;
+use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 use Symplify\FlexLoader\Flex\FlexLoader;
 
 class Kernel extends BaseKernel
@@ -23,9 +23,9 @@ class Kernel extends BaseKernel
 
     public function __construct($environment, $debug)
     {
-        parent::__construct($environment, $debug);
-
         $this->flexLoader = new FlexLoader($environment, $this->getProjectDir());
+
+        parent::__construct($environment, $debug);
     }
 
     public function registerBundles(): Iterator
@@ -38,8 +38,8 @@ class Kernel extends BaseKernel
         $this->flexLoader->loadConfigs($containerBuilder, $loader);
     }
 
-    protected function configureRoutes(RouteCollectionBuilder $routeCollectionBuilder): void
+    protected function configureRoutes(RoutingConfigurator $routingConfigurator): void
     {
-        $this->flexLoader->loadRoutes($routeCollectionBuilder);
+        $routingConfigurator->import(__DIR__ . '/../config/routes/*');
     }
 }

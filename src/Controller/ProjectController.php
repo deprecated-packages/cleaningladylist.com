@@ -20,7 +20,7 @@ class ProjectController extends AbstractController
     /**
      * @var EntityManagerInterface
      */
-    private $em;
+    private $entityManager;
 
     /**
      * @var RouterInterface
@@ -32,15 +32,12 @@ class ProjectController extends AbstractController
      */
     private $security;
 
-    /**
-     * UserController constructor.
-     */
     public function __construct(
-        EntityManagerInterface $em,
+        EntityManagerInterface $entityManager,
         RouterInterface $router,
         Security $security
     ) {
-        $this->em = $em;
+        $this->entityManager = $entityManager;
         $this->router = $router;
         $this->security = $security;
     }
@@ -60,13 +57,10 @@ class ProjectController extends AbstractController
 
         if ($projectForm->isSubmitted() && $projectForm->isValid()) {
             $project->setStatus(1);
-            $this->em->persist($project);
-            $this->em->flush();
+            $this->entityManager->persist($project);
+            $this->entityManager->flush();
 
-            $this->addFlash(
-                'success',
-                'Project created'
-            );
+            $this->addFlash('success', 'Project created');
             return new RedirectResponse($this->router->generate('user.dashboard'));
         }
 
@@ -81,19 +75,18 @@ class ProjectController extends AbstractController
      */
     public function show(Project $project, Request $request)
     {
-        $checkboxes = $this->em->getRepository('App:Checkbox')->findByFramework($project->getDesiredFramework());
+        $checkboxes = $this->entityManager->getRepository('App:Checkbox')->findByFramework(
+            $project->getDesiredFramework()
+        );
 
         $projectForm = $this->createForm(ProjectFormType::class, $project);
         $projectForm->handleRequest($request);
 
         if ($projectForm->isSubmitted() && $projectForm->isValid()) {
-            $this->em->persist($project);
-            $this->em->flush();
+            $this->entityManager->persist($project);
+            $this->entityManager->flush();
 
-            $this->addFlash(
-                'success',
-                'Project updated'
-            );
+            $this->addFlash('success', 'Project updated');
             return new RedirectResponse($this->router->generate('project.show', ['id' => $project->getId()]));
         }
 
@@ -111,13 +104,10 @@ class ProjectController extends AbstractController
     public function remove(Project $project, Request $request)
     {
         $project->setStatus(2);
-        $this->em->persist($project);
-        $this->em->flush();
+        $this->entityManager->persist($project);
+        $this->entityManager->flush();
 
-        $this->addFlash(
-            'success',
-            'Project removed'
-        );
+        $this->addFlash('success', 'Project removed');
         return new RedirectResponse($this->router->generate('user.dashboard'));
     }
 }

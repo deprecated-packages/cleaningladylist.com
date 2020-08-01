@@ -14,7 +14,7 @@ class UserController extends AbstractController
     /**
      * @var EntityManagerInterface
      */
-    private $em;
+    private $entityManager;
 
     /**
      * @var Security
@@ -23,7 +23,7 @@ class UserController extends AbstractController
 
     public function __construct(EntityManagerInterface $entityManager, Security $security)
     {
-        $this->em = $entityManager;
+        $this->entityManager = $entityManager;
         $this->security = $security;
     }
 
@@ -32,7 +32,7 @@ class UserController extends AbstractController
      */
     public function create()
     {
-        $projects = $this->em->getRepository('App:Project')->findBy([
+        $projects = $this->entityManager->getRepository('App:Project')->findBy([
             'user' => $this->security->getUser(),
             'status' => 1,
         ]);
