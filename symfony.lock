@@ -114,11 +114,17 @@
     "laminas/laminas-zendframework-bridge": {
         "version": "1.0.4"
     },
+    "migrify/config-transformer": {
+        "version": "v0.3.22"
+    },
     "monolog/monolog": {
         "version": "2.1.1"
     },
     "nette/finder": {
         "version": "v2.5.2"
+    },
+    "nette/neon": {
+        "version": "v3.2.1"
     },
     "nette/robot-loader": {
         "version": "v3.3.0"

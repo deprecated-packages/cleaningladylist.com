@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d20a06fe0b9f5a5af8906f8f56324ff3",
+    "content-hash": "10b2e9d95349dc2f2273e97d1bae2cde",
     "packages": [
         {
             "name": "composer/package-versions-deprecated",
@@ -7653,6 +7653,58 @@
             "time": "2020-06-23T06:23:06+00:00"
         },
         {
+            "name": "migrify/config-transformer",
+            "version": "v0.3.22",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/migrify/config-transformer.git",
+                "reference": "695a2a4f23d69a822f880d2f7b391e670c93c196"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/migrify/config-transformer/zipball/695a2a4f23d69a822f880d2f7b391e670c93c196",
+                "reference": "695a2a4f23d69a822f880d2f7b391e670c93c196",
+                "shasum": ""
+            },
+            "require": {
+                "nette/neon": "^3.0",
+                "nette/utils": "^3.1",
+                "nikic/php-parser": "^4.5",
+                "php": "^7.2",
+                "symfony/console": "^4.4|^5.0",
+                "symfony/dependency-injection": "^4.4|^5.0",
+                "symfony/expression-language": "^4.4|^5.0",
+                "symfony/http-kernel": "^4.4|^5.0",
+                "symfony/yaml": "^4.4|^5.0",
+                "symplify/autowire-array-parameter": "^8.1.17",
+                "symplify/package-builder": "^8.1.17",
+                "symplify/smart-file-system": "^8.1.17"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.5|^9.0",
+                "symfony/framework-bundle": "^4.4|^5.0",
+                "symplify/easy-testing": "^8.1.17"
+            },
+            "bin": [
+                "bin/config-transformer"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Migrify\\ConfigTransformer\\": "src",
+                    "Migrify\\ConfigTransformer\\Clarifier\\": "packages/clarifier/src",
+                    "Migrify\\ConfigTransformer\\FormatSwitcher\\": "packages/format-switcher/src",
+                    "Migrify\\ConfigTransformer\\FeatureShifter\\": "packages/feature-shifter/src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Convert Symfony XML format to YAML or clarify Symfony/Nette syntax to readable one - all the useful utils around configs",
+            "time": "2020-08-01T11:14:55+00:00"
+        },
+        {
             "name": "nette/finder",
             "version": "v2.5.2",
             "source": {
@@ -7714,6 +7766,68 @@
                 "nette"
             ],
             "time": "2020-01-03T20:35:40+00:00"
+        },
+        {
+            "name": "nette/neon",
+            "version": "v3.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nette/neon.git",
+                "reference": "a5b3a60833d2ef55283a82d0c30b45d136b29e75"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nette/neon/zipball/a5b3a60833d2ef55283a82d0c30b45d136b29e75",
+                "reference": "a5b3a60833d2ef55283a82d0c30b45d136b29e75",
+                "shasum": ""
+            },
+            "require": {
+                "ext-iconv": "*",
+                "ext-json": "*",
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "nette/tester": "^2.0",
+                "phpstan/phpstan": "^0.12",
+                "tracy/tracy": "^2.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.2-dev"
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause",
+                "GPL-2.0-only",
+                "GPL-3.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "David Grudl",
+                    "homepage": "https://davidgrudl.com"
+                },
+                {
+                    "name": "Nette Community",
+                    "homepage": "https://nette.org/contributors"
+                }
+            ],
+            "description": "🍸 Nette NEON: encodes and decodes NEON file format.",
+            "homepage": "https://ne-on.org",
+            "keywords": [
+                "export",
+                "import",
+                "neon",
+                "nette",
+                "yaml"
+            ],
+            "time": "2020-07-31T12:28:05+00:00"
         },
         {
             "name": "nette/robot-loader",
