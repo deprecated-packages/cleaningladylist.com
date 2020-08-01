@@ -6,6 +6,7 @@ use PHP_CodeSniffer\Standards\Generic\Sniffs\Arrays\DisallowLongArraySyntaxSniff
 use PhpCsFixer\Fixer\ArrayNotation\TrailingCommaInMultilineArrayFixer;
 use SlevomatCodingStandard\Sniffs\Classes\UnusedPrivateElementsSniff;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symplify\CodingStandard\Fixer\LineLength\LineLengthFixer;
 use Symplify\EasyCodingStandard\Configuration\Option;
 use Symplify\EasyCodingStandard\ValueObject\Set\SetList;
 
@@ -15,6 +16,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(DisallowLongArraySyntaxSniff::class);
 
     $services->set(TrailingCommaInMultilineArrayFixer::class);
+
+    $services->set(LineLengthFixer::class);
 
     $parameters = $containerConfigurator->parameters();
 

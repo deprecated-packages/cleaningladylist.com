@@ -21,14 +21,9 @@ class UserController extends AbstractController
      */
     private $security;
 
-    /**
-     * UserController constructor.
-     */
-    public function __construct(
-        EntityManagerInterface $em,
-        Security $security
-    ) {
-        $this->em = $em;
+    public function __construct(EntityManagerInterface $entityManager, Security $security)
+    {
+        $this->em = $entityManager;
         $this->security = $security;
     }
 
