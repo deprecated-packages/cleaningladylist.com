@@ -1,9 +1,9 @@
-name: PHPStan
+name: ECS
 
 on: push
 
 jobs:
-    phpstan:
+    ecs:
         runs-on: ubuntu-latest
         steps:
             -   uses: actions/checkout@v2
@@ -13,4 +13,4 @@ jobs:
                     coverage: none
 
             -   run: composer install --no-progress
-            -   run: vendor/bin/phpstan analyse src
+            -   run: vendor/bin/ecs check
