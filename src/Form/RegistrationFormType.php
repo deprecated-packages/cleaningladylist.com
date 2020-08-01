@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Form;
 
 use App\Entity\User;
@@ -16,7 +18,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 class RegistrationFormType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('name', TextType::class)
@@ -35,7 +37,7 @@ class RegistrationFormType extends AbstractType
                 // this is read and encoded in the controller
                 'mapped' => false,
                 'attr' => [
-                    'class' => 'mb-3'
+                    'class' => 'mb-3',
                 ],
                 'constraints' => [
                     new NotBlank([
@@ -51,7 +53,7 @@ class RegistrationFormType extends AbstractType
             ]);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => User::class,

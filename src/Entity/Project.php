@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Repository\ProjectRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\OrderBy;
 
 /**
  * @ORM\Entity(repositoryClass=ProjectRepository::class)
@@ -80,13 +81,11 @@ class Project
      */
     private $CheckboxCount;
 
-
     public function __construct()
     {
         $this->startDate = new \DateTime();
         $this->projectCheckLists = new ArrayCollection();
     }
-
 
     public function getId(): ?int
     {
@@ -165,7 +164,7 @@ class Project
         return $this;
     }
 
-    public function getProgress(Project $project): int
+    public function getProgress(self $project): int
     {
         $checksComplete = 0;
 
@@ -188,7 +187,7 @@ class Project
 
     public function addProjectCheckList(ProjectCheckbox $projectCheckList): self
     {
-        if (!$this->projectCheckLists->contains($projectCheckList)) {
+        if (! $this->projectCheckLists->contains($projectCheckList)) {
             $this->projectCheckLists[] = $projectCheckList;
             $projectCheckList->setProject($this);
         }
@@ -268,6 +267,4 @@ class Project
 
         return $this;
     }
-
-
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
 use App\Entity\Project;
@@ -15,15 +17,16 @@ use Symfony\Component\Security\Core\Security;
 
 class ProjectController extends AbstractController
 {
-
     /**
      * @var EntityManagerInterface
      */
     private $em;
+
     /**
      * @var RouterInterface
      */
     private $router;
+
     /**
      * @var Security
      */
@@ -31,25 +34,19 @@ class ProjectController extends AbstractController
 
     /**
      * UserController constructor.
-     * @param EntityManagerInterface $em
-     * @param RouterInterface $router
-     * @param Security $security
      */
     public function __construct(
         EntityManagerInterface $em,
         RouterInterface $router,
         Security $security
-    )
-    {
+    ) {
         $this->em = $em;
         $this->router = $router;
         $this->security = $security;
     }
 
-
     /**
      * @Route("/project/create", name="project.new")
-     * @param Request $request
      * @return Response
      */
     public function create(Request $request)
@@ -62,7 +59,6 @@ class ProjectController extends AbstractController
         $projectForm->handleRequest($request);
 
         if ($projectForm->isSubmitted() && $projectForm->isValid()) {
-
             $project->setStatus(1);
             $this->em->persist($project);
             $this->em->flush();
@@ -75,27 +71,22 @@ class ProjectController extends AbstractController
         }
 
         return $this->render('project/create.html.twig', [
-            'projectForm' => $projectForm->createView()
+            'projectForm' => $projectForm->createView(),
         ]);
     }
 
-
     /**
      * @Route("/project/{id}", name="project.show")
-     * @param Project $project
-     * @param Request $request
      * @return Response
      */
     public function show(Project $project, Request $request)
     {
-
-        $checkboxes = $this->em->getRepository("App:Checkbox")->findByFramework($project->getDesiredFramework());
+        $checkboxes = $this->em->getRepository('App:Checkbox')->findByFramework($project->getDesiredFramework());
 
         $projectForm = $this->createForm(ProjectFormType::class, $project);
         $projectForm->handleRequest($request);
 
         if ($projectForm->isSubmitted() && $projectForm->isValid()) {
-
             $this->em->persist($project);
             $this->em->flush();
 
@@ -104,22 +95,17 @@ class ProjectController extends AbstractController
                 'Project updated'
             );
             return new RedirectResponse($this->router->generate('project.show', ['id' => $project->getId()]));
-
         }
-
 
         return $this->render('project/show.html.twig', [
             'projectEditForm' => $projectForm->createView(),
             'project' => $project,
-            'checkboxes'=>$checkboxes
+            'checkboxes' => $checkboxes,
         ]);
     }
 
-
     /**
      * @Route("/project/{id}/remove", name="project.remove")
-     * @param Project $project
-     * @param Request $request
      * @return Response
      */
     public function remove(Project $project, Request $request)
@@ -134,7 +120,4 @@ class ProjectController extends AbstractController
         );
         return new RedirectResponse($this->router->generate('user.dashboard'));
     }
-
-
-
 }

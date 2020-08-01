@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Security;
 
 use App\Entity\User;
@@ -27,8 +29,11 @@ class CustomAuthenticator extends AbstractFormLoginAuthenticator implements Pass
     public const LOGIN_ROUTE = 'app_login';
 
     private $entityManager;
+
     private $urlGenerator;
+
     private $csrfTokenManager;
+
     private $passwordEncoder;
 
     public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
@@ -41,7 +46,7 @@ class CustomAuthenticator extends AbstractFormLoginAuthenticator implements Pass
 
     public function supports(Request $request)
     {
-        return self::LOGIN_ROUTE === $request->attributes->get('_route')
+        return $request->attributes->get('_route') === self::LOGIN_ROUTE
             && $request->isMethod('POST');
     }
 
@@ -63,13 +68,13 @@ class CustomAuthenticator extends AbstractFormLoginAuthenticator implements Pass
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
         $token = new CsrfToken('authenticate', $credentials['csrf_token']);
-        if (!$this->csrfTokenManager->isTokenValid($token)) {
+        if (! $this->csrfTokenManager->isTokenValid($token)) {
             throw new InvalidCsrfTokenException();
         }
 
         $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $credentials['email']]);
 
-        if (!$user) {
+        if (! $user) {
             // fail authentication with a custom error
             throw new CustomUserMessageAuthenticationException('Email could not be found.');
         }

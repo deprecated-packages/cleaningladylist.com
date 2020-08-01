@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Repository\CheckListRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=CheckListRepository::class)
@@ -49,7 +50,6 @@ class Checkbox
     {
         $this->projectCheckboxes = new ArrayCollection();
     }
-
 
     public function getId(): ?int
     {
@@ -101,7 +101,7 @@ class Checkbox
 
     public function addProjectCheckbox(ProjectCheckbox $projectCheckbox): self
     {
-        if (!$this->projectCheckboxes->contains($projectCheckbox)) {
+        if (! $this->projectCheckboxes->contains($projectCheckbox)) {
             $this->projectCheckboxes[] = $projectCheckbox;
             $projectCheckbox->setCheckbox($this);
         }
@@ -133,5 +133,4 @@ class Checkbox
 
         return $this;
     }
-
 }

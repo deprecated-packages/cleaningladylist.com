@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
 use App\Entity\User;
@@ -41,7 +43,8 @@ class RegistrationController extends AbstractController
                 $user,
                 $request,
                 $authenticator,
-                'main' // firewall name in security.yaml
+                // firewall name in security.yaml
+                'main'
             );
         }
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
@@ -13,6 +15,7 @@ class UserController extends AbstractController
      * @var EntityManagerInterface
      */
     private $em;
+
     /**
      * @var Security
      */
@@ -20,14 +23,11 @@ class UserController extends AbstractController
 
     /**
      * UserController constructor.
-     * @param EntityManagerInterface $em
-     * @param Security $security
      */
     public function __construct(
         EntityManagerInterface $em,
         Security $security
-    )
-    {
+    ) {
         $this->em = $em;
         $this->security = $security;
     }
@@ -37,13 +37,13 @@ class UserController extends AbstractController
      */
     public function create()
     {
-        $user = $this->security->getUser();
-        $projects = $this->em->getRepository("App:Project")->findBy([
+        $projects = $this->em->getRepository('App:Project')->findBy([
             'user' => $this->security->getUser(),
             'status' => 1,
-         ]);
+        ]);
+
         return $this->render('user/index.html.twig', [
-            'projects' => $projects
+            'projects' => $projects,
         ]);
     }
 }
