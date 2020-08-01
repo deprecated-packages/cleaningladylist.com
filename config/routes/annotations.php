@@ -5,7 +5,5 @@ declare(strict_types=1);
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 
 return static function (RoutingConfigurator $routingConfigurator): void {
-    $routingConfigurator->import('../../src/Controller/');
-
-    $routingConfigurator->import('../../src/Kernel.php');
+    $routingConfigurator->import(__DIR__ . '/../../src/Controller/');
 };
