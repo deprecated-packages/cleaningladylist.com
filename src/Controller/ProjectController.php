@@ -44,9 +44,8 @@ class ProjectController extends AbstractController
 
     /**
      * @Route("/project/create", name="project.new")
-     * @return Response
      */
-    public function create(Request $request)
+    public function create(Request $request): Response
     {
         $user = $this->security->getUser();
         $project = new Project();
@@ -71,9 +70,8 @@ class ProjectController extends AbstractController
 
     /**
      * @Route("/project/{id}", name="project.show")
-     * @return Response
      */
-    public function show(Project $project, Request $request)
+    public function show(Project $project, Request $request): Response
     {
         $checkboxes = $this->entityManager->getRepository('App:Checkbox')->findByFramework(
             $project->getDesiredFramework()
@@ -99,9 +97,8 @@ class ProjectController extends AbstractController
 
     /**
      * @Route("/project/{id}/remove", name="project.remove")
-     * @return Response
      */
-    public function remove(Project $project, Request $request)
+    public function remove(Project $project): Response
     {
         $project->setStatus(2);
         $this->entityManager->persist($project);
