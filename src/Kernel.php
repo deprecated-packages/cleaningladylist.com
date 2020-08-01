@@ -4,37 +4,42 @@ declare(strict_types=1);
 
 namespace App;
 
+use Iterator;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
-use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
+use Symfony\Component\Routing\RouteCollectionBuilder;
+use Symplify\FlexLoader\Flex\FlexLoader;
 
 class Kernel extends BaseKernel
 {
     use MicroKernelTrait;
 
-    protected function configureContainer(ContainerConfigurator $container): void
-    {
-        $container->import('../config/{packages}/*.php');
-        $container->import('../config/{packages}/' . $this->environment . '/*.php');
+    /**
+     * @var FlexLoader
+     */
+    private $flexLoader;
 
-        if (is_file(\dirname(__DIR__) . '/config/services.php')) {
-            $container->import('../config/{services}.php');
-            $container->import('../config/{services}_' . $this->environment . '.php');
-        } elseif (is_file($path = \dirname(__DIR__) . '/config/services.php')) {
-            (require $path)($container->withPath($path), $this);
-        }
+    public function __construct($environment, $debug)
+    {
+        parent::__construct($environment, $debug);
+
+        $this->flexLoader = new FlexLoader($environment, $this->getProjectDir());
     }
 
-    protected function configureRoutes(RoutingConfigurator $routes): void
+    public function registerBundles(): Iterator
     {
-        $routes->import('../config/{routes}/' . $this->environment . '/*.php');
-        $routes->import('../config/{routes}/*.php');
+        return $this->flexLoader->loadBundles();
+    }
 
-        if (is_file(\dirname(__DIR__) . '/config/routes.php')) {
-            $routes->import('../config/{routes}.php');
-        } elseif (is_file($path = \dirname(__DIR__) . '/config/routes.php')) {
-            (require $path)($routes->withPath($path), $this);
-        }
+    protected function configureContainer(ContainerBuilder $containerBuilder, LoaderInterface $loader): void
+    {
+        $this->flexLoader->loadConfigs($containerBuilder, $loader);
+    }
+
+    protected function configureRoutes(RouteCollectionBuilder $routeCollectionBuilder): void
+    {
+        $this->flexLoader->loadRoutes($routeCollectionBuilder);
     }
 }

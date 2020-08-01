@@ -588,6 +588,9 @@
     "symplify/easy-coding-standard": {
         "version": "v8.1.17"
     },
+    "symplify/flex-loader": {
+        "version": "v8.1.19"
+    },
     "symplify/package-builder": {
         "version": "v8.1.17"
     },
