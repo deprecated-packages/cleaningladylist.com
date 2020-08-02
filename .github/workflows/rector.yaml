@@ -1,9 +1,9 @@
-name: PHPStan
+name: Rector
 
 on: push
 
 jobs:
-    phpstan:
+    rector:
         runs-on: ubuntu-latest
         steps:
             -   uses: actions/checkout@v2
@@ -13,4 +13,4 @@ jobs:
                     coverage: none
 
             -   run: composer install --no-progress --ansi
-            -   run: vendor/bin/phpstan analyse src --ansi
+            -   run: vendor/bin/rector process --dry-run --ansi

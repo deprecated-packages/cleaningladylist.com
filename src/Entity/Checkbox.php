@@ -1,15 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
-use App\Repository\CheckListRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ORM\Entity(repositoryClass=CheckListRepository::class)
+ * @ORM\Entity
  */
 class Checkbox
 {
@@ -17,31 +17,37 @@ class Checkbox
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @var int
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @var string
      */
     private $title;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @var string
      */
     private $category;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @var string|null
      */
     private $help;
 
     /**
      * @ORM\OneToMany(targetEntity=ProjectCheckbox::class, mappedBy="checkbox")
+     * @var \Doctrine\Common\Collections\Collection<ProjectCheckbox>
      */
     private $projectCheckboxes;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @var string|null
      */
     private $framework;
 
@@ -49,7 +55,6 @@ class Checkbox
     {
         $this->projectCheckboxes = new ArrayCollection();
     }
-
 
     public function getId(): ?int
     {
@@ -92,7 +97,7 @@ class Checkbox
     }
 
     /**
-     * @return Collection|ProjectCheckbox[]
+     * @return Collection<ProjectCheckbox>
      */
     public function getProjectCheckboxes(): Collection
     {
@@ -101,7 +106,7 @@ class Checkbox
 
     public function addProjectCheckbox(ProjectCheckbox $projectCheckbox): self
     {
-        if (!$this->projectCheckboxes->contains($projectCheckbox)) {
+        if (! $this->projectCheckboxes->contains($projectCheckbox)) {
             $this->projectCheckboxes[] = $projectCheckbox;
             $projectCheckbox->setCheckbox($this);
         }
@@ -133,5 +138,4 @@ class Checkbox
 
         return $this;
     }
-
 }

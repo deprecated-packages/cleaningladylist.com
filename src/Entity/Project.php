@@ -1,15 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
-use App\Repository\ProjectRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\OrderBy;
 
 /**
- * @ORM\Entity(repositoryClass=ProjectRepository::class)
+ * @ORM\Entity
  */
 class Project
 {
@@ -17,76 +17,87 @@ class Project
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @var int
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @var string
      */
     private $title;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @var string|null
      */
     private $description;
 
     /**
      * @ORM\Column(type="datetime")
+     * @var \DateTimeInterface
      */
     private $startDate;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @var \DateTimeInterface|null
      */
     private $endDate;
 
     /**
      * @ORM\Column(type="integer")
+     * @var int
      */
     private $status;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="projects")
+     * @var \App\Entity\User|null
      */
     private $user;
 
     /**
      * @ORM\OneToMany(targetEntity=ProjectCheckbox::class, mappedBy="project")
+     * @var Collection&iterable<ProjectCheckbox>
      */
     private $projectCheckLists;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @var string
      */
     private $currentFramework;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @var string
      */
     private $desiredFramework;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @var string
      */
     private $currentPhpVersion;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @var string
      */
     private $desiredPhpVersion;
 
     /**
      * @ORM\Column(type="integer")
+     * @var int
      */
     private $CheckboxCount;
-
 
     public function __construct()
     {
         $this->startDate = new \DateTime();
         $this->projectCheckLists = new ArrayCollection();
     }
-
 
     public function getId(): ?int
     {
@@ -165,7 +176,7 @@ class Project
         return $this;
     }
 
-    public function getProgress(Project $project): int
+    public function getProgress(self $project): string
     {
         $checksComplete = 0;
 
@@ -179,16 +190,16 @@ class Project
     }
 
     /**
-     * @return Collection|ProjectCheckbox[]
+     * @return Collection<ProjectCheckbox>
      */
-    public function getProjectCheckLists(): Collection
+    public function getProjectCheckLists()
     {
         return $this->projectCheckLists;
     }
 
     public function addProjectCheckList(ProjectCheckbox $projectCheckList): self
     {
-        if (!$this->projectCheckLists->contains($projectCheckList)) {
+        if (! $this->projectCheckLists->contains($projectCheckList)) {
             $this->projectCheckLists[] = $projectCheckList;
             $projectCheckList->setProject($this);
         }
@@ -268,6 +279,4 @@ class Project
 
         return $this;
     }
-
-
 }

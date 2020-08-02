@@ -1,9 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
 use App\Entity\Project;
 use App\Form\ProjectFormType;
+use App\Repository\CheckListRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -13,46 +16,42 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Security;
 
-class ProjectController extends AbstractController
+final class ProjectController extends AbstractController
 {
-
     /**
      * @var EntityManagerInterface
      */
-    private $em;
+    private $entityManager;
+
     /**
      * @var RouterInterface
      */
     private $router;
+
     /**
      * @var Security
      */
     private $security;
 
     /**
-     * UserController constructor.
-     * @param EntityManagerInterface $em
-     * @param RouterInterface $router
-     * @param Security $security
+     * @var CheckListRepository
      */
+    private $checkListRepository;
+
     public function __construct(
-        EntityManagerInterface $em,
         RouterInterface $router,
-        Security $security
-    )
-    {
-        $this->em = $em;
+        Security $security,
+        CheckListRepository $checkListRepository
+    ) {
         $this->router = $router;
         $this->security = $security;
+        $this->checkListRepository = $checkListRepository;
     }
 
-
     /**
-     * @Route("/project/create", name="project.new")
-     * @param Request $request
-     * @return Response
+     * @Route("/", name="project.new")
      */
-    public function create(Request $request)
+    public function create(Request $request): Response
     {
         $user = $this->security->getUser();
         $project = new Project();
@@ -62,79 +61,57 @@ class ProjectController extends AbstractController
         $projectForm->handleRequest($request);
 
         if ($projectForm->isSubmitted() && $projectForm->isValid()) {
-
             $project->setStatus(1);
-            $this->em->persist($project);
-            $this->em->flush();
+            $this->entityManager->persist($project);
+            $this->entityManager->flush();
 
-            $this->addFlash(
-                'success',
-                'Project created'
-            );
+            $this->addFlash('success', 'Project created');
             return new RedirectResponse($this->router->generate('user.dashboard'));
         }
 
         return $this->render('project/create.html.twig', [
-            'projectForm' => $projectForm->createView()
+            'projectForm' => $projectForm->createView(),
         ]);
     }
 
-
     /**
      * @Route("/project/{id}", name="project.show")
-     * @param Project $project
-     * @param Request $request
-     * @return Response
      */
-    public function show(Project $project, Request $request)
+    public function show(Project $project, Request $request): Response
     {
-
-        $checkboxes = $this->em->getRepository("App:Checkbox")->findByFramework($project->getDesiredFramework());
+        $checkboxes = $this->checkListRepository->findByFramework(
+            // @todo fix
+            (string) $project->getDesiredFramework()
+        );
 
         $projectForm = $this->createForm(ProjectFormType::class, $project);
         $projectForm->handleRequest($request);
 
         if ($projectForm->isSubmitted() && $projectForm->isValid()) {
+            $this->entityManager->persist($project);
+            $this->entityManager->flush();
 
-            $this->em->persist($project);
-            $this->em->flush();
-
-            $this->addFlash(
-                'success',
-                'Project updated'
-            );
+            $this->addFlash('success', 'Project updated');
             return new RedirectResponse($this->router->generate('project.show', ['id' => $project->getId()]));
-
         }
-
 
         return $this->render('project/show.html.twig', [
             'projectEditForm' => $projectForm->createView(),
             'project' => $project,
-            'checkboxes'=>$checkboxes
+            'checkboxes' => $checkboxes,
         ]);
     }
 
-
     /**
      * @Route("/project/{id}/remove", name="project.remove")
-     * @param Project $project
-     * @param Request $request
-     * @return Response
      */
-    public function remove(Project $project, Request $request)
+    public function remove(Project $project): Response
     {
         $project->setStatus(2);
-        $this->em->persist($project);
-        $this->em->flush();
+        $this->entityManager->persist($project);
+        $this->entityManager->flush();
 
-        $this->addFlash(
-            'success',
-            'Project removed'
-        );
+        $this->addFlash('success', 'Project removed');
         return new RedirectResponse($this->router->generate('user.dashboard'));
     }
-
-
-
 }

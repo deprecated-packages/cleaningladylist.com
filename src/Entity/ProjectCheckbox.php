@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
-use App\Repository\ProjectCheckListRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=ProjectCheckListRepository::class)
+ * @ORM\Entity
  */
 class ProjectCheckbox
 {
@@ -14,21 +15,25 @@ class ProjectCheckbox
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @var int
      */
     private $id;
 
     /**
      * @ORM\Column(type="boolean")
+     * @var bool|null
      */
     private $isDone;
 
     /**
      * @ORM\ManyToOne(targetEntity=Project::class, inversedBy="projectCheckLists")
+     * @var \App\Entity\Project|null
      */
     private $project;
 
     /**
      * @ORM\ManyToOne(targetEntity=Checkbox::class, inversedBy="projectCheckboxes")
+     * @var \App\Entity\Checkbox|null
      */
     private $checkbox;
 

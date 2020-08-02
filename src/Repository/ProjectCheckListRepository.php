@@ -1,50 +1,30 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repository;
 
 use App\Entity\ProjectCheckbox;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityRepository;
 
-/**
- * @method ProjectCheckbox|null find($id, $lockMode = null, $lockVersion = null)
- * @method ProjectCheckbox|null findOneBy(array $criteria, array $orderBy = null)
- * @method ProjectCheckbox[]    findAll()
- * @method ProjectCheckbox[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- */
-class ProjectCheckListRepository extends ServiceEntityRepository
+final class ProjectCheckListRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    /**
+     * @var EntityRepository<ProjectCheckbox>
+     */
+    private $repository;
+
+    public function __construct(EntityManagerInterface $entityManager)
     {
-        parent::__construct($registry, ProjectCheckbox::class);
+        $this->repository = $entityManager->getRepository(ProjectCheckbox::class);
     }
 
-    // /**
-    //  * @return ProjectCheckbox[] Returns an array of ProjectCheckbox objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @param mixed[] $criteria
+     */
+    public function findOneBy(array $criteria): ?ProjectCheckbox
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        return $this->repository->findOneBy($criteria);
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?ProjectCheckbox
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

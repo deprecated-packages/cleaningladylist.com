@@ -1,49 +1,45 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
-use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\ProjectRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
 
-class UserController extends AbstractController
+final class UserController extends AbstractController
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    private $em;
     /**
      * @var Security
      */
     private $security;
 
     /**
-     * UserController constructor.
-     * @param EntityManagerInterface $em
-     * @param Security $security
+     * @var ProjectRepository
      */
-    public function __construct(
-        EntityManagerInterface $em,
-        Security $security
-    )
+    private $projectRepository;
+
+    public function __construct(Security $security, ProjectRepository $projectRepository)
     {
-        $this->em = $em;
         $this->security = $security;
+        $this->projectRepository = $projectRepository;
     }
 
     /**
      * @Route("/dashboard", name="user.dashboard")
      */
-    public function create()
+    public function create(): Response
     {
-        $user = $this->security->getUser();
-        $projects = $this->em->getRepository("App:Project")->findBy([
+        $projects = $this->projectRepository->findBy([
             'user' => $this->security->getUser(),
             'status' => 1,
-         ]);
+        ]);
+
         return $this->render('user/index.html.twig', [
-            'projects' => $projects
+            'projects' => $projects,
         ]);
     }
 }

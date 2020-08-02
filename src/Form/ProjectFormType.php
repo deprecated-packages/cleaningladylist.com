@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Form;
 
 use App\Entity\Project;
@@ -10,12 +12,15 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ProjectFormType extends AbstractType
+final class ProjectFormType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    /**
+     * @param mixed[] $options
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title',TextType::class, [
+            ->add('title', TextType::class, [
                 'label' => 'Project title',
             ])
             ->add('currentPhpVersion', ChoiceType::class, [
@@ -28,7 +33,7 @@ class ProjectFormType extends AbstractType
                     '7.2' => '7.2',
                     '7.3' => '7.3',
                     '7.4' => '7.4',
-                ]
+                ],
             ])
             ->add('currentFramework', ChoiceType::class, [
                 'label' => 'Framework',
@@ -38,8 +43,8 @@ class ProjectFormType extends AbstractType
                     'Phalcon' => 'phalcon',
                     'Laravel' => 'laravel',
                     'Nette' => 'nette',
-                    'Zend' => 'zend'
-                ]
+                    'Zend' => 'zend',
+                ],
             ])
             ->add('desiredPhpVersion', ChoiceType::class, [
                 'label' => 'PHP Version',
@@ -51,7 +56,7 @@ class ProjectFormType extends AbstractType
                     '7.2' => '7.2',
                     '7.3' => '7.3',
                     '7.4' => '7.4',
-                ]
+                ],
             ])
             ->add('desiredFramework', ChoiceType::class, [
                 'label' => 'Framework',
@@ -61,17 +66,17 @@ class ProjectFormType extends AbstractType
                     'Phalcon' => 'phalcon',
                     'Laravel' => 'laravel',
                     'Nette' => 'nette',
-                    'Zend' => 'zend'
-                ]
+                    'Zend' => 'zend',
+                ],
             ])
-            ->add('save', SubmitType::class,[
+            ->add('save', SubmitType::class, [
                 'attr' => [
                     'class' => 'mt-3 btn btn-dark btn-block',
-                ]
+                ],
             ]);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Project::class,

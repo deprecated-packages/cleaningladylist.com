@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Security;
 
 use App\Entity\User;
@@ -20,19 +22,38 @@ use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticato
 use Symfony\Component\Security\Guard\PasswordAuthenticatedInterface;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
-class CustomAuthenticator extends AbstractFormLoginAuthenticator implements PasswordAuthenticatedInterface
+final class CustomAuthenticator extends AbstractFormLoginAuthenticator implements PasswordAuthenticatedInterface
 {
     use TargetPathTrait;
 
     public const LOGIN_ROUTE = 'app_login';
 
+    /**
+     * @var \Doctrine\ORM\EntityManagerInterface
+     */
     private $entityManager;
+
+    /**
+     * @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface
+     */
     private $urlGenerator;
+
+    /**
+     * @var \Symfony\Component\Security\Csrf\CsrfTokenManagerInterface
+     */
     private $csrfTokenManager;
+
+    /**
+     * @var \Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface
+     */
     private $passwordEncoder;
 
-    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        UrlGeneratorInterface $urlGenerator,
+        CsrfTokenManagerInterface $csrfTokenManager,
+        UserPasswordEncoderInterface $passwordEncoder
+    ) {
         $this->entityManager = $entityManager;
         $this->urlGenerator = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;
@@ -41,7 +62,7 @@ class CustomAuthenticator extends AbstractFormLoginAuthenticator implements Pass
 
     public function supports(Request $request)
     {
-        return self::LOGIN_ROUTE === $request->attributes->get('_route')
+        return $request->attributes->get('_route') === self::LOGIN_ROUTE
             && $request->isMethod('POST');
     }
 
@@ -52,24 +73,21 @@ class CustomAuthenticator extends AbstractFormLoginAuthenticator implements Pass
             'password' => $request->request->get('password'),
             'csrf_token' => $request->request->get('_csrf_token'),
         ];
-        $request->getSession()->set(
-            Security::LAST_USERNAME,
-            $credentials['email']
-        );
+        $request->getSession()->set(Security::LAST_USERNAME, $credentials['email']);
 
         return $credentials;
     }
 
-    public function getUser($credentials, UserProviderInterface $userProvider)
+    public function getUser($credentials, UserProviderInterface $userProvider): object
     {
         $token = new CsrfToken('authenticate', $credentials['csrf_token']);
-        if (!$this->csrfTokenManager->isTokenValid($token)) {
+        if (! $this->csrfTokenManager->isTokenValid($token)) {
             throw new InvalidCsrfTokenException();
         }
 
         $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $credentials['email']]);
 
-        if (!$user) {
+        if ($user === null) {
             // fail authentication with a custom error
             throw new CustomUserMessageAuthenticationException('Email could not be found.');
         }
@@ -90,6 +108,9 @@ class CustomAuthenticator extends AbstractFormLoginAuthenticator implements Pass
         return $credentials['password'];
     }
 
+    /**
+     * @param string $providerKey
+     */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {

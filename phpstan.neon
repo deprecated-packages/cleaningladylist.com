@@ -1,0 +1,30 @@
+# phpstan.neon
+includes:
+    - vendor/symplify/phpstan-extensions/config/config.neon
+    - vendor/phpstan/phpstan-doctrine/extension.neon
+
+parameters:
+    # see https://github.com/phpstan/phpstan-doctrine
+    doctrine:
+        objectManagerLoader: tests/object-manager.php
+
+    paths:
+        - src
+
+    level: max
+
+    excludes_analyse:
+        # messy Symfony
+        - src/Entity/User.php
+
+    ignoreErrors:
+        # false positive
+        - '#Method App\\Form\\(.*?)\:\:buildForm\(\) has parameter \$builder with no value type specified in iterable type Symfony\\Component\\Form\\FormBuilderInterface#'
+
+       # no idea how to fix these now, possible sources: https://github.com/phpstan/phpstan-doctrine/blob/e560d32f6fb68e5bbec0e556a69723e7faece14a/tests/Rules/Doctrine/ORM/data/EntityWithRelations.php
+        - '#Method (.*?) return type with generic interface Doctrine\\Common\\Collections\\Collection does not specify its types\: TKey, T#'
+        - '#Property (.*?) with generic interface Doctrine\\Common\\Collections\\Collection does not specify its types\: TKey, T#'
+
+        # will be removed anyway
+        - '#Method App\\Controller\\RegistrationController\:\:register\(\) should return Symfony\\Component\\HttpFoundation\\Response but returns Symfony\\Component\\HttpFoundation\\Response\|null#'
+        - '#Parameter \#1 \$user of method App\\Entity\\Project\:\:setUser\(\) expects App\\Entity\\User\|null, Symfony\\Component\\Security\\Core\\User\\UserInterface\|null given#'
