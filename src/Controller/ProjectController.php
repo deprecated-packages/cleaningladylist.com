@@ -43,7 +43,7 @@ final class ProjectController extends AbstractController
     }
 
     /**
-     * @Route("/project/create", name="project.new")
+     * @Route("/", name="project.new")
      */
     public function create(Request $request): Response
     {
