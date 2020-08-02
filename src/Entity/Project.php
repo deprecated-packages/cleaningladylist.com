@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use DateTime;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -35,13 +37,13 @@ class Project
 
     /**
      * @ORM\Column(type="datetime")
-     * @var \DateTimeInterface
+     * @var DateTimeInterface
      */
     private $startDate;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     * @var \DateTimeInterface|null
+     * @var DateTimeInterface|null
      */
     private $endDate;
 
@@ -53,7 +55,7 @@ class Project
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="projects")
-     * @var \App\Entity\User|null
+     * @var User|null
      */
     private $user;
 
@@ -95,7 +97,7 @@ class Project
 
     public function __construct()
     {
-        $this->startDate = new \DateTime();
+        $this->startDate = new DateTime();
         $this->projectCheckLists = new ArrayCollection();
     }
 
@@ -128,24 +130,24 @@ class Project
         return $this;
     }
 
-    public function getStartDate(): ?\DateTimeInterface
+    public function getStartDate(): ?DateTimeInterface
     {
         return $this->startDate;
     }
 
-    public function setStartDate(\DateTimeInterface $startDate): self
+    public function setStartDate(DateTimeInterface $startDate): self
     {
         $this->startDate = $startDate;
 
         return $this;
     }
 
-    public function getEndDate(): ?\DateTimeInterface
+    public function getEndDate(): ?DateTimeInterface
     {
         return $this->endDate;
     }
 
-    public function setEndDate(?\DateTimeInterface $endDate): self
+    public function setEndDate(?DateTimeInterface $endDate): self
     {
         $this->endDate = $endDate;
 

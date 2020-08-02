@@ -9,5 +9,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $containerConfigurator->extension('web_profiler', ['intercept_redirects' => false]);
 
-    $containerConfigurator->extension('framework', ['profiler' => ['collect' => false]]);
+    $containerConfigurator->extension('framework', [
+        'profiler' => [
+            'collect' => false,
+        ],
+    ]);
 };

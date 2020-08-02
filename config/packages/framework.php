@@ -9,8 +9,18 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $containerConfigurator->extension(
         'framework',
-        ['session' => ['handler_id' => null, 'cookie_secure' => 'auto', 'cookie_samesite' => 'lax']]
+        [
+            'session' => [
+                'handler_id' => null,
+                'cookie_secure' => 'auto',
+                'cookie_samesite' => 'lax',
+            ],
+        ]
     );
 
-    $containerConfigurator->extension('framework', ['php_errors' => ['log' => true]]);
+    $containerConfigurator->extension('framework', [
+        'php_errors' => [
+            'log' => true,
+        ],
+    ]);
 };

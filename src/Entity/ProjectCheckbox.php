@@ -27,13 +27,13 @@ class ProjectCheckbox
 
     /**
      * @ORM\ManyToOne(targetEntity=Project::class, inversedBy="projectCheckLists")
-     * @var \App\Entity\Project|null
+     * @var Project|null
      */
     private $project;
 
     /**
      * @ORM\ManyToOne(targetEntity=Checkbox::class, inversedBy="projectCheckboxes")
-     * @var \App\Entity\Checkbox|null
+     * @var Checkbox|null
      */
     private $checkbox;
 
