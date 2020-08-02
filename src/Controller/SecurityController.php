@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use LogicException;
+use App\Exception\ShouldNotHappenException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -33,7 +33,7 @@ final class SecurityController extends AbstractController
      */
     public function logout(): void
     {
-        throw new LogicException(
+        throw new ShouldNotHappenException(
             'This method can be blank - it will be intercepted by the logout key on your firewall.'
         );
     }
