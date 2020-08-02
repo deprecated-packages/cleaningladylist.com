@@ -70,11 +70,13 @@ final class CheckboxController extends AbstractController
                 $projectCheckbox->setIsDone($isDone);
             }
 
-            $checkboxCount = $this->checkListRepository->findByFramework(
+            $checkboxes = $this->checkListRepository->findByFramework(
                 // @todo fix, can be null
                 (string) $project->getDesiredFramework()
             );
-            $project->setCheckboxCount(count($checkboxCount));
+
+            $checkboxCount = count($checkboxes);
+            $project->setCheckboxCount($checkboxCount);
 
             $this->projectRepository->save($project);
 

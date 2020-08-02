@@ -41,7 +41,7 @@ class Checkbox
 
     /**
      * @ORM\OneToMany(targetEntity=ProjectCheckbox::class, mappedBy="checkbox")
-     * @var \Doctrine\Common\Collections\Collection<ProjectCheckbox>
+     * @var Collection<ProjectCheckbox>
      */
     private $projectCheckboxes;
 

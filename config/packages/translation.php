@@ -9,6 +9,11 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $containerConfigurator->extension(
         'framework',
-        ['translator' => ['default_path' => '%kernel.project_dir%/translations', 'fallbacks' => ['en']]]
+        [
+            'translator' => [
+                'default_path' => '%kernel.project_dir%/translations',
+                'fallbacks' => ['en'],
+            ],
+        ]
     );
 };
