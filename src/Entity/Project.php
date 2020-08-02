@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Repository\ProjectRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=ProjectRepository::class)
+ * @ORM\Entity
  */
 class Project
 {
@@ -60,7 +59,7 @@ class Project
 
     /**
      * @ORM\OneToMany(targetEntity=ProjectCheckbox::class, mappedBy="project")
-     * @var Collection<ProjectCheckbox>
+     * @var Collection&iterable<ProjectCheckbox>
      */
     private $projectCheckLists;
 
@@ -177,7 +176,7 @@ class Project
         return $this;
     }
 
-    public function getProgress(self $project): float
+    public function getProgress(self $project): string
     {
         $checksComplete = 0;
 
@@ -187,7 +186,7 @@ class Project
             }
         }
 
-        return (float) number_format($checksComplete / $this->getCheckboxCount() * 100, 2);
+        return number_format($checksComplete / $this->getCheckboxCount() * 100, 2);
     }
 
     /**

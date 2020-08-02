@@ -87,7 +87,7 @@ final class CustomAuthenticator extends AbstractFormLoginAuthenticator implement
 
         $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $credentials['email']]);
 
-        if (! $user) {
+        if ($user === null) {
             // fail authentication with a custom error
             throw new CustomUserMessageAuthenticationException('Email could not be found.');
         }

@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use App\Entity\Project;
 use App\Form\ProjectFormType;
+use App\Repository\CheckListRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -32,14 +33,19 @@ final class ProjectController extends AbstractController
      */
     private $security;
 
+    /**
+     * @var CheckListRepository
+     */
+    private $checkListRepository;
+
     public function __construct(
-        EntityManagerInterface $entityManager,
         RouterInterface $router,
-        Security $security
+        Security $security,
+        CheckListRepository $checkListRepository
     ) {
-        $this->entityManager = $entityManager;
         $this->router = $router;
         $this->security = $security;
+        $this->checkListRepository = $checkListRepository;
     }
 
     /**
@@ -73,8 +79,9 @@ final class ProjectController extends AbstractController
      */
     public function show(Project $project, Request $request): Response
     {
-        $checkboxes = $this->entityManager->getRepository('App:Checkbox')->findByFramework(
-            $project->getDesiredFramework()
+        $checkboxes = $this->checkListRepository->findByFramework(
+            // @todo fix
+            (string) $project->getDesiredFramework()
         );
 
         $projectForm = $this->createForm(ProjectFormType::class, $project);
