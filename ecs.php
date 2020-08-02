@@ -21,7 +21,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $parameters = $containerConfigurator->parameters();
 
-    $parameters->set(Option::PATHS, [__DIR__ . '/src'], __DIR__ . '/ecs.php');
+    $parameters->set(Option::PATHS, [__DIR__ . '/src', __DIR__ . '/config', __DIR__ . '/ecs.php']);
 
     $parameters->set(Option::SETS, [
         SetList::COMMON,
@@ -35,6 +35,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $parameters->set(Option::SKIP, [
         UnusedPrivateElementsSniff::class . '.' . UnusedPrivateElementsSniff::CODE_UNUSED_PROPERTY => [
             __DIR__ . '/src/Entity/ProjectCheckbox.php',
-        ]
+        ],
     ]);
 };
