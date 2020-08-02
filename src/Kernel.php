@@ -23,9 +23,9 @@ final class Kernel extends BaseKernel
 
     public function __construct($environment, $debug)
     {
-        $this->flexLoader = new FlexLoader($environment, $this->getProjectDir());
-
         parent::__construct($environment, $debug);
+
+        $this->flexLoader = new FlexLoader($environment, $this->getProjectDir());
     }
 
     public function registerBundles(): Iterator
@@ -38,9 +38,12 @@ final class Kernel extends BaseKernel
         $this->flexLoader->loadConfigs($containerBuilder, $loader);
     }
 
-    protected function configureRoutes(RoutingConfigurator $routingConfigurator): void
+    /**
+     * If routing gets broken, debug command will help to narrow the issue:
+     * bin/console debug:router
+     */
+    protected function configureRoutes(RoutingConfigurator $routes): void
     {
-        $routingConfigurator->import(__DIR__ . '/../src/Controller/', 'annotation');
-        $routingConfigurator->import(__DIR__ . '/../config/routes/*');
+        $routes->import(__DIR__ . '/../config/routes/**/*');
     }
 }
