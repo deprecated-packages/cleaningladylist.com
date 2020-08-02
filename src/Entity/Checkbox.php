@@ -42,7 +42,7 @@ class Checkbox
 
     /**
      * @ORM\OneToMany(targetEntity=ProjectCheckbox::class, mappedBy="checkbox")
-     * @var \ProjectCheckbox::class[]|\Doctrine\Common\Collections\Collection
+     * @var \Doctrine\Common\Collections\Collection<ProjectCheckbox>
      */
     private $projectCheckboxes;
 
@@ -98,7 +98,7 @@ class Checkbox
     }
 
     /**
-     * @return Collection|ProjectCheckbox[]
+     * @return Collection<ProjectCheckbox>
      */
     public function getProjectCheckboxes(): Collection
     {

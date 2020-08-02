@@ -51,7 +51,7 @@ class User implements UserInterface
 
     /**
      * @ORM\OneToMany(targetEntity=Project::class, mappedBy="user")
-     * @var \Project::class[]|\Doctrine\Common\Collections\Collection
+     * @var Collection<Project>
      */
     private $projects;
 
@@ -99,6 +99,9 @@ class User implements UserInterface
         return array_unique($roles);
     }
 
+    /**
+     * @param mixed[] $roles
+     */
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
@@ -151,7 +154,7 @@ class User implements UserInterface
     }
 
     /**
-     * @return Collection|Project[]
+     * @return Collection<Project>
      */
     public function getProjects(): Collection
     {

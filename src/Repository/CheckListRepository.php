@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\Checkbox;
+use App\Entity\Project;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -13,6 +14,9 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Checkbox|null findOneBy(array $criteria, array $orderBy = null)
  * @method Checkbox[] findAll()
  * @method Checkbox[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ *
+ * @template T
+ * @extends ServiceEntityRepository<T>
  */
 final class CheckListRepository extends ServiceEntityRepository
 {
@@ -38,7 +42,10 @@ final class CheckListRepository extends ServiceEntityRepository
     }
     */
 
-    public function findByFramework(string $framework)
+    /**
+     * @return iterable<Project>
+     */
+    public function findByFramework(string $framework): iterable
     {
         return $this->createQueryBuilder('checkbox')
             ->where('checkbox.framework is NULL')

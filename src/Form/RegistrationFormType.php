@@ -18,6 +18,9 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 final class RegistrationFormType extends AbstractType
 {
+    /**
+     * @param mixed[] $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App;
 
-use Iterator;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -21,14 +20,14 @@ final class Kernel extends BaseKernel
      */
     private $flexLoader;
 
-    public function __construct($environment, $debug)
+    public function __construct(string $environment, bool $debug)
     {
         parent::__construct($environment, $debug);
 
         $this->flexLoader = new FlexLoader($environment, $this->getProjectDir());
     }
 
-    public function registerBundles(): Iterator
+    public function registerBundles(): iterable
     {
         return $this->flexLoader->loadBundles();
     }

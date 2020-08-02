@@ -60,7 +60,7 @@ class Project
 
     /**
      * @ORM\OneToMany(targetEntity=ProjectCheckbox::class, mappedBy="project")
-     * @var \ProjectCheckbox::class[]|\Doctrine\Common\Collections\Collection
+     * @var Collection<ProjectCheckbox>
      */
     private $projectCheckLists;
 
@@ -177,7 +177,7 @@ class Project
         return $this;
     }
 
-    public function getProgress(self $project): int
+    public function getProgress(self $project): float
     {
         $checksComplete = 0;
 
@@ -187,13 +187,13 @@ class Project
             }
         }
 
-        return number_format($checksComplete / $this->getCheckboxCount() * 100, 2);
+        return (float) number_format($checksComplete / $this->getCheckboxCount() * 100, 2);
     }
 
     /**
-     * @return Collection|ProjectCheckbox[]
+     * @return Collection<ProjectCheckbox>
      */
-    public function getProjectCheckLists(): Collection
+    public function getProjectCheckLists()
     {
         return $this->projectCheckLists;
     }

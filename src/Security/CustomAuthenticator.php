@@ -78,7 +78,7 @@ final class CustomAuthenticator extends AbstractFormLoginAuthenticator implement
         return $credentials;
     }
 
-    public function getUser($credentials, UserProviderInterface $userProvider)
+    public function getUser($credentials, UserProviderInterface $userProvider): object
     {
         $token = new CsrfToken('authenticate', $credentials['csrf_token']);
         if (! $this->csrfTokenManager->isTokenValid($token)) {

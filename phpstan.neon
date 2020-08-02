@@ -1,9 +1,22 @@
 # phpstan.neon
 includes:
-    - 'vendor/symplify/phpstan-extensions/config/config.neon'
+    - vendor/symplify/phpstan-extensions/config/config.neon
+    - vendor/phpstan/phpstan-doctrine/extension.neon
 
 parameters:
+    # see https://github.com/phpstan/phpstan-doctrine
+    doctrine:
+        objectManagerLoader: tests/object-manager.php
+
     paths:
         - src
 
     level: max
+
+    excludes_analyse:
+        # messy Symfony
+        - src/Entity/User.php
+
+    ignoreErrors:
+        # false positive
+        - '#Method App\\Form\\(.*?)\:\:buildForm\(\) has parameter \$builder with no value type specified in iterable type Symfony\\Component\\Form\\FormBuilderInterface#'
