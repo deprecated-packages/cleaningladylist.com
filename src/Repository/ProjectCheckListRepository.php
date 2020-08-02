@@ -14,7 +14,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method ProjectCheckbox[] findAll()
  * @method ProjectCheckbox[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ProjectCheckListRepository extends ServiceEntityRepository
+final class ProjectCheckListRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

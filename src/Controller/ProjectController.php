@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Security;
 
-class ProjectController extends AbstractController
+final class ProjectController extends AbstractController
 {
     /**
      * @var EntityManagerInterface

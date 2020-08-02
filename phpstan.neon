@@ -1,0 +1,9 @@
+# phpstan.neon
+includes:
+    - 'vendor/symplify/phpstan-extensions/config/config.neon'
+
+parameters:
+    paths:
+        - src
+
+    level: max

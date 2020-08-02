@@ -12,5 +12,5 @@ jobs:
                     php-version: 7.4
                     coverage: none
 
-            -   run: composer install --no-progress
-            -   run: vendor/bin/ecs check
+            -   run: composer install --no-progress --ansi
+            -   run: vendor/bin/ecs check --ansi

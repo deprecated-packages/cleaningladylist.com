@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class CheckboxController extends AbstractController
+final class CheckboxController extends AbstractController
 {
     /**
      * @var EntityManagerInterface
@@ -33,7 +33,7 @@ class CheckboxController extends AbstractController
         if ($request->isXmlHttpRequest()) {
             $checkbox_id = $request->get('id');
             $project_id = $request->get('project_id');
-            $isDone = $request->get('isDone') ? true : false;
+            $isDone = (bool) $request->get('isDone');
 
             /** @var ProjectCheckbox $projectCheckbox */
             $projectCheckbox = $this->entityManager->getRepository('App:ProjectCheckbox')->findOneBy([

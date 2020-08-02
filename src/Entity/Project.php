@@ -18,66 +18,79 @@ class Project
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @var int
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @var string
      */
     private $title;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @var string|null
      */
     private $description;
 
     /**
      * @ORM\Column(type="datetime")
+     * @var \DateTimeInterface
      */
     private $startDate;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @var \DateTimeInterface|null
      */
     private $endDate;
 
     /**
      * @ORM\Column(type="integer")
+     * @var int
      */
     private $status;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="projects")
+     * @var \App\Entity\User|null
      */
     private $user;
 
     /**
      * @ORM\OneToMany(targetEntity=ProjectCheckbox::class, mappedBy="project")
+     * @var \ProjectCheckbox::class[]|\Doctrine\Common\Collections\Collection
      */
     private $projectCheckLists;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @var string
      */
     private $currentFramework;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @var string
      */
     private $desiredFramework;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @var string
      */
     private $currentPhpVersion;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @var string
      */
     private $desiredPhpVersion;
 
     /**
      * @ORM\Column(type="integer")
+     * @var int
      */
     private $CheckboxCount;
 

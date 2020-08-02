@@ -18,31 +18,37 @@ class Checkbox
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @var int
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @var string
      */
     private $title;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @var string
      */
     private $category;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @var string|null
      */
     private $help;
 
     /**
      * @ORM\OneToMany(targetEntity=ProjectCheckbox::class, mappedBy="checkbox")
+     * @var \ProjectCheckbox::class[]|\Doctrine\Common\Collections\Collection
      */
     private $projectCheckboxes;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @var string|null
      */
     private $framework;
 

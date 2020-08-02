@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
 
-class UserController extends AbstractController
+final class UserController extends AbstractController
 {
     /**
      * @var EntityManagerInterface
