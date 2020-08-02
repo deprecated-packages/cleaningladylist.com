@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5aefbf2adc86c723e3e99e93d94d9e0d",
+    "content-hash": "22e039b93b0882d187307063cb757995",
     "packages": [
         {
             "name": "composer/package-versions-deprecated",
@@ -10133,6 +10133,62 @@
             "time": "2020-06-26T12:18:43+00:00"
         },
         {
+            "name": "slam/phpstan-extensions",
+            "version": "v5.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Slamdunk/phpstan-extensions.git",
+                "reference": "0c646b8f2d09cd8601ce9a56105ca8d6fca7c9fe"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Slamdunk/phpstan-extensions/zipball/0c646b8f2d09cd8601ce9a56105ca8d6fca7c9fe",
+                "reference": "0c646b8f2d09cd8601ce9a56105ca8d6fca7c9fe",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1",
+                "phpstan/phpstan": "^0.12.0",
+                "thecodingmachine/phpstan-strict-rules": "^0.12.0"
+            },
+            "require-dev": {
+                "nette/di": "^3.0",
+                "nette/neon": "^3.0",
+                "phpstan/phpstan-php-parser": "^0.12.0",
+                "phpstan/phpstan-phpunit": "^0.12.0",
+                "phpunit/phpunit": "^7.5 || ^8.5",
+                "roave/security-advisories": "dev-master",
+                "slam/php-cs-fixer-extensions": "^1.18",
+                "slam/php-debug-r": "^1.4"
+            },
+            "type": "phpstan-extension",
+            "extra": {
+                "phpstan": {
+                    "includes": [
+                        "conf/slam-rules.neon"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "SlamPhpStan\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Filippo Tessarotto",
+                    "email": "zoeslam@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Slam extension of phpstan",
+            "time": "2020-02-18T14:43:56+00:00"
+        },
+        {
             "name": "slevomat/coding-standard",
             "version": "dev-master",
             "source": {
@@ -11302,6 +11358,57 @@
                 }
             ],
             "time": "2020-07-22T11:23:30+00:00"
+        },
+        {
+            "name": "thecodingmachine/phpstan-strict-rules",
+            "version": "v0.12.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thecodingmachine/phpstan-strict-rules.git",
+                "reference": "8c58cc87dc870382b228c95c4f1cc9fc871aaf28"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thecodingmachine/phpstan-strict-rules/zipball/8c58cc87dc870382b228c95c4f1cc9fc871aaf28",
+                "reference": "8c58cc87dc870382b228c95c4f1cc9fc871aaf28",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1",
+                "phpstan/phpstan": "^0.12"
+            },
+            "require-dev": {
+                "php-coveralls/php-coveralls": "^2.1",
+                "phpunit/phpunit": "^7.1"
+            },
+            "type": "phpstan-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.12-dev"
+                },
+                "phpstan": {
+                    "includes": [
+                        "phpstan-strict-rules.neon"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "TheCodingMachine\\PHPStan\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "David Négrier",
+                    "email": "d.negrier@thecodingmachine.com"
+                }
+            ],
+            "description": "A set of additional rules for PHPStan based on best practices followed at TheCodingMachine",
+            "time": "2019-12-04T11:25:22+00:00"
         },
         {
             "name": "theseer/tokenizer",

@@ -3,6 +3,8 @@ includes:
     - vendor/symplify/phpstan-extensions/config/config.neon
     - vendor/phpstan/phpstan-doctrine/extension.neon
     - vendor/symplify/coding-standard/config/symplify-rules.neon
+    - vendor/slam/phpstan-extensions/conf/slam-rules.neon
+    - vendor/slam/phpstan-extensions/conf/symfony-rules.neon
 
 parameters:
     # see https://github.com/phpstan/phpstan-doctrine
