@@ -9445,16 +9445,16 @@
         },
         {
             "name": "rector/rector",
-            "version": "v0.7.59",
+            "version": "v0.7.61",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector.git",
-                "reference": "6186cdeab76528f23bc5a7062977023ff16e9631"
+                "reference": "2bd1eac7053aeeb6502e38a3d686620c78ad98f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector/zipball/6186cdeab76528f23bc5a7062977023ff16e9631",
-                "reference": "6186cdeab76528f23bc5a7062977023ff16e9631",
+                "url": "https://api.github.com/repos/rectorphp/rector/zipball/2bd1eac7053aeeb6502e38a3d686620c78ad98f3",
+                "reference": "2bd1eac7053aeeb6502e38a3d686620c78ad98f3",
                 "shasum": ""
             },
             "require": {
@@ -9494,6 +9494,8 @@
                 "friendsofphp/php-cs-fixer": "^2.16",
                 "johnkary/phpunit-speedtrap": "^3.2",
                 "migrify/config-transformer": "^0.3.16",
+                "nette/application": "^3.0",
+                "nette/forms": "^3.0",
                 "ocramius/package-versions": "^1.4|^1.5",
                 "phpunit/phpunit": "^8.5|^9.0",
                 "psr/event-dispatcher": "^1.0",
@@ -9608,7 +9610,10 @@
                     "Rector\\Downgrade\\": "rules/downgrade/src",
                     "Rector\\SymfonyPhpConfig\\": "rules/symfony-php-config/src",
                     "Rector\\Injection\\": "rules/injection/src"
-                }
+                },
+                "files": [
+                    "rules/symfony-php-config/functions/functions.php"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -9640,7 +9645,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-08-01T23:24:58+00:00"
+            "time": "2020-08-03T08:51:44+00:00"
         },
         {
             "name": "sebastian/code-unit",

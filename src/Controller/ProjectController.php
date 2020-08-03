@@ -18,21 +18,10 @@ use Symfony\Component\Routing\RouterInterface;
 
 final class ProjectController extends AbstractController
 {
-    /**
-     * @var \Doctrine\ORM\EntityManagerInterface
-     */
     private EntityManagerInterface $em;
 
-    /**
-     * @var \Symfony\Component\Routing\RouterInterface
-     */
     private RouterInterface $router;
 
-    /**
-     * ProjectController constructor.
-     * @param EntityManagerInterface $em
-     * @param RouterInterface $router
-     */
     public function __construct(EntityManagerInterface $em, RouterInterface $router)
     {
         $this->em = $em;
@@ -41,19 +30,15 @@ final class ProjectController extends AbstractController
 
     /**
      * @Route("/", name="project.new")
-     * @param Request $request
-     * @return Response
      */
-    public function create(Request $request)
+    public function create(Request $request): Response
     {
         $project = new Project();
         $projectForm = $this->createForm(ProjectFormType::class, $project);
         $projectForm->handleRequest($request);
         if ($projectForm->isSubmitted() && $projectForm->isValid()) {
 
-            /**
-             * @var Checklist $checklist
-             */
+            /** @var Checklist $checklist */
             $checklist = new Checklist();
             $checklist->setProject($project);
             $project->addChecklist($checklist);
@@ -72,10 +57,8 @@ final class ProjectController extends AbstractController
 
     /**
      * @Route("/project/{id}", name="project.show")
-     * @param Project $project
-     * @return Response
      */
-    public function show(Project $project)
+    public function show(Project $project): Response
     {
         $currentFramework = $project->getCurrentFramework();
         $checkboxes = $this->em->getRepository(Checkbox::class)->findByFramework($currentFramework);

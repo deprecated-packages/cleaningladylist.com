@@ -13,10 +13,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class ProjectFormType extends AbstractType
 {
+    /**
+     * @param mixed[] $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder
-            ->add('title')
+        $builder->add('title')
             ->add('currentFramework', ChoiceType::class, [
                 'label' => false,
                 'placeholder' => 'Framework',

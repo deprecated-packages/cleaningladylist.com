@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Repository\ProjectRepository;
-use App\Entity\Checklist;
 use DateTime;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -22,7 +21,6 @@ class Project
     /**
      * @ORM\Id
      * @ORM\Column(type="uuid")
-     * @var \Ramsey\Uuid\UuidInterface|null
      */
     private ?UuidInterface $id;
 
@@ -34,9 +32,9 @@ class Project
 
     /**
      * @ORM\OneToMany(targetEntity=Checklist::class, mappedBy="project")
-     * @var Checklist::class []|\Doctrine\Common\Collections\Collection
+     * @var Checklist[]|Collection
      */
-    private $checklists;
+    private $checklists = [];
 
     /**
      * @ORM\Column(type="string", length=255)

@@ -28,7 +28,6 @@ class Checkbox
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @var string|null
      */
     private ?string $description;
 
@@ -40,7 +39,6 @@ class Checkbox
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @var string|null
      */
     private ?string $framework;
 
