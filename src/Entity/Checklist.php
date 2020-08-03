@@ -34,7 +34,7 @@ class Checklist
      * @ORM\Column(type="datetime", nullable=true)
      * @var DateTimeInterface|null
      */
-    private $isComplete;
+    private $completedAt;
 
     public function getId(): ?int
     {
@@ -65,14 +65,14 @@ class Checklist
         return $this;
     }
 
-    public function getIsComplete(): ?DateTimeInterface
+    public function getCompleteAt(): ?DateTimeInterface
     {
-        return $this->isComplete;
+        return $this->completedAt;
     }
 
-    public function setIsComplete(?DateTimeInterface $isComplete): self
+    public function setCompleteAt(?DateTimeInterface $completedAt): self
     {
-        $this->isComplete = $isComplete;
+        $this->completedAt = $completedAt;
 
         return $this;
     }

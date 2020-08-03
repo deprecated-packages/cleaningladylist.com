@@ -29,6 +29,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         __DIR__ . '/src',
     ]);
 
-    $parameters->set(Option::SETS, [SetList::CODE_QUALITY]);
+    $parameters->set(Option::SETS, [SetList::CODE_QUALITY, SetList::NAMING]);
 
 };

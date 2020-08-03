@@ -6,17 +6,17 @@ namespace App\Repository;
 
 use App\Entity\Checklist;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Persistence\ObjectRepository;
+use Doctrine\ORM\EntityRepository;
 
 final class ChecklistRepository
 {
     /**
-     * @var ObjectRepository<Checklist>
+     * @var EntityRepository<Checklist>
      */
-    private $repository;
+    private $entityRepository;
 
     public function __construct(EntityManagerInterface $entityManager)
     {
-        $this->repository = $entityManager->getRepository(Checklist::class);
+        $this->entityRepository = $entityManager->getRepository(Checklist::class);
     }
 }

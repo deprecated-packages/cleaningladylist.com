@@ -63,11 +63,11 @@ class Project
      * @ORM\Column(type="datetime")
      * @var DateTimeInterface
      */
-    private ?DateTimeInterface $date;
+    private ?DateTimeInterface $dateTime;
 
     public function __construct()
     {
-        $this->date = new DateTime();
+        $this->dateTime = new DateTime();
         $this->id = Uuid::uuid4();
         $this->checklists = new ArrayCollection();
     }
@@ -170,12 +170,12 @@ class Project
 
     public function getDate(): ?DateTimeInterface
     {
-        return $this->date;
+        return $this->dateTime;
     }
 
-    public function setDate(DateTimeInterface $date): self
+    public function setDate(DateTimeInterface $dateTime): self
     {
-        $this->date = $date;
+        $this->dateTime = $dateTime;
 
         return $this;
     }

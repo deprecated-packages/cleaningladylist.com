@@ -10,14 +10,16 @@ use Doctrine\ORM\EntityRepository;
 
 final class CheckboxRepository
 {
+    public $repository;
+
     /**
      * @var EntityRepository<Checkbox>
      */
-    private $repository;
+    private $entityRepository;
 
     public function __construct(EntityManagerInterface $entityManager)
     {
-        $this->repository = $entityManager->getRepository(Checkbox::class);
+        $this->entityRepository = $entityManager->getRepository(Checkbox::class);
     }
 
     /**

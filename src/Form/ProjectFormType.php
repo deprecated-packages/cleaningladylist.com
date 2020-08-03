@@ -16,9 +16,9 @@ final class ProjectFormType extends AbstractType
     /**
      * @param mixed[] $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options): void
+    public function buildForm(FormBuilderInterface $formBuilder, array $options): void
     {
-        $builder->add('title')
+        $formBuilder->add('title')
             ->add('currentFramework', ChoiceType::class, [
                 'label' => false,
                 'placeholder' => 'Framework',
@@ -66,9 +66,9 @@ final class ProjectFormType extends AbstractType
         ;
     }
 
-    public function configureOptions(OptionsResolver $resolver): void
+    public function configureOptions(OptionsResolver $optionsResolver): void
     {
-        $resolver->setDefaults([
+        $optionsResolver->setDefaults([
             'data_class' => Project::class,
         ]);
     }

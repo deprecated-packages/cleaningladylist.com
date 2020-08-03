@@ -13,10 +13,10 @@ final class ProjectRepository
     /**
      * @var EntityRepository<Project>
      */
-    private $repository;
+    private $entityRepository;
 
     public function __construct(EntityManagerInterface $entityManager)
     {
-        $this->repository = $entityManager->getRepository(Project::class);
+        $this->entityRepository = $entityManager->getRepository(Project::class);
     }
 }

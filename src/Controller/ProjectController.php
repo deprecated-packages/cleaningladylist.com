@@ -18,14 +18,13 @@ use Symfony\Component\Routing\RouterInterface;
 
 final class ProjectController extends AbstractController
 {
-    private EntityManagerInterface $em;
-
+    private EntityManagerInterface $entityManager;
 
     private RouterInterface $router;
 
-    public function __construct(EntityManagerInterface $em, RouterInterface $router)
+    public function __construct(EntityManagerInterface $entityManager, RouterInterface $router)
     {
-        $this->em = $em;
+        $this->entityManager = $entityManager;
         $this->router = $router;
     }
 
@@ -44,9 +43,9 @@ final class ProjectController extends AbstractController
             $checklist->setProject($project);
             $project->addChecklist($checklist);
 
-            $this->em->persist($checklist);
-            $this->em->persist($project);
-            $this->em->flush();
+            $this->entityManager->persist($checklist);
+            $this->entityManager->persist($project);
+            $this->entityManager->flush();
 
             return new RedirectResponse($this->router->generate('project.show', ['id' => $project->getId()]));
         }
@@ -62,7 +61,7 @@ final class ProjectController extends AbstractController
     public function show(Project $project): Response
     {
         $currentFramework = $project->getCurrentFramework();
-        $checkboxes = $this->em->getRepository(Checkbox::class)->findByFramework($currentFramework);
+        $checkboxes = $this->entityManager->getRepository(Checkbox::class)->findByFramework($currentFramework);
 
         return $this->render('project/show.html.twig', [
             'project' => $project,
