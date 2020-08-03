@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
+use App\Entity\Checkbox;
 use App\Entity\Checklist;
 use App\Entity\Project;
 use App\Form\ProjectFormType;
@@ -13,14 +16,15 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\RouterInterface;
 
-class ProjectController extends AbstractController
+final class ProjectController extends AbstractController
 {
     /**
-     * @var EntityManagerInterface
+     * @var \Doctrine\ORM\EntityManagerInterface
      */
     private EntityManagerInterface $em;
+
     /**
-     * @var RouterInterface
+     * @var \Symfony\Component\Routing\RouterInterface
      */
     private RouterInterface $router;
 
@@ -29,10 +33,7 @@ class ProjectController extends AbstractController
      * @param EntityManagerInterface $em
      * @param RouterInterface $router
      */
-    public function __construct(
-        EntityManagerInterface $em,
-        RouterInterface $router
-    )
+    public function __construct(EntityManagerInterface $em, RouterInterface $router)
     {
         $this->em = $em;
         $this->router = $router;
@@ -50,6 +51,9 @@ class ProjectController extends AbstractController
         $projectForm->handleRequest($request);
         if ($projectForm->isSubmitted() && $projectForm->isValid()) {
 
+            /**
+             * @var Checklist $checklist
+             */
             $checklist = new Checklist();
             $checklist->setProject($project);
             $project->addChecklist($checklist);
@@ -62,10 +66,9 @@ class ProjectController extends AbstractController
         }
 
         return $this->render('project/create.html.twig', [
-            'projectForm' => $projectForm->createView()
+            'projectForm' => $projectForm->createView(),
         ]);
     }
-
 
     /**
      * @Route("/project/{id}", name="project.show")
@@ -74,15 +77,12 @@ class ProjectController extends AbstractController
      */
     public function show(Project $project)
     {
-        $checkboxes = $this->em->getRepository("App:Checkbox")->findByFramework($project->getCurrentFramework());
+        $currentFramework = $project->getCurrentFramework();
+        $checkboxes = $this->em->getRepository(Checkbox::class)->findByFramework($currentFramework);
 
         return $this->render('project/show.html.twig', [
             'project' => $project,
-            'checkboxes'=>$checkboxes
+            'checkboxes' => $checkboxes,
         ]);
     }
-
 }
-
-
-

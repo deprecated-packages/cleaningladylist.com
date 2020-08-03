@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Repository\ChecklistRepository;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -14,21 +17,25 @@ class Checklist
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @var int
      */
     private ?int $id;
 
     /**
      * @ORM\ManyToOne(targetEntity=Project::class, inversedBy="checklists")
+     * @var \App\Entity\Project|null
      */
     private ?Project $project;
 
     /**
      * @ORM\ManyToOne(targetEntity=Checkbox::class)
+     * @var \App\Entity\Checkbox|null
      */
     private ?Checkbox $checkbox;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @var DateTimeInterface|null
      */
     private $isComplete;
 
@@ -61,16 +68,15 @@ class Checklist
         return $this;
     }
 
-    public function getIsComplete(): ?\DateTimeInterface
+    public function getIsComplete(): ?DateTimeInterface
     {
         return $this->isComplete;
     }
 
-    public function setIsComplete(?\DateTimeInterface $isComplete): self
+    public function setIsComplete(?DateTimeInterface $isComplete): self
     {
         $this->isComplete = $isComplete;
 
         return $this;
     }
-
 }

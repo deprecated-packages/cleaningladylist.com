@@ -1,12 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Repository\ProjectRepository;
+use App\Entity\Checklist;
+use DateTime;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\PersistentCollection;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -18,47 +22,55 @@ class Project
     /**
      * @ORM\Id
      * @ORM\Column(type="uuid")
+     * @var \Ramsey\Uuid\UuidInterface|null
      */
     private ?UuidInterface $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @var string
      */
     private ?string $title;
 
     /**
      * @ORM\OneToMany(targetEntity=Checklist::class, mappedBy="project")
+     * @var Checklist::class []|\Doctrine\Common\Collections\Collection
      */
     private $checklists;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @var string
      */
     private ?string $currentFramework;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @var string
      */
     private ?string $currentPhpVersion;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @var string
      */
     private ?string $desiredFramework;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @var string
      */
     private ?string $desiredPhpVersion;
 
     /**
      * @ORM\Column(type="datetime")
+     * @var DateTimeInterface
      */
-    private ?\DateTimeInterface $date;
+    private ?DateTimeInterface $date;
 
     public function __construct()
     {
-        $this->date = new \DateTime();
+        $this->date = new DateTime();
         $this->id = Uuid::uuid4();
         $this->checklists = new ArrayCollection();
     }
@@ -90,7 +102,7 @@ class Project
 
     public function addChecklist(Checklist $checklist): self
     {
-        if (!$this->checklists->contains($checklist)) {
+        if (! $this->checklists->contains($checklist)) {
             $this->checklists[] = $checklist;
             $checklist->setProject($this);
         }
@@ -159,12 +171,12 @@ class Project
         return $this;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    public function getDate(): ?DateTimeInterface
     {
         return $this->date;
     }
 
-    public function setDate(\DateTimeInterface $date): self
+    public function setDate(DateTimeInterface $date): self
     {
         $this->date = $date;
 

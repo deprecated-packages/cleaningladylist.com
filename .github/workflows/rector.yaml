@@ -13,4 +13,4 @@ jobs:
                     coverage: none
 
             -   run: composer install --no-progress --ansi
-            -   run: vendor/bin/rector process --dry-run --ansi
+            -   run: composer rector

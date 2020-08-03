@@ -11,7 +11,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             'url' => '%env(resolve:DATABASE_URL)%',
             'types' => [
                 UuidType::NAME => UuidType::class,
-            ]
+            ],
         ],
     ]);
 

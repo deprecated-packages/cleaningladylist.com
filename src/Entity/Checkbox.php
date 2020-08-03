@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Repository\CheckboxRepository;
@@ -14,26 +16,31 @@ class Checkbox
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @var int
      */
     private ?int $id;
 
     /**
      * @ORM\Column(type="text")
+     * @var string
      */
     private ?string $task;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @var string|null
      */
     private ?string $description;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @var string
      */
     private ?string $category;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @var string|null
      */
     private ?string $framework;
 

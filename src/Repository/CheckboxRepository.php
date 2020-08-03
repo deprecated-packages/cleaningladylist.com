@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repository;
 
 use App\Entity\Checkbox;
@@ -9,10 +11,10 @@ use Doctrine\Persistence\ManagerRegistry;
 /**
  * @method Checkbox|null find($id, $lockMode = null, $lockVersion = null)
  * @method Checkbox|null findOneBy(array $criteria, array $orderBy = null)
- * @method Checkbox[]    findAll()
- * @method Checkbox[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Checkbox[] findAll()
+ * @method Checkbox[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class CheckboxRepository extends ServiceEntityRepository
+final class CheckboxRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
