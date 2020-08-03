@@ -5,41 +5,31 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\Checkbox;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityRepository;
 
-/**
- * @method Checkbox|null find($id, $lockMode = null, $lockVersion = null)
- * @method Checkbox|null findOneBy(array $criteria, array $orderBy = null)
- * @method Checkbox[] findAll()
- * @method Checkbox[] findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- */
-final class CheckboxRepository extends ServiceEntityRepository
+final class CheckboxRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    /**
+     * @var EntityRepository<Checkbox>
+     */
+    private $entityRepository;
+
+    public function __construct(EntityManagerInterface $entityManager)
     {
-        parent::__construct($registry, Checkbox::class);
+        $this->entityRepository = $entityManager->getRepository(Checkbox::class);
     }
 
-    public function findByFramework(string $framework)
+    /**
+     * @return Checkbox[]
+     */
+    public function findByFramework(string $framework): array
     {
-        return $this->createQueryBuilder('c')
+        return $this->entityRepository->createQueryBuilder('c')
             ->where('c.framework = :framework')
             ->setParameter('framework', $framework)
             ->orWhere('c.framework is NULL')
             ->getQuery()
             ->getResult();
     }
-
-    /*
-    public function findOneBySomeField($value): ?Checkbox
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

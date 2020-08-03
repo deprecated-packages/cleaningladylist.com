@@ -18,51 +18,26 @@ use Symfony\Component\Routing\RouterInterface;
 
 final class ProjectController extends AbstractController
 {
-    /**
-     * @var \Doctrine\ORM\EntityManagerInterface
-     */
-    private EntityManagerInterface $em;
+    private EntityManagerInterface $entityManager;
 
-    /**
-     * @var \Symfony\Component\Routing\RouterInterface
-     */
     private RouterInterface $router;
 
-    /**
-     * ProjectController constructor.
-     * @param EntityManagerInterface $em
-     * @param RouterInterface $router
-     */
-    public function __construct(EntityManagerInterface $em, RouterInterface $router)
+    public function __construct(EntityManagerInterface $entityManager, RouterInterface $router)
     {
-        $this->em = $em;
+        $this->entityManager = $entityManager;
         $this->router = $router;
     }
 
     /**
      * @Route("/", name="project.new")
-     * @param Request $request
-     * @return Response
      */
-    public function create(Request $request)
+    public function create(Request $request): Response
     {
         $project = new Project();
         $projectForm = $this->createForm(ProjectFormType::class, $project);
         $projectForm->handleRequest($request);
         if ($projectForm->isSubmitted() && $projectForm->isValid()) {
-
-            /**
-             * @var Checklist $checklist
-             */
-            $checklist = new Checklist();
-            $checklist->setProject($project);
-            $project->addChecklist($checklist);
-
-            $this->em->persist($checklist);
-            $this->em->persist($project);
-            $this->em->flush();
-
-            return new RedirectResponse($this->router->generate('project.show', ['id' => $project->getId()]));
+            return $this->processFormRequest($project);
         }
 
         return $this->render('project/create.html.twig', [
@@ -72,17 +47,29 @@ final class ProjectController extends AbstractController
 
     /**
      * @Route("/project/{id}", name="project.show")
-     * @param Project $project
-     * @return Response
      */
-    public function show(Project $project)
+    public function show(Project $project): Response
     {
         $currentFramework = $project->getCurrentFramework();
-        $checkboxes = $this->em->getRepository(Checkbox::class)->findByFramework($currentFramework);
+        $checkboxes = $this->entityManager->getRepository(Checkbox::class)->findByFramework($currentFramework);
 
         return $this->render('project/show.html.twig', [
             'project' => $project,
             'checkboxes' => $checkboxes,
         ]);
+    }
+
+    private function processFormRequest(Project $project): RedirectResponse
+    {
+        /** @var Checklist $checklist */
+        $checklist = new Checklist();
+        $checklist->setProject($project);
+        $project->addChecklist($checklist);
+
+        $this->entityManager->persist($checklist);
+        $this->entityManager->persist($project);
+        $this->entityManager->flush();
+
+        return new RedirectResponse($this->router->generate('project.show', ['id' => $project->getId()]));
     }
 }

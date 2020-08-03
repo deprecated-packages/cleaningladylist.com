@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Repository\CheckboxRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=CheckboxRepository::class)
+ * @ORM\Entity()
  */
 class Checkbox
 {
@@ -28,7 +27,6 @@ class Checkbox
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @var string|null
      */
     private ?string $description;
 
@@ -40,7 +38,6 @@ class Checkbox
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @var string|null
      */
     private ?string $framework;
 
@@ -54,11 +51,9 @@ class Checkbox
         return $this->task;
     }
 
-    public function setTask(string $task): self
+    public function setTask(string $task): void
     {
         $this->task = $task;
-
-        return $this;
     }
 
     public function getDescription(): ?string
@@ -66,11 +61,9 @@ class Checkbox
         return $this->description;
     }
 
-    public function setDescription(?string $description): self
+    public function setDescription(?string $description): void
     {
         $this->description = $description;
-
-        return $this;
     }
 
     public function getCategory(): ?string
@@ -78,11 +71,9 @@ class Checkbox
         return $this->category;
     }
 
-    public function setCategory(string $category): self
+    public function setCategory(string $category): void
     {
         $this->category = $category;
-
-        return $this;
     }
 
     public function getFramework(): ?string
@@ -90,10 +81,8 @@ class Checkbox
         return $this->framework;
     }
 
-    public function setFramework(?string $framework): self
+    public function setFramework(?string $framework): void
     {
         $this->framework = $framework;
-
-        return $this;
     }
 }

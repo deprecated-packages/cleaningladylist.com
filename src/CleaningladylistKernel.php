@@ -41,8 +41,8 @@ final class CleaningladylistKernel extends Kernel
      * If routing gets broken, debug command will help to narrow the issue:
      * bin/console debug:router
      */
-    protected function configureRoutes(RoutingConfigurator $routes): void
+    protected function configureRoutes(RoutingConfigurator $routingConfigurator): void
     {
-        $routes->import(__DIR__ . '/../config/routes/**/*');
+        $routingConfigurator->import(__DIR__ . '/../config/routes/**/*');
     }
 }

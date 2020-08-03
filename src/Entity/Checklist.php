@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Repository\ChecklistRepository;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=ChecklistRepository::class)
+ * @ORM\Entity
  */
 class Checklist
 {
@@ -23,13 +22,11 @@ class Checklist
 
     /**
      * @ORM\ManyToOne(targetEntity=Project::class, inversedBy="checklists")
-     * @var \App\Entity\Project|null
      */
     private ?Project $project;
 
     /**
      * @ORM\ManyToOne(targetEntity=Checkbox::class)
-     * @var \App\Entity\Checkbox|null
      */
     private ?Checkbox $checkbox;
 
@@ -37,7 +34,7 @@ class Checklist
      * @ORM\Column(type="datetime", nullable=true)
      * @var DateTimeInterface|null
      */
-    private $isComplete;
+    private $completedAt;
 
     public function getId(): ?int
     {
@@ -49,11 +46,9 @@ class Checklist
         return $this->project;
     }
 
-    public function setProject(?Project $project): self
+    public function setProject(?Project $project): void
     {
         $this->project = $project;
-
-        return $this;
     }
 
     public function getCheckbox(): ?Checkbox
@@ -61,22 +56,18 @@ class Checklist
         return $this->checkbox;
     }
 
-    public function setCheckbox(?Checkbox $checkbox): self
+    public function setCheckbox(?Checkbox $checkbox): void
     {
         $this->checkbox = $checkbox;
-
-        return $this;
     }
 
-    public function getIsComplete(): ?DateTimeInterface
+    public function getCompleteAt(): ?DateTimeInterface
     {
-        return $this->isComplete;
+        return $this->completedAt;
     }
 
-    public function setIsComplete(?DateTimeInterface $isComplete): self
+    public function setCompleteAt(?DateTimeInterface $completedAt): void
     {
-        $this->isComplete = $isComplete;
-
-        return $this;
+        $this->completedAt = $completedAt;
     }
 }

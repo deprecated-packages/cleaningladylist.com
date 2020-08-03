@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Repository\ProjectRepository;
-use App\Entity\Checklist;
 use DateTime;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -15,14 +13,13 @@ use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
 /**
- * @ORM\Entity(repositoryClass=ProjectRepository::class)
+ * @ORM\Entity
  */
 class Project
 {
     /**
      * @ORM\Id
      * @ORM\Column(type="uuid")
-     * @var \Ramsey\Uuid\UuidInterface|null
      */
     private ?UuidInterface $id;
 
@@ -34,7 +31,7 @@ class Project
 
     /**
      * @ORM\OneToMany(targetEntity=Checklist::class, mappedBy="project")
-     * @var Checklist::class []|\Doctrine\Common\Collections\Collection
+     * @var iterable<Checklist>&Collection
      */
     private $checklists;
 
@@ -66,11 +63,11 @@ class Project
      * @ORM\Column(type="datetime")
      * @var DateTimeInterface
      */
-    private ?DateTimeInterface $date;
+    private ?DateTimeInterface $dateTime;
 
     public function __construct()
     {
-        $this->date = new DateTime();
+        $this->dateTime = new DateTime();
         $this->id = Uuid::uuid4();
         $this->checklists = new ArrayCollection();
     }
@@ -85,11 +82,9 @@ class Project
         return $this->title;
     }
 
-    public function setTitle(string $title): self
+    public function setTitle(string $title): void
     {
         $this->title = $title;
-
-        return $this;
     }
 
     /**
@@ -100,17 +95,15 @@ class Project
         return $this->checklists;
     }
 
-    public function addChecklist(Checklist $checklist): self
+    public function addChecklist(Checklist $checklist): void
     {
         if (! $this->checklists->contains($checklist)) {
             $this->checklists[] = $checklist;
             $checklist->setProject($this);
         }
-
-        return $this;
     }
 
-    public function removeChecklist(Checklist $checklist): self
+    public function removeChecklist(Checklist $checklist): void
     {
         if ($this->checklists->contains($checklist)) {
             $this->checklists->removeElement($checklist);
@@ -119,8 +112,6 @@ class Project
                 $checklist->setProject(null);
             }
         }
-
-        return $this;
     }
 
     public function getCurrentFramework(): ?string
@@ -128,11 +119,9 @@ class Project
         return $this->currentFramework;
     }
 
-    public function setCurrentFramework(string $currentFramework): self
+    public function setCurrentFramework(string $currentFramework): void
     {
         $this->currentFramework = $currentFramework;
-
-        return $this;
     }
 
     public function getCurrentPhpVersion(): ?string
@@ -140,11 +129,9 @@ class Project
         return $this->currentPhpVersion;
     }
 
-    public function setCurrentPhpVersion(string $currentPhpVersion): self
+    public function setCurrentPhpVersion(string $currentPhpVersion): void
     {
         $this->currentPhpVersion = $currentPhpVersion;
-
-        return $this;
     }
 
     public function getDesiredFramework(): ?string
@@ -152,11 +139,9 @@ class Project
         return $this->desiredFramework;
     }
 
-    public function setDesiredFramework(string $desiredFramework): self
+    public function setDesiredFramework(string $desiredFramework): void
     {
         $this->desiredFramework = $desiredFramework;
-
-        return $this;
     }
 
     public function getDesiredPhpVersion(): ?string
@@ -164,22 +149,18 @@ class Project
         return $this->desiredPhpVersion;
     }
 
-    public function setDesiredPhpVersion(string $desiredPhpVersion): self
+    public function setDesiredPhpVersion(string $desiredPhpVersion): void
     {
         $this->desiredPhpVersion = $desiredPhpVersion;
-
-        return $this;
     }
 
     public function getDate(): ?DateTimeInterface
     {
-        return $this->date;
+        return $this->dateTime;
     }
 
-    public function setDate(DateTimeInterface $date): self
+    public function setDate(DateTimeInterface $dateTime): void
     {
-        $this->date = $date;
-
-        return $this;
+        $this->dateTime = $dateTime;
     }
 }
