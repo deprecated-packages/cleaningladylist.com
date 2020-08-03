@@ -24,7 +24,7 @@ class ProjectCheckbox
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Project::class, inversedBy="projectCheckboxes")
+     * @ORM\ManyToOne(targetEntity=Project::class, inversedBy="project")
      * @var Project|null
      */
     private $project;
