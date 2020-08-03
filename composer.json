@@ -77,7 +77,8 @@
         "sort-packages": true
     },
     "scripts": {
-        "rector": "vendor/bin/rector process --dry-run --ansi",
+        "rector-dry": "vendor/bin/rector process --dry-run --ansi",
+        "rector": "vendor/bin/rector process --ansi",
         "check-cs": "vendor/bin/ecs check --ansi",
         "fix-cs": "vendor/bin/ecs check --fix --ansi",
         "phpstan": "vendor/bin/phpstan analyse --ansi --error-format symplify",

@@ -6,12 +6,12 @@ namespace App\Repository;
 
 use App\Entity\Project;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Persistence\ObjectRepository;
+use Doctrine\ORM\EntityRepository;
 
 final class ProjectRepository
 {
     /**
-     * @var ObjectRepository<Project>
+     * @var EntityRepository<Project>
      */
     private $repository;
 
