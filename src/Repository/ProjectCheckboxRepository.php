@@ -20,7 +20,6 @@ final class ProjectCheckboxRepository extends ServiceEntityRepository
 
     /**
      * ProjectCheckboxRepository constructor.
-     * @param ManagerRegistry $managerRegistry
      */
     public function __construct(ManagerRegistry $managerRegistry)
     {
