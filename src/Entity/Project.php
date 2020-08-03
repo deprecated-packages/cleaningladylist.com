@@ -9,7 +9,6 @@ use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use ProjectCheckbox;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -88,33 +87,6 @@ class Project
     public function setTitle(string $title): void
     {
         $this->title = $title;
-    }
-
-    /**
-     * @return Collection|Checklist[]
-     */
-    public function getChecklists(): Collection
-    {
-        return $this->checklists;
-    }
-
-    public function addChecklist(Checklist $checklist): void
-    {
-        if (! $this->checklists->contains($checklist)) {
-            $this->checklists[] = $checklist;
-            $checklist->setProject($this);
-        }
-    }
-
-    public function removeChecklist(Checklist $checklist): void
-    {
-        if ($this->checklists->contains($checklist)) {
-            $this->checklists->removeElement($checklist);
-            // set the owning side to null (unless already changed)
-            if ($checklist->getProject() === $this) {
-                $checklist->setProject(null);
-            }
-        }
     }
 
     public function getCurrentFramework(): ?string
