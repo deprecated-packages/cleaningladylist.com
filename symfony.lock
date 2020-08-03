@@ -150,6 +150,9 @@
     "ondram/ci-detector": {
         "version": "3.4.0"
     },
+    "paragonie/random_compat": {
+        "version": "v9.99.99"
+    },
     "phar-io/manifest": {
         "version": "1.0.3"
     },
@@ -528,6 +531,9 @@
             "tests/bootstrap.php"
         ]
     },
+    "symfony/polyfill-ctype": {
+        "version": "v1.18.0"
+    },
     "symfony/polyfill-intl-grapheme": {
         "version": "v1.18.0"
     },
@@ -541,6 +547,12 @@
         "version": "v1.18.0"
     },
     "symfony/polyfill-mbstring": {
+        "version": "v1.18.0"
+    },
+    "symfony/polyfill-php70": {
+        "version": "v1.18.0"
+    },
+    "symfony/polyfill-php72": {
         "version": "v1.18.0"
     },
     "symfony/polyfill-php73": {

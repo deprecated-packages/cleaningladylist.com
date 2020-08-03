@@ -18,17 +18,17 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(PropertyTypeDeclarationRector::class);
     $services->set(MoveRepositoryFromParentToConstructorRector::class);
 
-    // no Symfony generated mess magic in repositories
-    $services->set(ReplaceParentRepositoryCallsByRepositoryPropertyRector::class);
-    $services->set(MoveRepositoryFromParentToConstructorRector::class);
-    $services->set(RemoveRepositoryFromEntityAnnotationRector::class);
-
     $parameters = $containerConfigurator->parameters();
 
     $parameters->set(Option::PATHS, [
         __DIR__ . '/src',
     ]);
 
-    $parameters->set(Option::SETS, [SetList::CODE_QUALITY, SetList::NAMING]);
+    $parameters->set(Option::SETS, [
+        SetList::CODE_QUALITY,
+        SetList::NAMING,
+        SetList::DEFLUENT,
+        SetList::REPOSITORY_AS_SERVICE
+    ]);
 
 };

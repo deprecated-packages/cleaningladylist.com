@@ -51,11 +51,9 @@ class Checkbox
         return $this->task;
     }
 
-    public function setTask(string $task): self
+    public function setTask(string $task): void
     {
         $this->task = $task;
-
-        return $this;
     }
 
     public function getDescription(): ?string
@@ -63,11 +61,9 @@ class Checkbox
         return $this->description;
     }
 
-    public function setDescription(?string $description): self
+    public function setDescription(?string $description): void
     {
         $this->description = $description;
-
-        return $this;
     }
 
     public function getCategory(): ?string
@@ -75,11 +71,9 @@ class Checkbox
         return $this->category;
     }
 
-    public function setCategory(string $category): self
+    public function setCategory(string $category): void
     {
         $this->category = $category;
-
-        return $this;
     }
 
     public function getFramework(): ?string
@@ -87,10 +81,8 @@ class Checkbox
         return $this->framework;
     }
 
-    public function setFramework(?string $framework): self
+    public function setFramework(?string $framework): void
     {
         $this->framework = $framework;
-
-        return $this;
     }
 }

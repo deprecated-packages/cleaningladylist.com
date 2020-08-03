@@ -46,11 +46,9 @@ class Checklist
         return $this->project;
     }
 
-    public function setProject(?Project $project): self
+    public function setProject(?Project $project): void
     {
         $this->project = $project;
-
-        return $this;
     }
 
     public function getCheckbox(): ?Checkbox
@@ -58,11 +56,9 @@ class Checklist
         return $this->checkbox;
     }
 
-    public function setCheckbox(?Checkbox $checkbox): self
+    public function setCheckbox(?Checkbox $checkbox): void
     {
         $this->checkbox = $checkbox;
-
-        return $this;
     }
 
     public function getCompleteAt(): ?DateTimeInterface
@@ -70,10 +66,8 @@ class Checklist
         return $this->completedAt;
     }
 
-    public function setCompleteAt(?DateTimeInterface $completedAt): self
+    public function setCompleteAt(?DateTimeInterface $completedAt): void
     {
         $this->completedAt = $completedAt;
-
-        return $this;
     }
 }

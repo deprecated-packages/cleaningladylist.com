@@ -18,52 +18,51 @@ final class ProjectFormType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $formBuilder, array $options): void
     {
-        $formBuilder->add('title')
-            ->add('currentFramework', ChoiceType::class, [
-                'label' => false,
-                'placeholder' => 'Framework',
-                'choices' => [
-                    'Symfony' => 'Symfony',
-                    'CodeIgniter' => 'CodeIgniter',
-                    'Laravel' => 'Laravel',
-                    'Zend' => 'Zend',
-                    'Phalcon' => 'Phalcon',
-                    'CakePHP' => 'CakePHP',
-                    'Yii' => 'Yii',
-                ],
-            ])
-            ->add('currentPhpVersion', ChoiceType::class, [
-                'label' => false,
-                'placeholder' => 'PHP version',
-                'choices' => [
-                    '5.6' => '5.6',
-                    '7.0' => '7.0',
-                    '7.1' => '7.1',
-                    '7.2' => '7.2',
-                    '7.3' => '7.3',
-                    '7.4' => '7.4',
-                ],
-            ])
-            ->add('desiredFramework', ChoiceType::class, [
-                'label' => false,
-                'placeholder' => 'Framework',
-                'choices' => [
-                    'Symfony' => 'Symfony',
-                ],
-            ])
-            ->add('desiredPhpVersion', ChoiceType::class, [
-                'label' => false,
-                'placeholder' => 'PHP version',
-                'choices' => [
-                    '7.4' => '7.4',
-                ],
-            ])
-            ->add('save', SubmitType::class, [
-                'attr' => [
-                    'class' => 'btn btn-dark btn-block',
-                ],
-            ])
-        ;
+        $formBuilder->add('title');
+        $formBuilder->add('currentFramework', ChoiceType::class, [
+            'label' => false,
+            'placeholder' => 'Framework',
+            'choices' => [
+                'Symfony' => 'Symfony',
+                'CodeIgniter' => 'CodeIgniter',
+                'Laravel' => 'Laravel',
+                'Zend' => 'Zend',
+                'Phalcon' => 'Phalcon',
+                'CakePHP' => 'CakePHP',
+                'Yii' => 'Yii',
+            ],
+        ]);
+        $formBuilder->add('currentPhpVersion', ChoiceType::class, [
+            'label' => false,
+            'placeholder' => 'PHP version',
+            'choices' => [
+                '5.6' => '5.6',
+                '7.0' => '7.0',
+                '7.1' => '7.1',
+                '7.2' => '7.2',
+                '7.3' => '7.3',
+                '7.4' => '7.4',
+            ],
+        ]);
+        $formBuilder->add('desiredFramework', ChoiceType::class, [
+            'label' => false,
+            'placeholder' => 'Framework',
+            'choices' => [
+                'Symfony' => 'Symfony',
+            ],
+        ]);
+        $formBuilder->add('desiredPhpVersion', ChoiceType::class, [
+            'label' => false,
+            'placeholder' => 'PHP version',
+            'choices' => [
+                '7.4' => '7.4',
+            ],
+        ]);
+        $formBuilder->add('save', SubmitType::class, [
+            'attr' => [
+                'class' => 'btn btn-dark btn-block',
+            ],
+        ]);
     }
 
     public function configureOptions(OptionsResolver $optionsResolver): void

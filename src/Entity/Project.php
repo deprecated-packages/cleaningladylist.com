@@ -82,11 +82,9 @@ class Project
         return $this->title;
     }
 
-    public function setTitle(string $title): self
+    public function setTitle(string $title): void
     {
         $this->title = $title;
-
-        return $this;
     }
 
     /**
@@ -97,17 +95,15 @@ class Project
         return $this->checklists;
     }
 
-    public function addChecklist(Checklist $checklist): self
+    public function addChecklist(Checklist $checklist): void
     {
         if (! $this->checklists->contains($checklist)) {
             $this->checklists[] = $checklist;
             $checklist->setProject($this);
         }
-
-        return $this;
     }
 
-    public function removeChecklist(Checklist $checklist): self
+    public function removeChecklist(Checklist $checklist): void
     {
         if ($this->checklists->contains($checklist)) {
             $this->checklists->removeElement($checklist);
@@ -116,8 +112,6 @@ class Project
                 $checklist->setProject(null);
             }
         }
-
-        return $this;
     }
 
     public function getCurrentFramework(): ?string
@@ -125,11 +119,9 @@ class Project
         return $this->currentFramework;
     }
 
-    public function setCurrentFramework(string $currentFramework): self
+    public function setCurrentFramework(string $currentFramework): void
     {
         $this->currentFramework = $currentFramework;
-
-        return $this;
     }
 
     public function getCurrentPhpVersion(): ?string
@@ -137,11 +129,9 @@ class Project
         return $this->currentPhpVersion;
     }
 
-    public function setCurrentPhpVersion(string $currentPhpVersion): self
+    public function setCurrentPhpVersion(string $currentPhpVersion): void
     {
         $this->currentPhpVersion = $currentPhpVersion;
-
-        return $this;
     }
 
     public function getDesiredFramework(): ?string
@@ -149,11 +139,9 @@ class Project
         return $this->desiredFramework;
     }
 
-    public function setDesiredFramework(string $desiredFramework): self
+    public function setDesiredFramework(string $desiredFramework): void
     {
         $this->desiredFramework = $desiredFramework;
-
-        return $this;
     }
 
     public function getDesiredPhpVersion(): ?string
@@ -161,11 +149,9 @@ class Project
         return $this->desiredPhpVersion;
     }
 
-    public function setDesiredPhpVersion(string $desiredPhpVersion): self
+    public function setDesiredPhpVersion(string $desiredPhpVersion): void
     {
         $this->desiredPhpVersion = $desiredPhpVersion;
-
-        return $this;
     }
 
     public function getDate(): ?DateTimeInterface
@@ -173,10 +159,8 @@ class Project
         return $this->dateTime;
     }
 
-    public function setDate(DateTimeInterface $dateTime): self
+    public function setDate(DateTimeInterface $dateTime): void
     {
         $this->dateTime = $dateTime;
-
-        return $this;
     }
 }
