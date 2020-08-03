@@ -1,15 +1,12 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Repository\CheckboxRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=CheckboxRepository::class)
  */
 class Checkbox
 {
@@ -17,58 +14,55 @@ class Checkbox
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @var int
      */
-    private $id;
+    private ?int $id;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private ?string $task;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private ?string $description;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @var string
      */
-    private $title;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @var string
-     */
-    private $category;
+    private ?string $category;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @var string|null
      */
-    private $help;
-
-    /**
-     * @ORM\OneToMany(targetEntity=ProjectCheckbox::class, mappedBy="checkbox")
-     * @var Collection<ProjectCheckbox>
-     */
-    private $projectCheckboxes;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @var string|null
-     */
-    private $framework;
-
-    public function __construct()
-    {
-        $this->projectCheckboxes = new ArrayCollection();
-    }
+    private ?string $framework;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getTitle(): ?string
+    public function getTask(): ?string
     {
-        return $this->title;
+        return $this->task;
     }
 
-    public function setTitle(string $title): self
+    public function setTask(string $task): self
     {
-        $this->title = $title;
+        $this->task = $task;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
+
         return $this;
     }
 
@@ -80,49 +74,6 @@ class Checkbox
     public function setCategory(string $category): self
     {
         $this->category = $category;
-
-        return $this;
-    }
-
-    public function getHelp(): ?string
-    {
-        return $this->help;
-    }
-
-    public function setHelp(?string $help): self
-    {
-        $this->help = $help;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<ProjectCheckbox>
-     */
-    public function getProjectCheckboxes(): Collection
-    {
-        return $this->projectCheckboxes;
-    }
-
-    public function addProjectCheckbox(ProjectCheckbox $projectCheckbox): self
-    {
-        if (! $this->projectCheckboxes->contains($projectCheckbox)) {
-            $this->projectCheckboxes[] = $projectCheckbox;
-            $projectCheckbox->setCheckbox($this);
-        }
-
-        return $this;
-    }
-
-    public function removeProjectCheckbox(ProjectCheckbox $projectCheckbox): self
-    {
-        if ($this->projectCheckboxes->contains($projectCheckbox)) {
-            $this->projectCheckboxes->removeElement($projectCheckbox);
-            // set the owning side to null (unless already changed)
-            if ($projectCheckbox->getCheckbox() === $this) {
-                $projectCheckbox->setCheckbox(null);
-            }
-        }
 
         return $this;
     }

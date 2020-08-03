@@ -1,107 +1,69 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Entity;
 
-use DateTime;
-use DateTimeInterface;
+use App\Repository\ProjectRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\PersistentCollection;
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=ProjectRepository::class)
  */
 class Project
 {
     /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     * @var int
+     * @ORM\Id
+     * @ORM\Column(type="uuid")
      */
-    private $id;
+    private ?UuidInterface $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @var string
      */
-    private $title;
+    private ?string $title;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
-     * @var string|null
+     * @ORM\OneToMany(targetEntity=Checklist::class, mappedBy="project")
      */
-    private $description;
+    private $checklists;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private ?string $currentFramework;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private ?string $currentPhpVersion;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private ?string $desiredFramework;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private ?string $desiredPhpVersion;
 
     /**
      * @ORM\Column(type="datetime")
-     * @var DateTimeInterface
      */
-    private $startDate;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     * @var DateTimeInterface|null
-     */
-    private $endDate;
-
-    /**
-     * @ORM\Column(type="integer")
-     * @var int
-     */
-    private $status;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="projects")
-     * @var User|null
-     */
-    private $user;
-
-    /**
-     * @ORM\OneToMany(targetEntity=ProjectCheckbox::class, mappedBy="project")
-     * @var Collection&iterable<ProjectCheckbox>
-     */
-    private $projectCheckLists;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @var string
-     */
-    private $currentFramework;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @var string
-     */
-    private $desiredFramework;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @var string
-     */
-    private $currentPhpVersion;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @var string
-     */
-    private $desiredPhpVersion;
-
-    /**
-     * @ORM\Column(type="integer")
-     * @var int
-     */
-    private $CheckboxCount;
+    private ?\DateTimeInterface $date;
 
     public function __construct()
     {
-        $this->startDate = new DateTime();
-        $this->projectCheckLists = new ArrayCollection();
+        $this->date = new \DateTime();
+        $this->id = Uuid::uuid4();
+        $this->checklists = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getId(): ?UuidInterface
     {
         return $this->id;
     }
@@ -118,104 +80,31 @@ class Project
         return $this;
     }
 
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function setDescription(?string $description): self
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    public function getStartDate(): ?DateTimeInterface
-    {
-        return $this->startDate;
-    }
-
-    public function setStartDate(DateTimeInterface $startDate): self
-    {
-        $this->startDate = $startDate;
-
-        return $this;
-    }
-
-    public function getEndDate(): ?DateTimeInterface
-    {
-        return $this->endDate;
-    }
-
-    public function setEndDate(?DateTimeInterface $endDate): self
-    {
-        $this->endDate = $endDate;
-
-        return $this;
-    }
-
-    public function getStatus(): ?int
-    {
-        return $this->status;
-    }
-
-    public function setStatus(int $status): self
-    {
-        $this->status = $status;
-
-        return $this;
-    }
-
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    public function getProgress(self $project): string
-    {
-        $checksComplete = 0;
-
-        foreach ($project->getProjectCheckLists() as $check) {
-            if ($check->getIsDone()) {
-                $checksComplete++;
-            }
-        }
-
-        return number_format($checksComplete / $this->getCheckboxCount() * 100, 2);
-    }
-
     /**
-     * @return Collection<ProjectCheckbox>
+     * @return Collection|Checklist[]
      */
-    public function getProjectCheckLists()
+    public function getChecklists(): Collection
     {
-        return $this->projectCheckLists;
+        return $this->checklists;
     }
 
-    public function addProjectCheckList(ProjectCheckbox $projectCheckList): self
+    public function addChecklist(Checklist $checklist): self
     {
-        if (! $this->projectCheckLists->contains($projectCheckList)) {
-            $this->projectCheckLists[] = $projectCheckList;
-            $projectCheckList->setProject($this);
+        if (!$this->checklists->contains($checklist)) {
+            $this->checklists[] = $checklist;
+            $checklist->setProject($this);
         }
 
         return $this;
     }
 
-    public function removeProjectCheckList(ProjectCheckbox $projectCheckList): self
+    public function removeChecklist(Checklist $checklist): self
     {
-        if ($this->projectCheckLists->contains($projectCheckList)) {
-            $this->projectCheckLists->removeElement($projectCheckList);
+        if ($this->checklists->contains($checklist)) {
+            $this->checklists->removeElement($checklist);
             // set the owning side to null (unless already changed)
-            if ($projectCheckList->getProject() === $this) {
-                $projectCheckList->setProject(null);
+            if ($checklist->getProject() === $this) {
+                $checklist->setProject(null);
             }
         }
 
@@ -234,18 +123,6 @@ class Project
         return $this;
     }
 
-    public function getDesiredFramework(): ?string
-    {
-        return $this->desiredFramework;
-    }
-
-    public function setDesiredFramework(string $desiredFramework): self
-    {
-        $this->desiredFramework = $desiredFramework;
-
-        return $this;
-    }
-
     public function getCurrentPhpVersion(): ?string
     {
         return $this->currentPhpVersion;
@@ -254,6 +131,18 @@ class Project
     public function setCurrentPhpVersion(string $currentPhpVersion): self
     {
         $this->currentPhpVersion = $currentPhpVersion;
+
+        return $this;
+    }
+
+    public function getDesiredFramework(): ?string
+    {
+        return $this->desiredFramework;
+    }
+
+    public function setDesiredFramework(string $desiredFramework): self
+    {
+        $this->desiredFramework = $desiredFramework;
 
         return $this;
     }
@@ -270,14 +159,14 @@ class Project
         return $this;
     }
 
-    public function getCheckboxCount(): ?int
+    public function getDate(): ?\DateTimeInterface
     {
-        return $this->CheckboxCount;
+        return $this->date;
     }
 
-    public function setCheckboxCount(int $CheckboxCount): self
+    public function setDate(\DateTimeInterface $date): self
     {
-        $this->CheckboxCount = $CheckboxCount;
+        $this->date = $date;
 
         return $this;
     }

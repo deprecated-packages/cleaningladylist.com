@@ -1,122 +1,48 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ project.title }}{% endblock %}
+{% block title %}Project{% endblock %}
 
 {% block body %}
     <div class="container">
-        <div class="row mt-3">
-
+        <div class="row justify-content-center mt-3">
             <div class="col-md-8">
-                {% for checkbox in checkboxes %}
-
+                {% for checklist in project.checklists %}
                     <div class="card mb-3">
-                        <div class="card-body between">
-                            <div>
-                                <div class="form-check form-switch">
-                                    <input data-id="{{ checkbox.id }}" class="form-check-input checkbox" type="checkbox"
-                                           id="checkbox_{{ checkbox.id }}"
-                                            {% for item in project.projectCheckLists %}
-                                        {% if item.checkbox.id == checkbox.id and item.isDone %}
-                                            checked
-                                        {% endif %}
-                                            {% endfor %}>
-                                    <label class="form-check-label"
-                                           for="checkbox_{{ checkbox.id }}">{{ checkbox.title }}
-                                    </label>
-                                    {% if checkbox.help %}
-                                        <a href="{{ checkbox.help }}" target="_blank">
-                                            How?
-                                        </a>
-                                    {% endif %}
-                                </div>
+                        <div class="card-body">
+                            <div class="form-check">
+                                <input {% if checklist.isComplete %}checked{% endif %} { class="form-check-input"
+                                       type="checkbox" value="" id="flexCheckChecked">
+                                <label class="form-check-label" for="flexCheckChecked">
+                                    {{ checklist.checkbox.task }}
+                                </label>
                             </div>
-                            <div class="badge bg-dark">{{ checkbox.category }}</div>
                         </div>
                     </div>
                 {% endfor %}
             </div>
-
-
             <div class="col-md-4">
-
-                <div class="card mb-3">
+                <div class="card">
                     <div class="card-header between">
                         <div><b>{{ project.title }}</b></div>
-                        <div>{{ project.startDate|date('d.m.y') }}</div>
+                        <div class="text-muted">{{ project.date|date('d.m.y') }}</div>
                     </div>
-                    <div class="progress card-header-progress">
-                        <div class="progress-bar" role="progressbar" style="width: {{ project.progress(project) }}%;"
-                             aria-valuenow="{{ project.progress(project) }}" aria-valuemin="0" aria-valuemax="100">{{ project.progress(project) }}%</div>
-                    </div>
-                    <div class="card-body">
-
-                        {{ form_start(projectEditForm) }}
-
-                        {{ form_row(projectEditForm.title) }}
-
-
-                        <div class="card mb-3 mt-3">
-                            <div class="card-header">Current stack</div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        {{ form_row(projectEditForm.currentFramework) }}
-                                    </div>
-                                    <div class="col-md-6">
-                                        {{ form_row(projectEditForm.currentPhpVersion) }}
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="card-body between">
+                        <div class="text-center">
+                            <div>{{ project.currentFramework }}</div>
+                            <div>
+                                <span class="badge bg-dark">{{ project.currentPhpVersion }}</span></div>
                         </div>
-
-
-                        <div class="card mb-3">
-                            <div class="card-header">Desired stack</div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        {{ form_row(projectEditForm.desiredFramework) }}
-                                    </div>
-                                    <div class="col-md-6">
-                                        {{ form_row(projectEditForm.desiredPhpVersion) }}
-                                    </div>
-                                </div>
-                            </div>
+                        <div>
+                            <i class="material-icons">trending_flat</i>
                         </div>
-
-                        {{ form_row(projectEditForm.save) }}
-
-                        {{ form_end(projectEditForm) }}
-
-
+                        <div class="text-center">
+                            <div>{{ project.desiredFramework }}</div>
+                            <div>
+                                <span class="badge bg-dark">{{ project.desiredPhpVersion }}</span></div>
+                        </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
-{% endblock %}
-{% block javascripts %}
-    {{ parent() }}
-    <script>
-        $(".checkbox").on("change", function (element) {
-            $.ajax({
-                url: '{{ path('checkbox.complete') }}',
-                type: "POST",
-                dataType: "json",
-                data: {
-                    "id": $(this).data().id,
-                    "project_id": {{ project.id }},
-                    "isDone": this.checked ? 1 : 0
-                },
-                async: true,
-                success: function (data) {
-                    $('.progress-bar').css({'width': data + "%"});
-                    $('.progress-bar').text(data+'%');
-                    console.log("done");
-                }
-            });
-            return false;
-        });
-    </script>
 {% endblock %}

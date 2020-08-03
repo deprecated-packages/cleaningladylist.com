@@ -1,54 +1,50 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Repository;
 
 use App\Entity\Project;
-use App\Exception\ShouldNotHappenException;
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\EntityRepository;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
 
-final class ProjectRepository
+/**
+ * @method Project|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Project|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Project[]    findAll()
+ * @method Project[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ */
+class ProjectRepository extends ServiceEntityRepository
 {
-    /**
-     * @var EntityRepository<Project>
-     */
-    private $repository;
-
-    /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
-
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(ManagerRegistry $registry)
     {
-        $this->repository = $entityManager->getRepository(Project::class);
-        $this->entityManager = $entityManager;
+        parent::__construct($registry, Project::class);
     }
 
-    /**
-     * @param mixed[] $criteria
-     * @return iterable<Project>
-     */
-    public function findBy(array $criteria)
+    // /**
+    //  * @return Project[] Returns an array of Project objects
+    //  */
+    /*
+    public function findByExampleField($value)
     {
-        return $this->repository->findBy($criteria);
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.exampleField = :val')
+            ->setParameter('val', $value)
+            ->orderBy('p.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
     }
+    */
 
-    public function find(int $project_id): Project
+    /*
+    public function findOneBySomeField($value): ?Project
     {
-        $project = $this->repository->find($project_id);
-        if ($project === null) {
-            throw new ShouldNotHappenException();
-        }
-
-        return $project;
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.exampleField = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
     }
-
-    public function save(Project $project): void
-    {
-        $this->entityManager->persist($project);
-        $this->entityManager->flush();
-    }
+    */
 }
