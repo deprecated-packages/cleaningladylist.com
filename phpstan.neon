@@ -8,6 +8,7 @@ includes:
 
 rules:
     - Symplify\CodingStandard\Rules\ForbiddenParentClassRule
+    - CleaningLadyList\Utils\PHPStan\Rule\NoEntityManagerInControllerRule
 
 parameters:
     symplify:

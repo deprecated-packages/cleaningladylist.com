@@ -6,17 +6,19 @@ namespace App\Repository;
 
 use App\Entity\Project;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\EntityRepository;
 
 final class ProjectRepository
 {
-    /**
-     * @var EntityRepository<Project>
-     */
-    private $entityRepository;
+    private EntityManagerInterface $entityManager;
 
     public function __construct(EntityManagerInterface $entityManager)
     {
-        $this->entityRepository = $entityManager->getRepository(Project::class);
+        $this->entityManager = $entityManager;
+    }
+
+    public function save(Project $project): void
+    {
+        $this->entityManager->persist($project);
+        $this->entityManager->flush();
     }
 }
