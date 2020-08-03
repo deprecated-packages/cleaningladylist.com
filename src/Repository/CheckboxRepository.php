@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityRepository;
 
 final class CheckboxRepository
 {
+    public $repository;
     /**
      * @var EntityRepository<Checkbox>
      */
@@ -25,7 +26,7 @@ final class CheckboxRepository
      */
     public function findByFramework(string $framework): array
     {
-        return $this->entityRepository->createQueryBuilder('c')
+        return $this->repository->createQueryBuilder('c')
             ->where('c.framework = :framework')
             ->setParameter('framework', $framework)
             ->orWhere('c.framework is NULL')

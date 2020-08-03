@@ -9,6 +9,7 @@ use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ProjectCheckbox;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -17,6 +18,8 @@ use Ramsey\Uuid\UuidInterface;
  */
 class Project
 {
+    public $checklists;
+
     /**
      * @ORM\Id
      * @ORM\Column(type="uuid")
@@ -61,6 +64,7 @@ class Project
 
     /**
      * @ORM\OneToMany(targetEntity=ProjectCheckbox::class, mappedBy="project")
+     * @var ProjectCheckbox::class []|\Doctrine\Common\Collections\Collection
      */
     private $projectCheckboxes;
 
@@ -173,7 +177,7 @@ class Project
 
     public function addProjectCheckbox(ProjectCheckbox $projectCheckbox): self
     {
-        if (!$this->projectCheckboxes->contains($projectCheckbox)) {
+        if (! $this->projectCheckboxes->contains($projectCheckbox)) {
             $this->projectCheckboxes[] = $projectCheckbox;
             $projectCheckbox->setProject($this);
         }
