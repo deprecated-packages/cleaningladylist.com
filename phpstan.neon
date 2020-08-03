@@ -28,8 +28,7 @@ parameters:
         - src/Entity/User.php
 
     ignoreErrors:
-        # false positive
-        - '#Method App\\Form\\(.*?)\:\:buildForm\(\) has parameter \$builder with no value type specified in iterable type Symfony\\Component\\Form\\FormBuilderInterface#'
+        - '#Method App\\Form\\ProjectFormType\:\:buildForm\(\) has parameter \$formBuilder with no value type specified in iterable type Symfony\\Component\\Form\\FormBuilderInterface#'
 
        # no idea how to fix these now, possible sources: https://github.com/phpstan/phpstan-doctrine/blob/e560d32f6fb68e5bbec0e556a69723e7faece14a/tests/Rules/Doctrine/ORM/data/EntityWithRelations.php
         - '#Method (.*?) return type with generic interface Doctrine\\Common\\Collections\\Collection does not specify its types\: TKey, T#'

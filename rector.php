@@ -25,10 +25,10 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     ]);
 
     $parameters->set(Option::SETS, [
-        SetList::CODE_QUALITY,
         SetList::NAMING,
-        SetList::DEFLUENT,
-        SetList::REPOSITORY_AS_SERVICE
+        SetList::CODE_QUALITY,
+        SetList::REPOSITORY_AS_SERVICE,
+        SetList::NETTE_CODE_QUALITY,
     ]);
 
 };

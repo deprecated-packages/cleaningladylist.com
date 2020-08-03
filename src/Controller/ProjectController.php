@@ -20,7 +20,6 @@ final class ProjectController extends AbstractController
 {
     private EntityManagerInterface $entityManager;
 
-
     private RouterInterface $router;
 
     public function __construct(EntityManagerInterface $entityManager, RouterInterface $router)
@@ -38,17 +37,7 @@ final class ProjectController extends AbstractController
         $projectForm = $this->createForm(ProjectFormType::class, $project);
         $projectForm->handleRequest($request);
         if ($projectForm->isSubmitted() && $projectForm->isValid()) {
-
-            /** @var Checklist $checklist */
-            $checklist = new Checklist();
-            $checklist->setProject($project);
-            $project->addChecklist($checklist);
-
-            $this->entityManager->persist($checklist);
-            $this->entityManager->persist($project);
-            $this->entityManager->flush();
-
-            return new RedirectResponse($this->router->generate('project.show', ['id' => $project->getId()]));
+            return $this->processFormRequest($project);
         }
 
         return $this->render('project/create.html.twig', [
@@ -68,5 +57,19 @@ final class ProjectController extends AbstractController
             'project' => $project,
             'checkboxes' => $checkboxes,
         ]);
+    }
+
+    private function processFormRequest(Project $project): RedirectResponse
+    {
+        /** @var Checklist $checklist */
+        $checklist = new Checklist();
+        $checklist->setProject($project);
+        $project->addChecklist($checklist);
+
+        $this->entityManager->persist($checklist);
+        $this->entityManager->persist($project);
+        $this->entityManager->flush();
+
+        return new RedirectResponse($this->router->generate('project.show', ['id' => $project->getId()]));
     }
 }

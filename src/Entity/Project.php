@@ -31,9 +31,9 @@ class Project
 
     /**
      * @ORM\OneToMany(targetEntity=Checklist::class, mappedBy="project")
-     * @var Checklist[]|Collection
+     * @var iterable<Checklist>&Collection
      */
-    private $checklists = [];
+    private $checklists;
 
     /**
      * @ORM\Column(type="string", length=255)
