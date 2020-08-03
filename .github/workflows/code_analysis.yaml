@@ -24,6 +24,10 @@ jobs:
                         name: 'Rector CI'
                         run: composer rector-dry
 
+                    -
+                        name: 'Maker Bundle'
+                        run: bin/console make:controller test -n
+
         name: ${{ matrix.actions.name }}
         runs-on: ubuntu-latest
 
