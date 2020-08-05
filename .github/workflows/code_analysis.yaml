@@ -12,6 +12,12 @@ jobs:
             fail-fast: false
             matrix:
                 actions:
+                    -   name: 'Docker Local build'
+                        run:
+                        docker-compose build
+                        bin/console make:migration
+                        bin/console doctrine:migrations:migrate
+
                     -
                         name: 'ECS'
                         run: composer check-cs
@@ -39,7 +45,6 @@ jobs:
                     php-version: 7.4
                     coverage: none
 
-            -   run: docker-compose build
             -   run: composer install --no-progress --ansi
             -   run: ${{ matrix.actions.run }}
 
