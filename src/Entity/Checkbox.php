@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -40,6 +42,17 @@ class Checkbox
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private ?string $framework;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=ProjectCheckbox::class, mappedBy="checkboxes")
+     * @var ProjectCheckbox|Collection
+     */
+    private Collection $projectCheckboxes;
+
+    public function __construct()
+    {
+        $this->projectCheckboxes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -84,5 +97,33 @@ class Checkbox
     public function setFramework(?string $framework): void
     {
         $this->framework = $framework;
+    }
+
+    /**
+     * @return Collection|ProjectCheckbox[]
+     */
+    public function getProjectCheckboxes(): Collection
+    {
+        return $this->projectCheckboxes;
+    }
+
+    public function addProjectCheckbox(ProjectCheckbox $projectCheckbox): self
+    {
+        if (! $this->projectCheckboxes->contains($projectCheckbox)) {
+            $this->projectCheckboxes[] = $projectCheckbox;
+            $projectCheckbox->addCheckbox($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProjectCheckbox(ProjectCheckbox $projectCheckbox): self
+    {
+        if ($this->projectCheckboxes->contains($projectCheckbox)) {
+            $this->projectCheckboxes->removeElement($projectCheckbox);
+            $projectCheckbox->removeCheckbox($this);
+        }
+
+        return $this;
     }
 }

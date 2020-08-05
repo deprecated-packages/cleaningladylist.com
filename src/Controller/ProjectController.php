@@ -29,6 +29,8 @@ final class ProjectController extends AbstractController
 
     /**
      * @Route("/", name="project.new")
+     * @param Request $request
+     * @return Response
      */
     public function create(Request $request): Response
     {
@@ -46,6 +48,8 @@ final class ProjectController extends AbstractController
 
     /**
      * @Route("/project/{id}", name="project.show")
+     * @param Project $project
+     * @return Response
      */
     public function show(Project $project): Response
     {
@@ -58,11 +62,12 @@ final class ProjectController extends AbstractController
         ]);
     }
 
+    /**
+     * @param Project $project
+     * @return RedirectResponse
+     */
     private function processFormRequest(Project $project): RedirectResponse
     {
-        $checklist = new Checklist();
-        $checklist->setProject($project);
-        $project->addChecklist($checklist);
 
         $this->projectRepository->save($project);
 

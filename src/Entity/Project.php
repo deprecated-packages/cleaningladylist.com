@@ -30,12 +30,6 @@ class Project
     private ?string $title;
 
     /**
-     * @ORM\OneToMany(targetEntity=Checklist::class, mappedBy="project")
-     * @var iterable<Checklist>&Collection
-     */
-    private $checklists;
-
-    /**
      * @ORM\Column(type="string", length=255)
      * @var string
      */
@@ -65,11 +59,17 @@ class Project
      */
     private ?DateTimeInterface $dateTime;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ProjectCheckbox::class, mappedBy="project")
+     * @var ProjectCheckbox|Collection
+     */
+    private Collection $projectCheckboxes;
+
     public function __construct()
     {
         $this->dateTime = new DateTime();
         $this->id = Uuid::uuid4();
-        $this->checklists = new ArrayCollection();
+        $this->projectCheckboxes = new ArrayCollection();
     }
 
     public function getId(): ?UuidInterface
@@ -85,33 +85,6 @@ class Project
     public function setTitle(string $title): void
     {
         $this->title = $title;
-    }
-
-    /**
-     * @return Collection|Checklist[]
-     */
-    public function getChecklists(): Collection
-    {
-        return $this->checklists;
-    }
-
-    public function addChecklist(Checklist $checklist): void
-    {
-        if (! $this->checklists->contains($checklist)) {
-            $this->checklists[] = $checklist;
-            $checklist->setProject($this);
-        }
-    }
-
-    public function removeChecklist(Checklist $checklist): void
-    {
-        if ($this->checklists->contains($checklist)) {
-            $this->checklists->removeElement($checklist);
-            // set the owning side to null (unless already changed)
-            if ($checklist->getProject() === $this) {
-                $checklist->setProject(null);
-            }
-        }
     }
 
     public function getCurrentFramework(): ?string
@@ -162,5 +135,40 @@ class Project
     public function setDate(DateTimeInterface $dateTime): void
     {
         $this->dateTime = $dateTime;
+    }
+
+    /**
+     * @return Collection|ProjectCheckbox[]
+     */
+    public function getProjectCheckboxes(): Collection
+    {
+        return $this->projectCheckboxes;
+    }
+
+    public function addProjectCheckbox(ProjectCheckbox $projectCheckbox): self
+    {
+        if (!$this->projectCheckboxes->contains($projectCheckbox)) {
+            $this->projectCheckboxes[] = $projectCheckbox;
+            $projectCheckbox->setProject($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param ProjectCheckbox|null $projectCheckbox
+     * @return $this
+     */
+    public function removeProjectCheckbox(?ProjectCheckbox $projectCheckbox): self
+    {
+        if ($this->projectCheckboxes->contains($projectCheckbox)) {
+            $this->projectCheckboxes->removeElement($projectCheckbox);
+            // set the owning side to null (unless already changed)
+            if ($projectCheckbox->getProject() === $this) {
+                $projectCheckbox->setProject(null);
+            }
+        }
+
+        return $this;
     }
 }
