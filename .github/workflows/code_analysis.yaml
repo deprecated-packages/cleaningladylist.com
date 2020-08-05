@@ -14,9 +14,9 @@ jobs:
                 actions:
                     -   name: 'Docker Local build'
                         run: |
-                            docker-compose build
-                            bin/console make:migration
-                            bin/console doctrine:migrations:migrate
+                        docker-compose build
+                        php bin/console make:migration
+                        php bin/console doctrine:migrations:migrate
 
                     -
                         name: 'ECS'
