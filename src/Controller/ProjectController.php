@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Entity\Checklist;
 use App\Entity\Project;
 use App\Form\ProjectFormType;
 use App\Repository\CheckboxRepository;
@@ -60,10 +59,6 @@ final class ProjectController extends AbstractController
 
     private function processFormRequest(Project $project): RedirectResponse
     {
-        $checklist = new Checklist();
-        $checklist->setProject($project);
-        $project->addChecklist($checklist);
-
         $this->projectRepository->save($project);
 
         return $this->redirectToRoute('project.show', ['id' => $project->getId()]);
