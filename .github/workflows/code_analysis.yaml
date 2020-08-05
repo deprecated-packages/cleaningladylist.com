@@ -17,6 +17,7 @@ jobs:
                             - docker-compose build
                             - bin/console make:migration
                             - bin/console doctrine:migrations:migrate
+
                     -
                         name: 'ECS'
                         run: composer check-cs
