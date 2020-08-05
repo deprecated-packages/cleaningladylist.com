@@ -13,10 +13,10 @@ jobs:
             matrix:
                 actions:
                     -   name: 'Docker Local build'
-                        run: |
-                        docker-compose build
-                        bin/console make:migration
-                        bin/console doctrine:migrations:migrate
+                        run:
+                            - docker-compose build
+                            - bin/console make:migration
+                            - bin/console doctrine:migrations:migrate
                     -
                         name: 'ECS'
                         run: composer check-cs
