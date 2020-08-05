@@ -61,9 +61,9 @@ class Project
 
     /**
      * @ORM\OneToMany(targetEntity=ProjectCheckbox::class, mappedBy="project")
-     * @var ProjectCheckbox|Collection
+     * @var iterable<ProjectCheckbox>&Collection
      */
-    private Collection $projectCheckboxes;
+    private $projectCheckboxes;
 
     public function __construct()
     {
@@ -150,23 +150,6 @@ class Project
         if (!$this->projectCheckboxes->contains($projectCheckbox)) {
             $this->projectCheckboxes[] = $projectCheckbox;
             $projectCheckbox->setProject($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param ProjectCheckbox|null $projectCheckbox
-     * @return $this
-     */
-    public function removeProjectCheckbox(?ProjectCheckbox $projectCheckbox): self
-    {
-        if ($this->projectCheckboxes->contains($projectCheckbox)) {
-            $this->projectCheckboxes->removeElement($projectCheckbox);
-            // set the owning side to null (unless already changed)
-            if ($projectCheckbox->getProject() === $this) {
-                $projectCheckbox->setProject(null);
-            }
         }
 
         return $this;

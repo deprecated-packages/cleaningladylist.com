@@ -26,15 +26,14 @@ class ProjectCheckbox
 
     /**
      * @ORM\ManyToOne(targetEntity=Project::class, inversedBy="projectCheckboxes")
-     * @var Project
      */
-    private Project $project;
+    private ?Project $project;
 
     /**
      * @ORM\ManyToMany(targetEntity=Checkbox::class, inversedBy="projectCheckboxes")
-     * @var Checkbox|ArrayCollection
+     * @var iterable<Checkbox>&Collection
      */
-    private ArrayCollection $checkboxes;
+    private $checkboxes;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)

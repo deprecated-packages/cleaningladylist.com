@@ -45,9 +45,9 @@ class Checkbox
 
     /**
      * @ORM\ManyToMany(targetEntity=ProjectCheckbox::class, mappedBy="checkboxes")
-     * @var ProjectCheckbox|Collection
+     * @var iterable<ProjectCheckbox>&Collection
      */
-    private Collection $projectCheckboxes;
+    private $projectCheckboxes;
 
     public function __construct()
     {
