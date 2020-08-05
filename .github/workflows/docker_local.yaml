@@ -11,4 +11,5 @@ jobs:
 
             - name: Build
               run: |
-                  docker-compose build ./
+                  cd /cleaningladylist.com
+                  docker-compose build
