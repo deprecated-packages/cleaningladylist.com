@@ -9,7 +9,6 @@ use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\Entity;
 
 /**
  * @ORM\Entity()
@@ -20,7 +19,6 @@ class ProjectCheckbox
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @var int
      */
     private int $id;
 
@@ -37,7 +35,6 @@ class ProjectCheckbox
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     * @var DateTime
      */
     private DateTime $isComplete;
 

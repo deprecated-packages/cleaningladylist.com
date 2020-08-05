@@ -147,7 +147,7 @@ class Project
 
     public function addProjectCheckbox(ProjectCheckbox $projectCheckbox): self
     {
-        if (!$this->projectCheckboxes->contains($projectCheckbox)) {
+        if (! $this->projectCheckboxes->contains($projectCheckbox)) {
             $this->projectCheckboxes[] = $projectCheckbox;
             $projectCheckbox->setProject($this);
         }
