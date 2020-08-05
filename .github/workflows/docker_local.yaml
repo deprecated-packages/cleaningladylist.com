@@ -11,5 +11,6 @@ jobs:
 
             - name: Build
               run: |
+                  ls
                   docker-compose build
 
