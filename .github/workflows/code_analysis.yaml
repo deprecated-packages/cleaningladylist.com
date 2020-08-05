@@ -39,6 +39,9 @@ jobs:
                     php-version: 7.4
                     coverage: none
 
+            -   run: docker-compose build
             -   run: composer install --no-progress --ansi
-
             -   run: ${{ matrix.actions.run }}
+
+
+
