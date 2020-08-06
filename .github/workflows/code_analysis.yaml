@@ -12,11 +12,6 @@ jobs:
             fail-fast: false
             matrix:
                 actions:
-                    -   name: 'Docker Local build'
-                        run: |
-                        docker-compose build
-                        php bin/console make:migration
-                        php bin/console doctrine:migrations:migrate
                     -
                         name: 'ECS'
                         run: composer check-cs
