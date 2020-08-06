@@ -36,7 +36,7 @@ class ProjectCheckbox
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private DateTime $isComplete;
+    private ?DateTime $isComplete;
 
     public function __construct()
     {
@@ -91,7 +91,7 @@ class ProjectCheckbox
         return $this->isComplete;
     }
 
-    public function setIsComplete(DateTime $dateTime): self
+    public function setIsComplete(?DateTime $dateTime): self
     {
         $this->isComplete = $dateTime;
 

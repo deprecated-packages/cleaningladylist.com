@@ -65,6 +65,11 @@ class Project
      */
     private $projectCheckboxes;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $timezone;
+
     public function __construct()
     {
         $this->dateTime = new DateTime();
@@ -151,6 +156,18 @@ class Project
             $this->projectCheckboxes[] = $projectCheckbox;
             $projectCheckbox->setProject($this);
         }
+
+        return $this;
+    }
+
+    public function getTimezone(): ?string
+    {
+        return $this->timezone;
+    }
+
+    public function setTimezone(string $timezone): self
+    {
+        $this->timezone = $timezone;
 
         return $this;
     }
