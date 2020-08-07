@@ -21,9 +21,10 @@ final class CheckboxRepository
     }
 
     /**
+     * @param string|null $framework
      * @return Checkbox[]
      */
-    public function findByFramework(string $framework): array
+    public function findByFramework(?string $framework): array
     {
         return $this->entityRepository->createQueryBuilder('c')
             ->where('c.framework = :framework')

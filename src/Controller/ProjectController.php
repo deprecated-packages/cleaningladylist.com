@@ -10,7 +10,7 @@ use App\Form\ProjectFormType;
 use App\Repository\CheckboxRepository;
 use App\Repository\ProjectCheckboxRepository;
 use App\Repository\ProjectRepository;
-use Doctrine\ORM\EntityManagerInterface;
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -24,39 +24,25 @@ final class ProjectController extends AbstractController
 
     private ProjectRepository $projectRepository;
 
-    /**
-     * @var ProjectCheckboxRepository
-     */
+
     private ProjectCheckboxRepository $projectCheckboxRepository;
-    /**
-     * @var EntityManagerInterface
-     */
-    private EntityManagerInterface $entityManager;
 
     /**
      * ProjectController constructor.
-     * @param CheckboxRepository $checkboxRepository
-     * @param ProjectRepository $projectRepository
-     * @param ProjectCheckboxRepository $projectCheckboxRepository
-     * @param EntityManagerInterface $entityManager
      */
     public function __construct(
         CheckboxRepository $checkboxRepository,
         ProjectRepository $projectRepository,
-        ProjectCheckboxRepository $projectCheckboxRepository,
-        EntityManagerInterface $entityManager
+        ProjectCheckboxRepository $projectCheckboxRepository
     )
     {
         $this->checkboxRepository = $checkboxRepository;
         $this->projectRepository = $projectRepository;
         $this->projectCheckboxRepository = $projectCheckboxRepository;
-        $this->entityManager = $entityManager;
     }
 
     /**
      * @Route("/", name="project.new")
-     * @param Request $request
-     * @return Response
      */
     public function create(Request $request): Response
     {
@@ -74,8 +60,6 @@ final class ProjectController extends AbstractController
 
     /**
      * @Route("/project/{id}", name="project.show")
-     * @param Project $project
-     * @return Response
      */
     public function show(Project $project): Response
     {
@@ -88,26 +72,6 @@ final class ProjectController extends AbstractController
         ]);
     }
 
-    private function processFormRequest(Project $project): RedirectResponse
-    {
-        $targetFramework = $project->getDesiredFramework();
-        $checkboxes = $this->checkboxRepository->findByFramework($targetFramework);
-
-        foreach ($checkboxes as $checkbox) {
-            $projectCheckbox = new ProjectCheckbox();
-            $projectCheckbox->setProject($project);
-            $projectCheckbox->addCheckbox($checkbox);
-            $projectCheckbox->setIsComplete(NULL);
-            $this->projectCheckboxRepository->persist($projectCheckbox);
-        }
-
-        $project->setTimezone();
-        $this->projectRepository->save($project);
-
-        return $this->redirectToRoute('project.show', ['id' => $project->getId()]);
-    }
-
-
     /**
      * @Route("/project/checkbox/check", name="project.checkbox.check")
      * @param Request $request
@@ -115,35 +79,45 @@ final class ProjectController extends AbstractController
      */
     public function checkProjectCheckbox(Request $request): JsonResponse
     {
-        $content = json_decode($request->getContent());
+        $getContent = $request->getContent();
+        $content = json_decode($getContent . "");
         $submittedToken = $content->token;
         $projectCheckboxId = $content->projectCheckboxId;
 
         if ($this->isCsrfTokenValid('check-blank-token', $submittedToken)) {
+            $projectCheckbox = $this->projectCheckboxRepository->find($projectCheckboxId);
+            $dateTime = new DateTime();
 
-            /**
-             * @var ProjectCheckbox $projectCheckbox
-             */
-            $projectCheckbox = $this->entityManager->getRepository(ProjectCheckbox::class)->find($projectCheckboxId);
-
-            $date = new \DateTime();
-
-            if ($projectCheckbox->getIsComplete()) {
-                $projectCheckbox->setIsComplete(NULL);
-            } else {
-                $projectCheckbox->setIsComplete($date);
-            }
-
+            $projectCheckbox->getIsComplete() ? $projectCheckbox->setIsComplete(NULL) : $projectCheckbox->setIsComplete($dateTime);
             $this->projectCheckboxRepository->save($projectCheckbox);
 
             return new JsonResponse([
-                "success" => true,
-                "result" => $projectCheckbox->getIsComplete() ? $projectCheckbox->getIsComplete()->format('d.m.y') : null,
+                'success' => true,
+                'result' => $projectCheckbox->getIsComplete() !== null ? $projectCheckbox->getIsComplete()->format('d.m.y') : NULL,
             ]);
-
         }
 
+        return new JsonResponse([
+            'success' => false,
+        ]);
     }
 
+    private function processFormRequest(Project $project): RedirectResponse
+    {
+        $desiredFramework = $project->getDesiredFramework();
+        $checkboxes = $this->checkboxRepository->findByFramework($desiredFramework);
 
+        foreach ($checkboxes as $checkbox) {
+            $projectCheckbox = new ProjectCheckbox();
+            $projectCheckbox->setProject($project);
+            $projectCheckbox->addCheckbox($checkbox);
+            $projectCheckbox->setIsComplete(null);
+            $this->projectCheckboxRepository->persist($projectCheckbox);
+        }
+
+        $project->setTimezone('Prague');
+        $this->projectRepository->save($project);
+
+        return $this->redirectToRoute('project.show', ['id' => $project->getId()]);
+    }
 }

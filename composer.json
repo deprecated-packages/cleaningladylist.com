@@ -38,7 +38,8 @@
         "symfony/yaml": "5.1.*",
         "symplify/flex-loader": "^8.1",
         "twig/extra-bundle": "^3.0",
-        "twig/twig": "^3.0"
+        "twig/twig": "^3.0",
+        "ext-json": "*"
     },
     "require-dev": {
         "migrify/config-transformer": "^0.3.22",

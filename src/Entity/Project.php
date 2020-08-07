@@ -68,7 +68,7 @@ class Project
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $timezone;
+    private ?string $timezone;
 
     public function __construct()
     {
