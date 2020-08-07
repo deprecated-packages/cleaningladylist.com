@@ -4,10 +4,9 @@
 
 {% block body %}
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-4">
                 <div class="card mt-3">
-                    <div class="card-header">Create Project</div>
                     <div class="card-body">
                         {{ form_start(projectForm) }}
                         {{ form_row(projectForm.title) }}
@@ -27,7 +26,7 @@
                         </div>
 
                         <div class="card mb-3">
-                            <div class="card-header">Desired Stack</div>
+                            <div class="card-header">Target Stack</div>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-6">
@@ -42,6 +41,17 @@
 
                         {{ form_end(projectForm) }}
                     </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h1>Cleaning Lady List</h1>
+                <p>
+                    Want to migrate you PHP project, but don't know where to begin?
+                    The Cleaning Lady List give you a sharable checklist of steps to take to achieve a clean, high
+                    quality and maintainable migration. Create a project to start.
+                </p>
+                <div class="text-center">
+                    <img src="{{ asset('images/cleaning-lady.jpg') }}" class="img-fluid" width="80%"/>
                 </div>
             </div>
         </div>
