@@ -88,12 +88,13 @@ final class ProjectController extends AbstractController
             $projectCheckbox = $this->projectCheckboxRepository->find($projectCheckboxId);
             $dateTime = new DateTime();
 
-            $projectCheckbox->getIsComplete() ? $projectCheckbox->setIsComplete(NULL) : $projectCheckbox->setIsComplete($dateTime);
+            $isComplete = $projectCheckbox->getIsComplete();
+            $isComplete != NULL ? $projectCheckbox->setIsComplete(NULL) : $projectCheckbox->setIsComplete($dateTime);
             $this->projectCheckboxRepository->save($projectCheckbox);
 
             return new JsonResponse([
                 'success' => true,
-                'result' => $projectCheckbox->getIsComplete() !== null ? $projectCheckbox->getIsComplete()->format('d.m.y') : NULL,
+                'result' => $isComplete == NULL ? $dateTime->format('d.m.y') : NULL,
             ]);
         }
 
