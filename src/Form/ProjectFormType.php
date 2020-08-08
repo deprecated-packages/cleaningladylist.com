@@ -19,11 +19,11 @@ final class ProjectFormType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $formBuilder, array $options): void
     {
-        $formBuilder->add('title', TextType::class,[
+        $formBuilder->add('title', TextType::class, [
             'label' => false,
-            'attr'=> [
-                'placeholder' => 'Project Title'
-            ]
+            'attr' => [
+                'placeholder' => 'Project Title',
+            ],
         ]);
         $formBuilder->add('currentFramework', ChoiceType::class, [
             'label' => false,

@@ -21,7 +21,6 @@ final class CheckboxRepository
     }
 
     /**
-     * @param string|null $framework
      * @return Checkbox[]
      */
     public function findByFramework(?string $framework): array

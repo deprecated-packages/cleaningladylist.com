@@ -24,7 +24,6 @@ final class ProjectController extends AbstractController
 
     private ProjectRepository $projectRepository;
 
-
     private ProjectCheckboxRepository $projectCheckboxRepository;
 
     /**
@@ -34,8 +33,7 @@ final class ProjectController extends AbstractController
         CheckboxRepository $checkboxRepository,
         ProjectRepository $projectRepository,
         ProjectCheckboxRepository $projectCheckboxRepository
-    )
-    {
+    ) {
         $this->checkboxRepository = $checkboxRepository;
         $this->projectRepository = $projectRepository;
         $this->projectCheckboxRepository = $projectCheckboxRepository;
@@ -63,7 +61,7 @@ final class ProjectController extends AbstractController
      */
     public function show(Project $project): Response
     {
-        $currentFramework = (string)$project->getCurrentFramework();
+        $currentFramework = (string) $project->getCurrentFramework();
         $checkboxes = $this->checkboxRepository->findByFramework($currentFramework);
 
         return $this->render('project/show.html.twig', [
@@ -74,13 +72,11 @@ final class ProjectController extends AbstractController
 
     /**
      * @Route("/project/checkbox/check", name="project.checkbox.check")
-     * @param Request $request
-     * @return JsonResponse
      */
     public function checkProjectCheckbox(Request $request): JsonResponse
     {
         $getContent = $request->getContent();
-        $content = json_decode($getContent . "");
+        $content = json_decode($getContent . '');
         $submittedToken = $content->token;
         $projectCheckboxId = $content->projectCheckboxId;
 
@@ -89,12 +85,12 @@ final class ProjectController extends AbstractController
             $dateTime = new DateTime();
 
             $isComplete = $projectCheckbox->getIsComplete();
-            $isComplete != NULL ? $projectCheckbox->setIsComplete(NULL) : $projectCheckbox->setIsComplete($dateTime);
+            $isComplete !== null ? $projectCheckbox->setIsComplete(null) : $projectCheckbox->setIsComplete($dateTime);
             $this->projectCheckboxRepository->save($projectCheckbox);
 
             return new JsonResponse([
                 'success' => true,
-                'result' => $isComplete == NULL ? $dateTime->format('d.m.y') : NULL,
+                'result' => $isComplete === null ? $dateTime->format('d.m.y') : null,
             ]);
         }
 
