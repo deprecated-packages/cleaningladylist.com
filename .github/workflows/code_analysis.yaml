@@ -40,5 +40,7 @@ jobs:
                     coverage: none
 
             -   run: composer install --no-progress --ansi
-
             -   run: ${{ matrix.actions.run }}
+
+
+

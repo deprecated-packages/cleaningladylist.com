@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use DateTime;
-use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -36,7 +35,7 @@ class ProjectCheckbox
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private DateTime $isComplete;
+    private ?DateTime $completedAt;
 
     public function __construct()
     {
@@ -86,15 +85,22 @@ class ProjectCheckbox
         return $this;
     }
 
-    public function getIsComplete(): ?DateTimeInterface
+    public function inverseCompleteAt(): void
     {
-        return $this->isComplete;
+        if ($this->completedAt === null) {
+            $this->completedAt = new DateTime();
+            return;
+        }
+
+        $this->completedAt = null;
     }
 
-    public function setIsComplete(DateTime $dateTime): self
+    public function getCompleteAtAsString(): string
     {
-        $this->isComplete = $dateTime;
+        if ($this->completedAt !== null) {
+            return $this->completedAt->format('Y-m-d');
+        }
 
-        return $this;
+        return '';
     }
 }

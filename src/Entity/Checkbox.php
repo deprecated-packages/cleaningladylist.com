@@ -49,6 +49,16 @@ class Checkbox
      */
     private $projectCheckboxes;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $how;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $why;
+
     public function __construct()
     {
         $this->projectCheckboxes = new ArrayCollection();
@@ -123,6 +133,30 @@ class Checkbox
             $this->projectCheckboxes->removeElement($projectCheckbox);
             $projectCheckbox->removeCheckbox($this);
         }
+
+        return $this;
+    }
+
+    public function getHow(): ?string
+    {
+        return $this->how;
+    }
+
+    public function setHow(?string $how): self
+    {
+        $this->how = $how;
+
+        return $this;
+    }
+
+    public function getWhy(): ?string
+    {
+        return $this->why;
+    }
+
+    public function setWhy(?string $why): self
+    {
+        $this->why = $why;
 
         return $this;
     }

@@ -8,6 +8,7 @@ use App\Entity\Project;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -18,7 +19,12 @@ final class ProjectFormType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $formBuilder, array $options): void
     {
-        $formBuilder->add('title');
+        $formBuilder->add('title', TextType::class, [
+            'label' => false,
+            'attr' => [
+                'placeholder' => 'Project Title',
+            ],
+        ]);
         $formBuilder->add('currentFramework', ChoiceType::class, [
             'label' => false,
             'placeholder' => 'Framework',
@@ -59,8 +65,9 @@ final class ProjectFormType extends AbstractType
             ],
         ]);
         $formBuilder->add('save', SubmitType::class, [
+            'label' => 'create',
             'attr' => [
-                'class' => 'btn btn-dark btn-block',
+                'class' => 'btn btn-primary btn-block',
             ],
         ]);
     }

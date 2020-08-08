@@ -1,20 +1,72 @@
+*{
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: 'Poppins', sans-serif;
+}
+
+.brand-link:hover  {
+    color: #000000;
+}
+.brand-link {
+    color: #000000;
+    font-size: 18px;
+    padding: 5px;
+    border-radius: 3px;
+    text-decoration: none;
+    line-height:1;
+    display: flex;
+    align-items: center;
+}
+
+.brand-link img {
+    height: 45px;
+    display: block;
+    margin-right: 10px;
+}
+
+.card.complete {
+    background-color: #f8f9fa !important;
+}
+
+.btn-lite {
+    background-color: #eeeeee;
+    border-radius: 5px 7px;
+    padding: 5px;
+    color: #000000;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+.btn-lite:hover {
+    color: #000000;
+    background-color: #AAAAAA;
+}
+
+.custom-badge {
+    background-color: #721c24;
+    border-radius: 5px 7px;
+    padding: 5px;
+    color: #ffffff;
+    font-size: 12px;
+}
+
 .between {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.card-header, .card-footer{
+.card-header, .card-footer {
     background-color: transparent;
 }
 
-.card-header-progress .progress-bar{
+.card-header-progress .progress-bar {
     background-color: #008B00;
 }
 
-.card-header-progress{
-    border: 0!important;
-    border-radius: 0px!important;
+.card-header-progress {
+    border: 0 !important;
+    border-radius: 0px !important;
 }
 
 .icon-btn-link i {
