@@ -85,7 +85,7 @@ final class ProjectController extends AbstractController
         $projectCheckboxId = $content->projectCheckboxId;
 
         if ($this->isCsrfTokenValid('check-blank-token', $submittedToken)) {
-            $projectCheckbox = $this->projectCheckboxRepository->find($projectCheckboxId);
+            $projectCheckbox = $this->projectCheckboxRepository->get($projectCheckboxId);
             $dateTime = new DateTime();
 
             $isComplete = $projectCheckbox->getIsComplete();
