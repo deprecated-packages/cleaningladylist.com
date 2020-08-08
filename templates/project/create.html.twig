@@ -5,43 +5,8 @@
 {% block body %}
     <div class="container-fluid">
         <div class="row justify-content-center mt-5">
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        {{ form_start(projectForm) }}
-                        {{ form_row(projectForm.title) }}
-
-                        <div class="card mb-3 mt-3">
-                            <div class="card-header">Current Stack</div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        {{ form_row(projectForm.currentFramework) }}
-                                    </div>
-                                    <div class="col-md-6">
-                                        {{ form_row(projectForm.currentPhpVersion) }}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card mb-3">
-                            <div class="card-header">Target Stack</div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        {{ form_row(projectForm.desiredFramework) }}
-                                    </div>
-                                    <div class="col-md-6">
-                                        {{ form_row(projectForm.desiredPhpVersion) }}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        {{ form_end(projectForm) }}
-                    </div>
-                </div>
+            <div class="col-md-6">
+                {{ form(project_form) }}
             </div>
             <div class="col-md-6">
                 <h1>Cleaning Lady List</h1>

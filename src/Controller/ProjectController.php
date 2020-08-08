@@ -51,7 +51,7 @@ final class ProjectController extends AbstractController
         }
 
         return $this->render('project/create.html.twig', [
-            'projectForm' => $projectForm->createView(),
+            'project_form' => $projectForm->createView(),
         ]);
     }
 
