@@ -2,11 +2,20 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}Welcome!{% endblock %}</title>
+    <title>{% block title %}Cleaning Lady List{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Checklist for migrating PHP projects">
+    <meta name="keywords" content="Cleaning lady list, php migration, Rector">
+    <meta name="robots" content="index, nofollow">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="language" content="English">
     {% block stylesheets %}
+        <link rel="icon" type="image/png" href="{{ asset('images/CLL-logo.png') }}"/>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
               integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I"
               crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;700;900&display=swap"
+              rel="stylesheet">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     {% endblock %}
@@ -14,7 +23,10 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Cleaning Lady List</a>
+        <a class="brand-link" href="{{ path('project.new') }}">
+            <img src="{{ asset('images/CLL-logo.png') }}">
+            Cleaning Lady List
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -71,7 +83,7 @@
     <script>
 
         $(document).ready(function () {
-            $(".notification-btn").on( "click", function(e) {
+            $(".notification-btn").on("click", function (e) {
                 e.preventDefault();
                 $(this).parent().remove();
             })

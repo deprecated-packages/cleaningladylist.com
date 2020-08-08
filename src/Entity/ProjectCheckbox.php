@@ -86,9 +86,9 @@ class ProjectCheckbox
         return $this;
     }
 
-    public function getIsComplete(): ?DateTimeInterface
+    public function getIsComplete(): ?DateTime
     {
-        return $this->isComplete ?? NULL;
+        return $this->isComplete;
     }
 
     public function setIsComplete(?DateTime $dateTime): self

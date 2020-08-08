@@ -65,8 +65,9 @@ final class ProjectFormType extends AbstractType
             ],
         ]);
         $formBuilder->add('save', SubmitType::class, [
+            'label' => 'create',
             'attr' => [
-                'class' => 'btn btn-dark btn-block',
+                'class' => 'btn btn-primary btn-block',
             ],
         ]);
     }

@@ -1,5 +1,31 @@
-.card.complete{
-    background-color: #f8f9fa!important;
+*{
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: 'Poppins', sans-serif;
+}
+
+.brand-link:hover  {
+    color: #000000;
+}
+.brand-link {
+    color: #000000;
+    font-size: 18px;
+    padding: 5px;
+    border-radius: 3px;
+    text-decoration: none;
+    line-height:1;
+    display: flex;
+    align-items: center;
+}
+
+.brand-link img {
+    height: 45px;
+    display: block;
+    margin-right: 10px;
+}
+
+.card.complete {
+    background-color: #f8f9fa !important;
 }
 
 .btn-lite {
