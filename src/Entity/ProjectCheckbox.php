@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use _HumbugBox58fd4d9e2a25\Cassandra\Date;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -95,10 +96,15 @@ class ProjectCheckbox
         $this->completedAt = null;
     }
 
+    public function getCompleteAt() : ?DateTime
+    {
+        return $this->completedAt ?? null;
+    }
+
     public function getCompleteAtAsString(): string
     {
         if ($this->completedAt !== null) {
-            return $this->completedAt->format('Y-m-d');
+            return $this->completedAt->format('d.m.y');
         }
 
         return '';
