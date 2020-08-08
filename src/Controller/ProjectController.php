@@ -10,7 +10,6 @@ use App\Form\ProjectFormType;
 use App\Repository\CheckboxRepository;
 use App\Repository\ProjectCheckboxRepository;
 use App\Repository\ProjectRepository;
-use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -82,15 +81,13 @@ final class ProjectController extends AbstractController
 
         if ($this->isCsrfTokenValid('check-blank-token', $submittedToken)) {
             $projectCheckbox = $this->projectCheckboxRepository->get($projectCheckboxId);
-            $dateTime = new DateTime();
+            $projectCheckbox->inverseCompleteAt();
 
-            $isComplete = $projectCheckbox->getIsComplete();
-            $isComplete !== null ? $projectCheckbox->setIsComplete(null) : $projectCheckbox->setIsComplete($dateTime);
             $this->projectCheckboxRepository->save($projectCheckbox);
 
             return new JsonResponse([
                 'success' => true,
-                'result' => $isComplete === null ? $dateTime->format('d.m.y') : null,
+                'result' => $projectCheckbox->getCompleteAtAsString(),
             ]);
         }
 
@@ -108,7 +105,6 @@ final class ProjectController extends AbstractController
             $projectCheckbox = new ProjectCheckbox();
             $projectCheckbox->setProject($project);
             $projectCheckbox->addCheckbox($checkbox);
-            $projectCheckbox->setIsComplete(null);
             $this->projectCheckboxRepository->persist($projectCheckbox);
         }
 

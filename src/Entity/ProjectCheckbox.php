@@ -35,7 +35,7 @@ class ProjectCheckbox
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private ?DateTime $isComplete;
+    private ?DateTime $completedAt;
 
     public function __construct()
     {
@@ -85,15 +85,22 @@ class ProjectCheckbox
         return $this;
     }
 
-    public function getIsComplete(): ?DateTime
+    public function inverseCompleteAt(): void
     {
-        return $this->isComplete ?? null;
+        if ($this->completedAt === null) {
+            $this->completedAt = new DateTime();
+            return;
+        }
+
+        $this->completedAt = null;
     }
 
-    public function setIsComplete(?DateTime $dateTime): self
+    public function getCompleteAtAsString(): string
     {
-        $this->isComplete = $dateTime;
+        if ($this->completedAt !== null) {
+            return $this->completedAt->format('Y-m-d');
+        }
 
-        return $this;
+        return '';
     }
 }
