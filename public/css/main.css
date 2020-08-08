@@ -6,6 +6,7 @@
 
 .brand-link:hover  {
     color: #000000;
+    text-decoration: none;
 }
 .brand-link {
     color: #000000;

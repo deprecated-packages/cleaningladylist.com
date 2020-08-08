@@ -20,8 +20,8 @@ final class ProjectCheckboxRepository
 
     public function __construct(EntityManagerInterface $entityManager)
     {
-        $this->objectRepository = $this->entityManager->getRepository(ProjectCheckbox::class);
         $this->entityManager = $entityManager;
+        $this->objectRepository = $this->entityManager->getRepository(ProjectCheckbox::class);
     }
 
     public function get(int $projectCheckboxId): ProjectCheckbox
