@@ -16,22 +16,22 @@ final class ProjectCheckboxRepository
     /**
      * @var ObjectRepository<ProjectCheckbox>
      */
-    private ObjectRepository $repository;
+    private ObjectRepository $objectRepository;
 
     public function __construct(EntityManagerInterface $entityManager)
     {
-        $this->repository = $this->entityManager->getRepository(ProjectCheckbox::class);
+        $this->objectRepository = $this->entityManager->getRepository(ProjectCheckbox::class);
         $this->entityManager = $entityManager;
     }
 
     public function get(int $projectCheckboxId): ProjectCheckbox
     {
-        $projectOrNull = $this->repository->find($projectCheckboxId);
-        if ($projectOrNull === null) {
+        $projectCheckbox = $this->objectRepository->find($projectCheckboxId);
+        if ($projectCheckbox === null) {
             throw new ShouldNotHappenException();
         }
 
-        return $projectOrNull;
+        return $projectCheckbox;
     }
 
     public function persist(ProjectCheckbox $projectCheckbox): void
