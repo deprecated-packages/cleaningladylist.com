@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\PHPStan\Rule;
+namespace CleaningLadyList\Utils\PHPStan\Rule;
 
 use PhpParser\Node;
 use PhpParser\Node\Arg;
@@ -21,7 +21,6 @@ final class NoGetRepositoryOutsideConstructorRule implements Rule
      * @var string
      */
     public const ERROR_MESSAGE = 'Use getRepository() inside constructor';
-
 
     public function getNodeType(): string
     {
