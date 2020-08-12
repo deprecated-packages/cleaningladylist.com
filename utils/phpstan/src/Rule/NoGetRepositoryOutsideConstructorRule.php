@@ -13,6 +13,7 @@ use PHPStan\Rules\Rule;
 final class NoGetRepositoryOutsideConstructorRule implements Rule
 {
     const GET_REPOSITORY = 'getRepository';
+    const REPOSITORY = 'Repository';
     const __CONSTRUCTOR = '__constructor';
 
     /**
@@ -35,11 +36,17 @@ final class NoGetRepositoryOutsideConstructorRule implements Rule
             return [];
         }
 
-        if ((string)$node->name === self::GET_REPOSITORY && (string)$scope->getFunction()->getName() != self::__CONSTRUCTOR) {
+        if ((string)$node->name === self::GET_REPOSITORY && (string)$scope->getFunction()->getName() != self::__CONSTRUCTOR && $this->isRepositoryClass($scope)) {
             return [self::ERROR_MESSAGE];
         }
 
         return [];
+    }
+
+    private function isRepositoryClass(Scope $scope): bool
+    {
+        $filename = $scope->getClassReflection()->getFileName();
+        return str_contains($filename, self::REPOSITORY) ? true : false;
     }
 
 }
