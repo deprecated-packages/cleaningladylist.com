@@ -4,34 +4,42 @@
 namespace CleaningLadyList\Utils\PHPStan\Rule;
 
 use PhpParser\Node;
-use PhpParser\Node\Arg;
-use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Identifier;
-use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
-use PHPStan\Type\TypeWithClassName;
 
 
 final class NoGetRepositoryOutsideConstructorRule implements Rule
 {
+    const GET_REPOSITORY = 'getRepository';
+    const __CONSTRUCTOR = '__constructor';
 
     /**
      * @var string
      */
-    public const ERROR_MESSAGE = 'Use getRepository() inside constructor';
+    public const ERROR_MESSAGE = 'Don\'t use getRepository() outside the constructor';
 
     public function getNodeType(): string
     {
-        return ClassMethod::class;
+        return MethodCall::class;
     }
 
+    /**
+     * @param MethodCall $node
+     */
     public function processNode(Node $node, Scope $scope): array
     {
-        if ((string) $node->name !== '__construct') {
+
+        if (!($node->name instanceof Identifier)) {
             return [];
         }
+
+        if ((string)$node->name === self::GET_REPOSITORY && (string)$scope->getFunction()->getName() != self::__CONSTRUCTOR) {
+            return [self::ERROR_MESSAGE];
+        }
+
         return [];
     }
+
 }
