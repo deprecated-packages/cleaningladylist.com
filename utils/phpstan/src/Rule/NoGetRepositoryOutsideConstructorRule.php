@@ -3,6 +3,7 @@
 
 namespace CleaningLadyList\Utils\PHPStan\Rule;
 
+use Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Identifier;
@@ -13,7 +14,6 @@ use PHPStan\Rules\Rule;
 final class NoGetRepositoryOutsideConstructorRule implements Rule
 {
     const GET_REPOSITORY = 'getRepository';
-    const REPOSITORY = 'Repository';
     const __CONSTRUCTOR = '__constructor';
 
     /**
@@ -36,7 +36,7 @@ final class NoGetRepositoryOutsideConstructorRule implements Rule
             return [];
         }
 
-        if ((string)$node->name === self::GET_REPOSITORY && (string)$scope->getFunction()->getName() != self::__CONSTRUCTOR && $this->isRepositoryClass($scope)) {
+        if ((string)$node->name === self::GET_REPOSITORY && (string)$scope->getFunction()->getName() != self::__CONSTRUCTOR && !$this->isRepositoryClass($scope)) {
             return [self::ERROR_MESSAGE];
         }
 
@@ -45,8 +45,16 @@ final class NoGetRepositoryOutsideConstructorRule implements Rule
 
     private function isRepositoryClass(Scope $scope): bool
     {
-        $filename = $scope->getClassReflection()->getFileName();
-        return str_contains($filename, self::REPOSITORY) ? true : false;
+        if ($scope->getClassReflection() === null) {
+            return false;
+        }
+
+        $classReflection = $scope->getClassReflection();
+        if ($classReflection->getParentClassesNames() === []) {
+            return false;
+        }
+
+        return Strings::endsWith($classReflection->getName(), 'Repository');
     }
 
 }
