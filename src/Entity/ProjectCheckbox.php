@@ -95,10 +95,15 @@ class ProjectCheckbox
         $this->completedAt = null;
     }
 
+    public function getCompleteAt(): ?DateTime
+    {
+        return $this->completedAt ?? null;
+    }
+
     public function getCompleteAtAsString(): string
     {
         if ($this->completedAt !== null) {
-            return $this->completedAt->format('Y-m-d');
+            return $this->completedAt->format('d.m.y');
         }
 
         return '';

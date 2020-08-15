@@ -3,7 +3,7 @@
 {% block title %}Project{% endblock %}
 
 {% block body %}
-    <div class="container">
+    <div class="container-fluid">
         <div class="row justify-content-center mt-3">
             <div class="col-md-8">
                 {% for projectCheckbox in project.projectCheckboxes %}
@@ -11,7 +11,7 @@
                         <div class="card mb-3">
                             <div class="card-body between">
                                 <div class="form-check">
-                                    <input {% if projectCheckbox.isComplete is not null %}checked{% endif %}
+                                    <input {% if projectCheckbox.completeAt is not null %}checked{% endif %}
                                            class="form-check-input checkbox"
                                            type="checkbox" data-id="{{ projectCheckbox.id }}"
                                            id="checkbox_{{ projectCheckbox.id }}">
@@ -20,14 +20,14 @@
                                     </label>
                                 </div>
                                 <div>
-                                    <div class="small text-muted checked-date">
-                                        {% if projectCheckbox.isComplete is not null %}
-                                            {{ projectCheckbox.isComplete|date('d.m.y') }}
+                                    <div class="text-muted checked-date">
+                                        {% if projectCheckbox.completeAt is not null %}
+                                            {{ projectCheckbox.completeAt|date('d.m.y') }}
                                         {% endif %}
                                     </div>
                                 </div>
                             </div>
-                            {% if projectCheckbox.isComplete is null %}
+                            {% if projectCheckbox.completeAt is null %}
                                 {% if checkbox.description %}
                                     <div class="card-body between">
                                         {{ checkbox.description }}
@@ -45,11 +45,11 @@
                                     </div>
                                     <div>
                                         {% if checkbox.category %}
-                                            <div class="custom-badge">{{ checkbox.category }}</div>
+                                            <span class="custom-badge">{{ checkbox.category }}</span>
                                         {% endif %}
 
                                         {% if checkbox.framework %}
-                                            <div class="custom-badge">{{ checkbox.framework }}</div>
+                                            <span class="custom-badge">{{ checkbox.framework }}</span>
                                         {% endif %}
                                     </div>
                                 </div>
@@ -68,7 +68,7 @@
                         <div class="text-center">
                             <div>{{ project.currentFramework }}</div>
                             <div>
-                                <span class="badge bg-dark">{{ project.currentPhpVersion }}</span></div>
+                                <span class="badge badge-pill badge-dark">{{ project.currentPhpVersion }}</span></div>
                         </div>
                         <div>
                             <i class="material-icons">trending_flat</i>
@@ -76,7 +76,7 @@
                         <div class="text-center">
                             <div>{{ project.desiredFramework }}</div>
                             <div>
-                                <span class="badge bg-dark">{{ project.desiredPhpVersion }}</span></div>
+                                <span class="badge badge-pill badge-dark">{{ project.desiredPhpVersion }}</span></div>
                         </div>
                     </div>
                 </div>
