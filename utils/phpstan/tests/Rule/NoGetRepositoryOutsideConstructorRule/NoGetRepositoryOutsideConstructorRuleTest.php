@@ -23,7 +23,8 @@ final class NoGetRepositoryOutsideConstructorRuleTest extends RuleTestCase
 
     public function provideData(): Iterator
     {
-        yield [__DIR__ . '/Fixture/SomeController.php', [[NoGetRepositoryOutsideConstructorRule::ERROR_MESSAGE, 21]]];
+        yield [__DIR__ . '/Fixture/OneTestRepository.php', [[NoGetRepositoryOutsideConstructorRule::ERROR_MESSAGE, 25]]];
+        yield [__DIR__ . '/Fixture/TwoTestRepository.php', [] ];
     }
 
     protected function getRule(): Rule
