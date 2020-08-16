@@ -6,7 +6,6 @@ async function connect(
 ) {
 
     function lol() {
-
     }
 
     // Default options are marked with *
