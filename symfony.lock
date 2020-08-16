@@ -204,9 +204,6 @@
     "phpunit/php-timer": {
         "version": "5.0.1"
     },
-    "phpunit/php-token-stream": {
-        "version": "4.0.3"
-    },
     "phpunit/phpunit": {
         "version": "4.7",
         "recipe": {
@@ -269,6 +266,9 @@
     "sebastian/comparator": {
         "version": "4.0.3"
     },
+    "sebastian/complexity": {
+        "version": "2.0.0"
+    },
     "sebastian/diff": {
         "version": "4.0.2"
     },
@@ -280,6 +280,9 @@
     },
     "sebastian/global-state": {
         "version": "4.0.0"
+    },
+    "sebastian/lines-of-code": {
+        "version": "1.0.0"
     },
     "sebastian/object-enumerator": {
         "version": "4.0.2"
@@ -719,13 +722,13 @@
     "symplify/easy-coding-standard": {
         "version": "v8.1.17"
     },
+    "symplify/easy-testing": {
+        "version": "v8.2.3"
+    },
     "symplify/flex-loader": {
         "version": "v8.1.19"
     },
     "symplify/package-builder": {
-        "version": "v8.1.17"
-    },
-    "symplify/parameter-name-guard": {
         "version": "v8.1.17"
     },
     "symplify/phpstan-extensions": {
