@@ -3,13 +3,13 @@ set -e
 
 # first arg is `-f` or `--some-option`
 if [ "${1#-}" != "$1" ]; then
-    set -- apache2-foreground "$@"
+	set -- apache2-foreground "$@"
 fi
 
 if [ "$1" = 'apache2-foreground' ] || [ "$1" = 'bin/console' ] || [ "$1" = 'php' ] || [ "$1" = 'composer' ]; then
-    if [ "$APP_ENV" != 'prod' ]; then
-        composer install --prefer-dist --no-progress --no-suggest --no-interaction -o
-    fi
+	if [ "$APP_ENV" != 'prod' ]; then
+		composer install --prefer-dist --no-progress --no-suggest --no-interaction -o
+	fi
 
     php bin/console assets:install
     php bin/console cache:clear
