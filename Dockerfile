@@ -83,7 +83,7 @@ RUN yarn run build
 ####
 FROM base as production
 
-COPY composer.json composer.lock phpunit.xml ./
+COPY composer.json composer.lock ./
 
 RUN composer install --prefer-dist --no-dev --no-autoloader --no-scripts --no-progress --no-suggest \
     && composer clear-cache
