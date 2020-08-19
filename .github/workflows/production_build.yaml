@@ -1,5 +1,7 @@
-name: Production build
+# only for testing that Dockerfile is build correctly
+name: Docker Build
 
+# this should run only on pull-request (fix after this works)
 on: push
 
 jobs:
@@ -13,7 +15,6 @@ jobs:
             - name: Build image
               run: |
                   # Cache multi-stage builds: https://pythonspeed.com/articles/faster-multi-stage-builds/
-
                   docker pull rector/cleaningladylist.com:base || true
                   docker pull rector/cleaningladylist.com:node-build || true
                   docker pull rector/cleaningladylist.com:latest || true
