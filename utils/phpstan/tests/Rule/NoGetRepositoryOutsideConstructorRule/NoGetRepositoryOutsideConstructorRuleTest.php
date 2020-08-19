@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace CleaningLadyList\Utils\PHPStan\Tests\Rule\NoEntityManagerInControllerRule;
+namespace CleaningLadyList\Utils\PHPStan\Tests\Rule\NoGetRepositoryOutsideConstructorRule;
 
 use CleaningLadyList\Utils\PHPStan\Rule\NoGetRepositoryOutsideConstructorRule;
 use Iterator;

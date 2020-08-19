@@ -22,6 +22,8 @@ parameters:
 
     paths:
         - src
+        # @todo uncomment later
+#        - utils
 
     level: max
 
