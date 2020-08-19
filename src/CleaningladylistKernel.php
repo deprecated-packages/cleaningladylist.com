@@ -44,6 +44,10 @@ final class CleaningladylistKernel extends Kernel
     protected function configureRoutes(RoutingConfigurator $routingConfigurator): void
     {
         $routingConfigurator->import(__DIR__ . '/../config/routes/*.php');
-        $routingConfigurator->import(__DIR__ . '/../config/routes/' . $this->environment . '/*.php');
+
+        // must be checked
+        if (file_exists(__DIR__ . '/../config/routes/' . $this->environment)) {
+            $routingConfigurator->import(__DIR__ . '/../config/routes/' . $this->environment . '/*.php');
+        }
     }
 }

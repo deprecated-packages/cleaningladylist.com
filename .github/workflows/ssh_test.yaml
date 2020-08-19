@@ -14,7 +14,10 @@ jobs:
             - name: Deploy
               uses: appleboy/ssh-action@master
               with:
+                  # e.g. cleaningladylist.com
                   host: ${{ secrets.DEPLOY_HOST }}
+                  # usually "root"
                   username: ${{ secrets.DEPLOY_USERNAME }}
+                  # always private key
                   key: ${{ secrets.DEPLOY_KEY }}
                   script: "cd /projects/cleaningladylist.com && ./run.sh"
