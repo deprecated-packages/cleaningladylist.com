@@ -26,10 +26,10 @@ jobs:
             - name: Build and push image
               run: |
                   # Cache multi-stage builds: https://pythonspeed.com/articles/faster-multi-stage-builds/
-
-                  docker pull rector/cleaningladylist.com:base || true
-                  docker pull rector/cleaningladylist.com:node-build || true
-                  docker pull rector/cleaningladylist.com:latest || true
+                  # this image does not exist
+#                  docker pull rector/cleaningladylist.com:base || true
+#                  docker pull rector/cleaningladylist.com:node-build || true
+#                  docker pull rector/cleaningladylist.com:latest || true
 
                   docker build . --tag rector/cleaningladylist.com:base --target base \
                     --cache-from rector/cleaningladylist.com:base
