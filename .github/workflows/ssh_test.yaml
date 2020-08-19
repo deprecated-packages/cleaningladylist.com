@@ -1,0 +1,20 @@
+name: SSH Test
+
+on:
+    push:
+        branches:
+            - master
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+
+        steps:
+            # see https://github.com/appleboy/ssh-action
+            - name: Deploy
+              uses: appleboy/ssh-action@master
+              with:
+                  host: ${{ secrets.DEPLOY_HOST }}
+                  username: ${{ secrets.DEPLOY_USERNAME }}
+                  key: ${{ secrets.DEPLOY_KEY }}
+                  script: "cd /projects/cleaningladylist.com && ./run.sh"
