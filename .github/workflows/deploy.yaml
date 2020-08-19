@@ -10,14 +10,6 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
-#            - uses: chrnorm/deployment-action@releases/v1
-#              name: Create GitHub deployment
-#              id: github_deploy
-#              with:
-#                  initial_status: "in_progress"
-#                  token: "${{ github.token }}"
-#                  environment: prod
-
             - uses: actions/checkout@v2
 
             - name: Log into registry
@@ -27,9 +19,9 @@ jobs:
               run: |
                   # Cache multi-stage builds: https://pythonspeed.com/articles/faster-multi-stage-builds/
                   # this image does not exist
-#                  docker pull rector/cleaningladylist.com:base || true
-#                  docker pull rector/cleaningladylist.com:node-build || true
-#                  docker pull rector/cleaningladylist.com:latest || true
+                  docker pull rector/cleaningladylist.com:base || true
+                  docker pull rector/cleaningladylist.com:node-build || true
+                  docker pull rector/cleaningladylist.com:latest || true
 
                   docker build . --tag rector/cleaningladylist.com:base --target base \
                     --cache-from rector/cleaningladylist.com:base
@@ -56,19 +48,3 @@ jobs:
                   username: ${{ secrets.DEPLOY_USERNAME }}
                   key: ${{ secrets.DEPLOY_KEY }}
                   script: "cd /projects/cleaningladylist.com && ./run.sh"
-
-#            - name: Update GitHub deployment status (success)
-#              if: success()
-#              uses: chrnorm/deployment-status@releases/v1
-#              with:
-#                  token: "${{ github.token }}"
-#                  state: "success"
-#                  deployment_id: ${{ steps.github_deploy.outputs.deployment_id }}
-
-#            - name: Update GitHub deployment status (failure)
-#              if: failure()
-#              uses: chrnorm/deployment-status@releases/v1
-#              with:
-#                  token: "${{ github.token }}"
-#                  state: "failure"
-#                  deployment_id: ${{ steps.github_deploy.outputs.deployment_id }}
