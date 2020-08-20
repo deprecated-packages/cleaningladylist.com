@@ -8,7 +8,11 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->extension('doctrine', [
         'dbal' => [
-            'url' => '%env(resolve:DATABASE_URL)%',
+            'driver' => '%env(DATABASE_DRIVER)%',
+            'host' => '%env(DATABASE_HOST)%',
+            'user' => '%env(DATABASE_USER)%',
+            'password' => '%env(DATABASE_PASSWORD)%',
+            'dbname' => '%env(DATABASE_DBNAME)%',
             'types' => [
                 UuidType::NAME => UuidType::class,
             ],
