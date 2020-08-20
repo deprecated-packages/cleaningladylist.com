@@ -28,6 +28,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         SetList::NAMING,
         SetList::CODE_QUALITY,
         SetList::DOCTRINE_CODE_QUALITY,
+        SetList::DOCTRINE_REPOSITORY_AS_SERVICE,
         SetList::NETTE_CODE_QUALITY,
     ]);
 
