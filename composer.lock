@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ef68fd05505f53be89b15acb0641320c",
+    "content-hash": "49ab880209bc3ba2e667ca8b209ff794",
     "packages": [
         {
             "name": "brick/math",
@@ -7776,6 +7776,54 @@
             "time": "2020-08-18T16:19:10+00:00"
         },
         {
+            "name": "symplify/smart-file-system",
+            "version": "v8.2.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symplify/smart-file-system.git",
+                "reference": "b920ffb52dc0bab0766249dc089ad875dba3467a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symplify/smart-file-system/zipball/b920ffb52dc0bab0766249dc089ad875dba3467a",
+                "reference": "b920ffb52dc0bab0766249dc089ad875dba3467a",
+                "shasum": ""
+            },
+            "require": {
+                "nette/utils": "^3.0",
+                "php": "^7.2",
+                "symfony/filesystem": "^4.4|^5.0",
+                "symfony/finder": "^4.4|^5.0"
+            },
+            "require-dev": {
+                "nette/finder": "^2.5",
+                "phpunit/phpunit": "^8.5|^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "8.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symplify\\SmartFileSystem\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Sanitized FileInfo with safe getRealPath() and other handy methods",
+            "funding": [
+                {
+                    "url": "https://github.com/tomasvotruba",
+                    "type": "github"
+                }
+            ],
+            "time": "2020-08-07T20:33:15+00:00"
+        },
+        {
             "name": "twig/extra-bundle",
             "version": "v3.0.5",
             "source": {
@@ -11936,54 +11984,6 @@
                 }
             ],
             "time": "2020-08-18T16:19:10+00:00"
-        },
-        {
-            "name": "symplify/smart-file-system",
-            "version": "v8.2.9",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symplify/smart-file-system.git",
-                "reference": "b920ffb52dc0bab0766249dc089ad875dba3467a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symplify/smart-file-system/zipball/b920ffb52dc0bab0766249dc089ad875dba3467a",
-                "reference": "b920ffb52dc0bab0766249dc089ad875dba3467a",
-                "shasum": ""
-            },
-            "require": {
-                "nette/utils": "^3.0",
-                "php": "^7.2",
-                "symfony/filesystem": "^4.4|^5.0",
-                "symfony/finder": "^4.4|^5.0"
-            },
-            "require-dev": {
-                "nette/finder": "^2.5",
-                "phpunit/phpunit": "^8.5|^9.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "8.3-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symplify\\SmartFileSystem\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Sanitized FileInfo with safe getRealPath() and other handy methods",
-            "funding": [
-                {
-                    "url": "https://github.com/tomasvotruba",
-                    "type": "github"
-                }
-            ],
-            "time": "2020-08-07T20:33:15+00:00"
         },
         {
             "name": "thecodingmachine/phpstan-strict-rules",

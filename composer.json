@@ -4,6 +4,7 @@
         "php": "^7.4",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "ext-json": "*",
         "doctrine/annotations": "^1.0",
         "doctrine/doctrine-bundle": "^2.1",
         "doctrine/doctrine-migrations-bundle": "^3.0",
@@ -37,9 +38,9 @@
         "symfony/web-link": "5.1.*",
         "symfony/yaml": "5.1.*",
         "symplify/flex-loader": "^8.1",
+        "symplify/smart-file-system": "^8.2",
         "twig/extra-bundle": "^3.0",
-        "twig/twig": "^3.0",
-        "ext-json": "*"
+        "twig/twig": "^3.0"
     },
     "require-dev": {
         "migrify/config-transformer": "^0.3.22",
