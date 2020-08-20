@@ -90,11 +90,10 @@ RUN composer install --prefer-dist --no-dev --no-autoloader --no-scripts --no-pr
 
 COPY --from=node-build /build/public/build ./public/build
 
-RUN mkdir -p ./var/cache \
-    ./var/log \
-    ./var/sessions \
-    ./var/demo \
-        && composer dump-autoload -o --no-dev \
-        && chown -R www-data ./var
+RUN mkdir -p ./var/cache ./var/log ./var/sessions ./var/demo
+
+RUN composer dump-autoload -o --no-dev
+
+RUN chown -R www-data ./var
 
 COPY . .
