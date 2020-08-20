@@ -1,5 +1,6 @@
 .idea
 .env.local
+docker-compose.yml
 
 .docker/mysql-data
 

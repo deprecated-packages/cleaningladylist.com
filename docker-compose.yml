@@ -7,8 +7,6 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
-        env_file:
-            - .env.local
         ports:
             - "8080:80"
         volumes:
@@ -18,12 +16,13 @@ services:
         depends_on:
             - mysql
 
+    # https://hub.docker.com/_/mysql
     mysql:
         image: mysql:5.7
         restart: unless-stopped
         environment:
-            MYSQL_ROOT_PASSWORD: "WeZDS2Z4GNUAgcy5"
-            MYSQL_DATABASE: "ccl_724856473"
+            MYSQL_ROOT_PASSWORD: "root"
+            MYSQL_DATABASE: "cleaningladylist_com"
         volumes:
             - ./.docker/mysql-data:/var/lib/mysql
         ports:

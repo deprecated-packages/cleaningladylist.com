@@ -22,6 +22,13 @@ if [ "$1" = 'apache2-foreground' ] || [ "$1" = 'bin/console' ] || [ "$1" = 'php'
     # sleep 5
     # php bin/console doctrine:schema:update --dump-sql --force
 
+    ## Create DB
+    # can be repalced in docker-compose MYSQL_DATABAE
+    # php bin/console doctrine:database:create --if-not-exists
+
+    ## Update DB
+    # php bin/console doctrine:schema:update --dump-sql --force
+
     # Permissions hack because setfacl does not work on Mac and Windows
     chown -R www-data var
 fi
