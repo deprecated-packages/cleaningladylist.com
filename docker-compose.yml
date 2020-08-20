@@ -11,6 +11,8 @@ services:
             - "8080:80"
         volumes:
             - .:/var/www/cleaningladylist.com:delegated
+            # only for debugging
+            # - .docker/docker-php-entrypoint:/usr/local/bin/docker-php-entrypoint
         tmpfs:
             - /var/www/cleaningladylist.com/var/cache
         depends_on:

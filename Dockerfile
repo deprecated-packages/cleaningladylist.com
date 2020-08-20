@@ -56,8 +56,10 @@ COPY ./.docker/php/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 ENV COMPOSER_ALLOW_SUPERUSER=1 COMPOSER_MEMORY_LIMIT=-1
 
 # Entrypoint
-COPY ./.docker/docker-entrypoint.sh /usr/local/bin/docker-php-entrypoint
-RUN chmod +x /usr/local/bin/docker-php-entrypoint
+# standard location from parent image "php:7.4-apache as base": https://github.com/docker-library/php/blob/098e442542e8a10bdee2c22484a98d41583a8fb9/7.4/buster/apache/Dockerfile#L273
+COPY ./.docker/docker-php-entrypoint /usr/local/bin/docker-php-entrypoint
+# this is always run "docker run/docker-compose ..."
+RUN chmod 777 /usr/local/bin/docker-php-entrypoint
 
 # Allow www-data to run bin/run-demo.sh with sudo
 COPY ./.docker/sudoers/www-data /etc/sudoers.d/www-data
