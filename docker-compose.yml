@@ -3,6 +3,7 @@ version: "3.7"
 services:
     web:
         image: cleaningladylist
+        restart: unless-stopped
         build:
             context: .
             dockerfile: Dockerfile
@@ -17,6 +18,7 @@ services:
 
     adminer:
         image: adminer
+        restart: unless-stopped
         ports:
             - 8094:8080
         depends_on:
@@ -25,6 +27,7 @@ services:
     # https://hub.docker.com/_/mysql
     mysql:
         image: mysql:5.7
+        restart: unless-stopped
         environment:
             MYSQL_ROOT_PASSWORD: "root"
             MYSQL_DATABASE: "cleaningladylist_com"
