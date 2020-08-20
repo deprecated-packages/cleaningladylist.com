@@ -17,9 +17,10 @@ if [ "$1" = 'apache2-foreground' ] || [ "$1" = 'bin/console' ] || [ "$1" = 'php'
     ## Wait until database connection is ready
     # @todo if sleep is not enough add custom "bin/console check:database" that already knows the databse exists
 
-    ## Update DB
-    sleep 5
-    php bin/console doctrine:schema:update --dump-sql --force
+    ## Update DB - broken for now: https://github.com/rectorphp/cleaningladylist.com/runs/1007822678
+    # possibly add to run.sh script on the server
+    # sleep 5
+    # php bin/console doctrine:schema:update --dump-sql --force
 
     # Permissions hack because setfacl does not work on Mac and Windows
     chown -R www-data var
