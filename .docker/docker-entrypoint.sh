@@ -14,23 +14,12 @@ if [ "$1" = 'apache2-foreground' ] || [ "$1" = 'bin/console' ] || [ "$1" = 'php'
     php bin/console assets:install
     php bin/console cache:clear
 
-    ## Check if variable DATABASE_HOST is set, if yes, we have database
-    if [[ -v DATABASE_HOST ]]; then
-        ## Wait until database connection is ready
-        until mysql -u $DATABASE_USER -h $DATABASE_HOST --password="$DATABASE_PASSWORD" -e "" ; do
-            >&2 echo "Waiting for database service to start."
-            sleep 3
-        done
+    ## Wait until database connection is ready
+    # @todo if sleep is not enough add custom "bin/console check:database" that already knows the databse exists
 
-        ## Wait until database connection is ready
-#        set PGPASSWORD = $DATABASE_PASSWORD && until psql -h $DATABASE_HOST -u $DATABASE_USER; do
-#            >&2 echo "Waiting for database service to start."
-#            sleep 3
-#        done
-
-        ## Update DB
-        php bin/console doctrine:schema:update --dump-sql --force
-    fi
+    ## Update DB
+    sleep 5
+    php bin/console doctrine:schema:update --dump-sql --force
 
     # Permissions hack because setfacl does not work on Mac and Windows
     chown -R www-data var
