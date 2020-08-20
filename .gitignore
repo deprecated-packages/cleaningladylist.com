@@ -1,4 +1,5 @@
 .idea
+.env.local
 
 .docker/mysql-data
 
