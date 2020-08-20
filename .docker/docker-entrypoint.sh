@@ -14,15 +14,19 @@ if [ "$1" = 'apache2-foreground' ] || [ "$1" = 'bin/console' ] || [ "$1" = 'php'
     php bin/console assets:install
     php bin/console cache:clear
 
-    ## Wait until database connection is ready
-    # @todo if sleep is not enough add custom "bin/console check:database" that already knows the databse exists
-    sleep 5
+    if [[ -v DATABASE_HOST ]]; then
+        ## Create DB
+        # database is created inside automatically by using "services > mysql > environment > MYSQL_DATABASE" in docker-composer.yml, see https://hub.docker.com/_/mysql
 
-    ## Create DB
-    # database is created inside automatically by using "services > mysql > environment > MYSQL_DATABASE" in docker-composer.yml, see https://hub.docker.com/_/mysql
+        ## Wait until database connection is ready
+        until mysql -u $DATABASE_USER -h $DATABASE_HOST --password="$DATABASE_PASSWORD" -e "" ; do
+            >&2 echo "Waiting for database service to start."
+            sleep 3
+        done
 
-    ## Update DB
-    php bin/console doctrine:schema:update --dump-sql --force
+        ## Update DB
+        php bin/console doctrine:schema:update --dump-sql --force
+    fi
 
     # Permissions hack because setfacl does not work on Mac and Windows
     chown -R www-data var
