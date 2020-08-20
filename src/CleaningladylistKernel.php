@@ -10,6 +10,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 use Symplify\FlexLoader\Flex\FlexLoader;
+use Symplify\SmartFileSystem\SmartFileSystem;
 
 final class CleaningladylistKernel extends Kernel
 {
@@ -46,7 +47,8 @@ final class CleaningladylistKernel extends Kernel
         $routingConfigurator->import(__DIR__ . '/../config/routes/*.php');
 
         // must be checked
-        if (file_exists(__DIR__ . '/../config/routes/' . $this->environment)) {
+        $smartFileSystem = new SmartFileSystem();
+        if ($smartFileSystem->exists(__DIR__ . '/../config/routes/' . $this->environment)) {
             $routingConfigurator->import(__DIR__ . '/../config/routes/' . $this->environment . '/*.php');
         }
     }

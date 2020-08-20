@@ -27,7 +27,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $parameters->set(Option::SETS, [
         SetList::NAMING,
         SetList::CODE_QUALITY,
-        SetList::REPOSITORY_AS_SERVICE,
+        SetList::DOCTRINE_CODE_QUALITY,
         SetList::NETTE_CODE_QUALITY,
     ]);
 

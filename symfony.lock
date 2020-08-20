@@ -123,6 +123,9 @@
     "migrify/config-transformer": {
         "version": "v0.3.22"
     },
+    "migrify/php-config-printer": {
+        "version": "v0.3.30"
+    },
     "monolog/monolog": {
         "version": "2.1.1"
     },
