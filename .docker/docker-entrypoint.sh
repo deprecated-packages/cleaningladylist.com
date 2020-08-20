@@ -14,7 +14,7 @@ if [ "$1" = 'apache2-foreground' ] || [ "$1" = 'bin/console' ] || [ "$1" = 'php'
     php bin/console assets:install
     php bin/console cache:clear
 
-    if [[ -v DATABASE_HOST ]]; then
+    if [[ -v $DATABASE_HOST ]]; then
         ## Create DB
         # database is created inside automatically by using "services > mysql > environment > MYSQL_DATABASE" in docker-composer.yml, see https://hub.docker.com/_/mysql
 

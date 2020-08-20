@@ -90,7 +90,7 @@ RUN composer install --prefer-dist --no-dev --no-autoloader --no-scripts --no-pr
 
 COPY --from=node-build /build/public/build ./public/build
 
-RUN mkdir -p ./var/cache ./var/log ./var/sessions ./var/demo
+RUN mkdir -p ./var/cache ./var/log ./var/sessions
 
 RUN composer dump-autoload -o --no-dev
 
