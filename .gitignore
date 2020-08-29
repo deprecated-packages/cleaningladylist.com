@@ -2,7 +2,9 @@
 .env.local
 .env.*.local
 
-.docker/mysql-data
+node_modules/
+public/build/
+.docker/mysql-data/
 
 
 ###> symfony/framework-bundle ###

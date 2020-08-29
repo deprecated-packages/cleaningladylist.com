@@ -1,0 +1,15 @@
+var/
+vendor/
+node_modules/
+.docker/mysql-data/
+.github/
+public/bundles/
+public/build/
+
+Dockerfile
+docker-compose.yml
+.gitignore
+.dockerignore
+.editorconfig
+.kodiak.toml
+README.md

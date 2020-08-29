@@ -7,6 +7,8 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
+            target: dev
+        entrypoint: ["docker-dev-php-entrypoint"]
         ports:
             - "8080:80"
         volumes:
@@ -17,6 +19,16 @@ services:
             - /var/www/cleaningladylist.com/var/cache
         depends_on:
             - mysql
+
+    js-watch:
+        image: cleaningladylist
+        restart: unless-stopped
+        volumes:
+            - .:/var/www/cleaningladylist.com:delegated
+        entrypoint: ["docker-dev-js-entrypoint"]
+        command: ["yarn", "run", "watch"]
+        depends_on:
+            - web
 
     adminer:
         image: adminer

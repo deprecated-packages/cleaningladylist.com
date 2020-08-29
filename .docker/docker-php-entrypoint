@@ -6,16 +6,11 @@ if [ "${1#-}" != "$1" ]; then
     set -- apache2-foreground "$@"
 fi
 
-if [ "$APP_ENV" != 'prod' ]; then
-    composer install --prefer-dist --no-progress --no-suggest --no-interaction -o
-fi
-
 php bin/console assets:install
 php bin/console cache:clear
 
-#echo $DATABASE_HOST
-
 if [[ -v DATABASE_HOST ]]; then
+    echo "database host is set"
     ## Create DB
     # database is created inside automatically by using "services > mysql > environment > MYSQL_DATABASE" in docker-composer.yml, see https://hub.docker.com/_/mysql
 
@@ -28,8 +23,5 @@ if [[ -v DATABASE_HOST ]]; then
     ## Update DB
     php bin/console doctrine:schema:update --dump-sql --force
 fi
-
-# Permissions hack because setfacl does not work on Mac and Windows
-chown -R www-data var
 
 exec "$@"
