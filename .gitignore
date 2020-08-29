@@ -1,6 +1,6 @@
 .idea
 .env.local
-docker-compose.yml
+.env.*.local
 
 .docker/mysql-data
 
@@ -14,7 +14,6 @@ docker-compose.yml
 
 ###> symfony/phpunit-bridge ###
 .phpunit
-.phpunit.result.cache
 ###< symfony/phpunit-bridge ###
 
 ###> friendsofphp/php-cs-fixer ###
