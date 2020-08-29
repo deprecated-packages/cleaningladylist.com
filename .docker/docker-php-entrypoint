@@ -6,6 +6,8 @@ if [ "${1#-}" != "$1" ]; then
     set -- apache2-foreground "$@"
 fi
 
+php bin/console assets:install
+
 if [[ -v DATABASE_HOST ]]; then
     ## Create DB
     # database is created inside automatically by using "services > mysql > environment > MYSQL_DATABASE" in docker-composer.yml, see https://hub.docker.com/_/mysql

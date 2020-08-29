@@ -43,7 +43,7 @@ COPY ./.docker/docker-php-entrypoint \
     /usr/local/bin/
 
 # this is always run "docker run/docker-compose ..."
-RUN chmod 777 /usr/local/bin/docker-*
+RUN chmod 777 /usr/local/bin/docker-*entrypoint
 
 # COPY ./.docker/docker-dev-js-entrypoint /usr/local/bin/docker-php-entrypoint
 # COPY ./.docker/docker-dev-php-entrypoint /usr/local/bin/docker-php-entrypoint
@@ -70,7 +70,5 @@ COPY composer.json composer.lock ./
 RUN composer install --prefer-dist --no-dev --no-autoloader --no-scripts --no-progress --no-suggest \
     && composer clear-cache
 RUN composer dump-autoload -o --no-dev
-
-RUN bin/console assets:install
 
 COPY . .
