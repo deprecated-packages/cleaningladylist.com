@@ -14,15 +14,9 @@ jobs:
 
             - name: Build image
               run: |
-                  # Cache multi-stage builds: https://pythonspeed.com/articles/faster-multi-stage-builds/
-                  docker pull rector/cleaningladylist.com:base || true
-                  docker pull rector/cleaningladylist.com:node-build || true
                   docker pull rector/cleaningladylist.com:latest || true
 
-                  docker build . --tag image --target production \
-                    --cache-from rector/cleaningladylist.com:base \
-                    --cache-from rector/cleaningladylist.com:node-build \
-                    --cache-from rector/cleaningladylist.com:latest
+                  docker build . --tag image --cache-from rector/cleaningladylist.com:latest
 
             - name: Warmup cache
               run: docker run -e APP_ENV=prod image bin/console cache:warmup
