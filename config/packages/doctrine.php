@@ -13,6 +13,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             'user' => '%env(DATABASE_USER)%',
             'password' => '%env(DATABASE_PASSWORD)%',
             'dbname' => '%env(DATABASE_DBNAME)%',
+            'server_version' => '%env(DATABASE_SERVER_VERSION)%',
             'types' => [
                 UuidType::NAME => UuidType::class,
             ],
