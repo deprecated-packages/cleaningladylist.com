@@ -71,4 +71,6 @@ RUN composer install --prefer-dist --no-dev --no-autoloader --no-scripts --no-pr
     && composer clear-cache
 RUN composer dump-autoload -o --no-dev
 
+RUN bin/console assets:install
+
 COPY . .

@@ -8,6 +8,8 @@ fi
 
 composer install --prefer-dist --no-progress --no-suggest --no-interaction -o
 
+bin/console assets:install
+
 # Permissions hack because setfacl does not work on Mac and Windows
 chown -R www-data var
 
