@@ -19,27 +19,10 @@ jobs:
 
             - name: Build and push image
               run: |
-                  # Cache multi-stage builds: https://pythonspeed.com/articles/faster-multi-stage-builds/
-                  # this image does not exist
-                  docker pull rector/cleaningladylist.com:base || true
-                  docker pull rector/cleaningladylist.com:node-build || true
                   docker pull rector/cleaningladylist.com:latest || true
 
-                  docker build . --tag rector/cleaningladylist.com:base --target base \
-                    --cache-from rector/cleaningladylist.com:base
+                  docker build . --tag rector/cleaningladylist.com:latest --cache-from rector/cleaningladylist.com:latest
 
-                  docker build . --tag rector/cleaningladylist.com:node-build --target node-build \
-                    --cache-from rector/cleaningladylist.com:base \
-                    --cache-from rector/cleaningladylist.com:node-build
-
-                  docker build . --tag rector/cleaningladylist.com:latest --target production \
-                    --build-arg commitHash=${{ github.sha }} \
-                    --cache-from rector/cleaningladylist.com:base \
-                    --cache-from rector/cleaningladylist.com:node-build \
-                    --cache-from rector/cleaningladylist.com:latest
-
-                  docker push rector/cleaningladylist.com:base
-                  docker push rector/cleaningladylist.com:node-build
                   docker push rector/cleaningladylist.com:latest
 
             # see https://github.com/appleboy/ssh-action

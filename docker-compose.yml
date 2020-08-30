@@ -7,22 +7,38 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
+            target: dev
+        entrypoint: ["docker-dev-php-entrypoint"]
+        command: ["apache2-foreground"]
         ports:
             - "8080:80"
         volumes:
             - .:/var/www/cleaningladylist.com:delegated
+            # only for debugging:
+            # - .docker/docker-php-entrypoint:/usr/local/bin/docker-php-entrypoint
         tmpfs:
             - /var/www/cleaningladylist.com/var/cache
         depends_on:
             - mysql
+        environment:
+            DATABASE_HOST: ${DATABASE_HOST}
+            DATABASE_USER: ${DATABASE_USER}
+            DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+
+    js-watch:
+        image: node:14-alpine
+        restart: unless-stopped
+        working_dir: /var/www/cleaningladylist.com
+        volumes:
+            - .:/var/www/cleaningladylist.com:delegated
+        entrypoint: [""]
+        command: "ash -c 'yarn install && yarn run watch'"
 
     adminer:
         image: adminer
         restart: unless-stopped
         ports:
             - 8094:8080
-        depends_on:
-            - mysql
 
     # https://hub.docker.com/_/mysql
     mysql:
