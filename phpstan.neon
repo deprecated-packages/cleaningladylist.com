@@ -17,9 +17,8 @@ parameters:
             - 'Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository'
 
     # see https://github.com/phpstan/phpstan-doctrine
-# TODO: temporarily disabled
-#    doctrine:
-#        objectManagerLoader: tests/object-manager.php
+    doctrine:
+        objectManagerLoader: tests/object-manager.php
 
     paths:
         - src
