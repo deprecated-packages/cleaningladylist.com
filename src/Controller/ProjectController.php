@@ -85,13 +85,13 @@ final class ProjectController extends AbstractController
 
             $this->projectCheckboxRepository->save($projectCheckbox);
 
-            return new JsonResponse([
+            return $this->json([
                 'success' => true,
                 'result' => $projectCheckbox->getCompleteAtAsString(),
             ]);
         }
 
-        return new JsonResponse([
+        return $this->json([
             'success' => false,
         ]);
     }
@@ -111,6 +111,8 @@ final class ProjectController extends AbstractController
         $project->setTimezone('Prague');
         $this->projectRepository->save($project);
 
-        return $this->redirectToRoute('project.show', ['id' => $project->getId()]);
+        return $this->redirectToRoute('project.show', [
+            'id' => $project->getId(),
+        ]);
     }
 }
