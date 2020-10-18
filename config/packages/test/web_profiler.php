@@ -7,13 +7,7 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->extension('web_profiler', [
         'toolbar' => false,
-    ]);
-
-    $containerConfigurator->extension('web_profiler', [
         'intercept_redirects' => false,
-    ]);
-
-    $containerConfigurator->extension('framework', [
         'profiler' => [
             'collect' => false,
         ],

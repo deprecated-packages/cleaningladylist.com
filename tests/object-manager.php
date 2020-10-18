@@ -1,6 +1,6 @@
 <?php
 
-use App\CleaningladylistKernel;
+use App\HttpKernel\CleaningladylistKernel;
 use Symfony\Component\Dotenv\Dotenv;
 
 require __DIR__ . '/../vendor/autoload.php';
