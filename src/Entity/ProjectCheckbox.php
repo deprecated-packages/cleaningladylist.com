@@ -53,11 +53,9 @@ class ProjectCheckbox
         return $this->project;
     }
 
-    public function setProject(Project $project): self
+    public function setProject(Project $project): void
     {
         $this->project = $project;
-
-        return $this;
     }
 
     /**
@@ -68,22 +66,18 @@ class ProjectCheckbox
         return $this->checkboxes;
     }
 
-    public function addCheckbox(Checkbox $checkbox): self
+    public function addCheckbox(Checkbox $checkbox): void
     {
         if (! $this->checkboxes->contains($checkbox)) {
             $this->checkboxes[] = $checkbox;
         }
-
-        return $this;
     }
 
-    public function removeCheckbox(Checkbox $checkbox): self
+    public function removeCheckbox(Checkbox $checkbox): void
     {
         if ($this->checkboxes->contains($checkbox)) {
             $this->checkboxes->removeElement($checkbox);
         }
-
-        return $this;
     }
 
     public function inverseCompleteAt(): void

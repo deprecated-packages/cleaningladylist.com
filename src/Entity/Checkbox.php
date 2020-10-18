@@ -117,24 +117,20 @@ class Checkbox
         return $this->projectCheckboxes;
     }
 
-    public function addProjectCheckbox(ProjectCheckbox $projectCheckbox): self
+    public function addProjectCheckbox(ProjectCheckbox $projectCheckbox): void
     {
         if (! $this->projectCheckboxes->contains($projectCheckbox)) {
             $this->projectCheckboxes[] = $projectCheckbox;
             $projectCheckbox->addCheckbox($this);
         }
-
-        return $this;
     }
 
-    public function removeProjectCheckbox(ProjectCheckbox $projectCheckbox): self
+    public function removeProjectCheckbox(ProjectCheckbox $projectCheckbox): void
     {
         if ($this->projectCheckboxes->contains($projectCheckbox)) {
             $this->projectCheckboxes->removeElement($projectCheckbox);
             $projectCheckbox->removeCheckbox($this);
         }
-
-        return $this;
     }
 
     public function getHow(): ?string
@@ -142,11 +138,9 @@ class Checkbox
         return $this->how;
     }
 
-    public function setHow(?string $how): self
+    public function setHow(?string $how): void
     {
         $this->how = $how;
-
-        return $this;
     }
 
     public function getWhy(): ?string
@@ -154,10 +148,8 @@ class Checkbox
         return $this->why;
     }
 
-    public function setWhy(?string $why): self
+    public function setWhy(?string $why): void
     {
         $this->why = $why;
-
-        return $this;
     }
 }
