@@ -45,7 +45,7 @@ class Checkbox
 
     /**
      * @ORM\ManyToMany(targetEntity=ProjectCheckbox::class, mappedBy="checkboxes")
-     * @var iterable<ProjectCheckbox>&Collection
+     * @var Collection<int, ProjectCheckbox>
      */
     private $projectCheckboxes;
 
@@ -120,7 +120,7 @@ class Checkbox
     public function addProjectCheckbox(ProjectCheckbox $projectCheckbox): void
     {
         if (! $this->projectCheckboxes->contains($projectCheckbox)) {
-            $this->projectCheckboxes[] = $projectCheckbox;
+            $this->projectCheckboxes->add($projectCheckbox);
             $projectCheckbox->addCheckbox($this);
         }
     }
