@@ -31,3 +31,5 @@ public/build/
 ###> phpunit/phpunit ###
 .phpunit.result.cache
 ###< phpunit/phpunit ###
+
+package-lock.json
