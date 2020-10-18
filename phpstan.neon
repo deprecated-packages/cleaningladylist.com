@@ -42,9 +42,3 @@ parameters:
             message: '#Too many public elements on class - \d+. Try narrow it down under \d+#'
             paths:
                 - src/Entity
-
-        -
-            message: '#Do not use protected element in final class#'
-            paths:
-                - src/CleaningladylistKernel.php # 36
-                - src/CleaningladylistKernel.php # 45

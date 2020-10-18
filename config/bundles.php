@@ -35,9 +35,6 @@ return [
         'dev' => true,
         'test' => true,
     ],
-    Symfony\Bundle\MakerBundle\MakerBundle::class => [
-        'dev' => true,
-    ],
     Symplify\ConsoleColorDiff\ConsoleColorDiffBundle::class => [
         'dev' => true,
         'test' => true,
