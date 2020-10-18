@@ -29,7 +29,7 @@ class ProjectCheckbox
 
     /**
      * @ORM\ManyToMany(targetEntity=Checkbox::class, inversedBy="projectCheckboxes")
-     * @var iterable<Checkbox>&Collection
+     * @var Collection<int, Checkbox>|Checkbox[]
      */
     private $checkboxes;
 
@@ -53,37 +53,31 @@ class ProjectCheckbox
         return $this->project;
     }
 
-    public function setProject(Project $project): self
+    public function setProject(Project $project): void
     {
         $this->project = $project;
-
-        return $this;
     }
 
     /**
-     * @return Collection<int, Checkbox>
+     * @return Collection<int, Checkbox>|Checkbox[]
      */
     public function getCheckboxes(): Collection
     {
         return $this->checkboxes;
     }
 
-    public function addCheckbox(Checkbox $checkbox): self
+    public function addCheckbox(Checkbox $checkbox): void
     {
         if (! $this->checkboxes->contains($checkbox)) {
-            $this->checkboxes[] = $checkbox;
+            $this->checkboxes->add($checkbox);
         }
-
-        return $this;
     }
 
-    public function removeCheckbox(Checkbox $checkbox): self
+    public function removeCheckbox(Checkbox $checkbox): void
     {
         if ($this->checkboxes->contains($checkbox)) {
             $this->checkboxes->removeElement($checkbox);
         }
-
-        return $this;
     }
 
     public function inverseCompleteAt(): void

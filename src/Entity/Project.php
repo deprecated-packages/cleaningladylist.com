@@ -61,7 +61,7 @@ class Project
 
     /**
      * @ORM\OneToMany(targetEntity=ProjectCheckbox::class, mappedBy="project")
-     * @var iterable<ProjectCheckbox>&Collection
+     * @var Collection<int, ProjectCheckbox>|ProjectCheckbox[]
      */
     private $projectCheckboxes;
 
@@ -143,7 +143,7 @@ class Project
     }
 
     /**
-     * @return Collection<int, ProjectCheckbox>
+     * @return Collection<int, ProjectCheckbox>|ProjectCheckbox[]
      */
     public function getProjectCheckboxes(): Collection
     {
@@ -152,10 +152,12 @@ class Project
 
     public function addProjectCheckbox(ProjectCheckbox $projectCheckbox): void
     {
-        if (! $this->projectCheckboxes->contains($projectCheckbox)) {
-            $this->projectCheckboxes[] = $projectCheckbox;
-            $projectCheckbox->setProject($this);
+        if ($this->projectCheckboxes->contains($projectCheckbox)) {
+            return;
         }
+
+        $this->projectCheckboxes->add($projectCheckbox);
+        $projectCheckbox->setProject($this);
     }
 
     public function getTimezone(): ?string
