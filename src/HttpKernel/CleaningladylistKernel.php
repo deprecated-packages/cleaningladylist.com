@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App;
+namespace App\HttpKernel;
 
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;
@@ -44,12 +44,12 @@ final class CleaningladylistKernel extends Kernel
      */
     protected function configureRoutes(RoutingConfigurator $routingConfigurator): void
     {
-        $routingConfigurator->import(__DIR__ . '/../config/routes/*.php');
+        $routingConfigurator->import(__DIR__ . '/../../config/routes/*.php');
 
         // must be checked
         $smartFileSystem = new SmartFileSystem();
-        if ($smartFileSystem->exists(__DIR__ . '/../config/routes/' . $this->environment)) {
-            $routingConfigurator->import(__DIR__ . '/../config/routes/' . $this->environment . '/*.php');
+        if ($smartFileSystem->exists(__DIR__ . '/../../config/routes/' . $this->environment)) {
+            $routingConfigurator->import(__DIR__ . '/../../config/routes/' . $this->environment . '/*.php');
         }
     }
 }

@@ -8,22 +8,19 @@ use SlevomatCodingStandard\Sniffs\Classes\UnusedPrivateElementsSniff;
 use SlevomatCodingStandard\Sniffs\Namespaces\ReferenceUsedNamesOnlySniff;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\CodingStandard\Fixer\LineLength\LineLengthFixer;
-use Symplify\EasyCodingStandard\Configuration\Option;
+use Symplify\EasyCodingStandard\ValueObject\Option;
 use Symplify\EasyCodingStandard\ValueObject\Set\SetList;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
 
     $services->set(DisallowLongArraySyntaxSniff::class);
-
     $services->set(TrailingCommaInMultilineArrayFixer::class);
-
     $services->set(LineLengthFixer::class);
 
     $parameters = $containerConfigurator->parameters();
 
     $parameters->set(Option::PATHS, [__DIR__ . '/src', __DIR__ . '/config', __DIR__ . '/ecs.php']);
-
     $parameters->set(Option::SETS, [
         SetList::COMMON,
         SetList::CLEAN_CODE,
@@ -32,6 +29,11 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         SetList::PHP_71,
         SetList::PHP_70,
         SetList::SYMPLIFY,
+    ]);
+
+    $parameters->set(Option::EXCLUDE_PATHS, [
+        // this file is generated, so no need to check it over and over againcu
+        __DIR__ . '/config/bundles.php',
     ]);
 
     $parameters->set(Option::SKIP, [

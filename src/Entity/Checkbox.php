@@ -110,7 +110,7 @@ class Checkbox
     }
 
     /**
-     * @return Collection|ProjectCheckbox[]
+     * @return Collection<int, ProjectCheckbox>
      */
     public function getProjectCheckboxes(): Collection
     {

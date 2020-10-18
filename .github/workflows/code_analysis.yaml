@@ -25,8 +25,8 @@ jobs:
                         run: composer rector-dry
 
                     -
-                        name: 'Maker Bundle'
-                        run: bin/console make:controller test -n
+                        name: 'Composer Validate'
+                        run: composer validate --strict
 
         name: ${{ matrix.actions.name }}
         runs-on: ubuntu-latest

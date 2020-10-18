@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use DateTime;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Nette\Utils\DateTime;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -72,7 +72,7 @@ class Project
 
     public function __construct()
     {
-        $this->dateTime = new DateTime();
+        $this->dateTime = DateTime::from('now');
         $this->id = Uuid::uuid4();
         $this->projectCheckboxes = new ArrayCollection();
     }
@@ -143,21 +143,19 @@ class Project
     }
 
     /**
-     * @return Collection|ProjectCheckbox[]
+     * @return Collection<int, ProjectCheckbox>
      */
     public function getProjectCheckboxes(): Collection
     {
         return $this->projectCheckboxes;
     }
 
-    public function addProjectCheckbox(ProjectCheckbox $projectCheckbox): self
+    public function addProjectCheckbox(ProjectCheckbox $projectCheckbox): void
     {
         if (! $this->projectCheckboxes->contains($projectCheckbox)) {
             $this->projectCheckboxes[] = $projectCheckbox;
             $projectCheckbox->setProject($this);
         }
-
-        return $this;
     }
 
     public function getTimezone(): ?string
@@ -165,10 +163,8 @@ class Project
         return $this->timezone;
     }
 
-    public function setTimezone(string $timezone): self
+    public function setTimezone(string $timezone): void
     {
         $this->timezone = $timezone;
-
-        return $this;
     }
 }

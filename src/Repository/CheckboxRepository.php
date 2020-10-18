@@ -7,13 +7,14 @@ namespace App\Repository;
 use App\Entity\Checkbox;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\Persistence\ObjectRepository;
 
 final class CheckboxRepository
 {
     /**
      * @var EntityRepository<Checkbox>
      */
-    private $entityRepository;
+    private ObjectRepository $entityRepository;
 
     public function __construct(EntityManagerInterface $entityManager)
     {

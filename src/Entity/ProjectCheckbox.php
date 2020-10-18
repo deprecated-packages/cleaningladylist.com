@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use DateTime;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Nette\Utils\DateTime;
 
 /**
  * @ORM\Entity()
@@ -35,7 +36,7 @@ class ProjectCheckbox
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private ?DateTime $completedAt;
+    private ?DateTimeInterface $completedAt;
 
     public function __construct()
     {
@@ -60,7 +61,7 @@ class ProjectCheckbox
     }
 
     /**
-     * @return Collection|Checkbox[]
+     * @return Collection<int, Checkbox>
      */
     public function getCheckboxes(): Collection
     {
@@ -88,14 +89,14 @@ class ProjectCheckbox
     public function inverseCompleteAt(): void
     {
         if ($this->completedAt === null) {
-            $this->completedAt = new DateTime();
+            $this->completedAt = DateTime::from('now');
             return;
         }
 
         $this->completedAt = null;
     }
 
-    public function getCompleteAt(): ?DateTime
+    public function getCompleteAt(): ?DateTimeInterface
     {
         return $this->completedAt ?? null;
     }

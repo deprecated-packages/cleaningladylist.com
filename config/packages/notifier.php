@@ -15,7 +15,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                     'medium' => ['email'],
                     'low' => ['email'],
                 ],
-                'admin_recipients' => [['email' => 'admin@example.com']],
+                'admin_recipients' => [[
+                    'email' => 'admin@example.com',
+                ]],
             ],
         ]
     );
