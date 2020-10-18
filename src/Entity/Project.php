@@ -152,10 +152,12 @@ class Project
 
     public function addProjectCheckbox(ProjectCheckbox $projectCheckbox): void
     {
-        if (! $this->projectCheckboxes->contains($projectCheckbox)) {
-            $this->projectCheckboxes->add($projectCheckbox);
-            $projectCheckbox->setProject($this);
+        if ($this->projectCheckboxes->contains($projectCheckbox)) {
+            return;
         }
+
+        $this->projectCheckboxes->add($projectCheckbox);
+        $projectCheckbox->setProject($this);
     }
 
     public function getTimezone(): ?string
