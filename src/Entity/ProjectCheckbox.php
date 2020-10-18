@@ -29,7 +29,7 @@ class ProjectCheckbox
 
     /**
      * @ORM\ManyToMany(targetEntity=Checkbox::class, inversedBy="projectCheckboxes")
-     * @var Collection<int, Checkbox>
+     * @var Collection<int, Checkbox>|Checkbox[]
      */
     private $checkboxes;
 
@@ -59,7 +59,7 @@ class ProjectCheckbox
     }
 
     /**
-     * @return Collection<int, Checkbox>
+     * @return Collection<int, Checkbox>|Checkbox[]
      */
     public function getCheckboxes(): Collection
     {

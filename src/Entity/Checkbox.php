@@ -45,7 +45,7 @@ class Checkbox
 
     /**
      * @ORM\ManyToMany(targetEntity=ProjectCheckbox::class, mappedBy="checkboxes")
-     * @var Collection<int, ProjectCheckbox>
+     * @var Collection<int, ProjectCheckbox>|ProjectCheckbox[]
      */
     private $projectCheckboxes;
 
@@ -110,7 +110,7 @@ class Checkbox
     }
 
     /**
-     * @return Collection<int, ProjectCheckbox>
+     * @return Collection<int, ProjectCheckbox>|ProjectCheckbox[]
      */
     public function getProjectCheckboxes(): Collection
     {

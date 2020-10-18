@@ -105,6 +105,7 @@ final class ProjectController extends AbstractController
             $projectCheckbox = new ProjectCheckbox();
             $projectCheckbox->setProject($project);
             $projectCheckbox->addCheckbox($checkbox);
+
             $this->projectCheckboxRepository->persist($projectCheckbox);
         }
 
