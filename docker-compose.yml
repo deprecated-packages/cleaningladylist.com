@@ -20,6 +20,7 @@ services:
             - /var/www/cleaningladylist.com/var/cache
         depends_on:
             - mysql
+            - js-watch
         environment:
             DATABASE_HOST: ${DATABASE_HOST}
             DATABASE_USER: ${DATABASE_USER}
