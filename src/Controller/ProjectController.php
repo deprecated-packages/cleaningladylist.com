@@ -50,7 +50,7 @@ final class ProjectController extends AbstractController
             return $this->processFormRequest($project);
         }
 
-        return $this->render('project/create.html.twig', [
+        return $this->render('project/create.twig', [
             'project_form' => $projectForm->createView(),
         ]);
     }
@@ -63,7 +63,7 @@ final class ProjectController extends AbstractController
         $currentFramework = (string) $project->getCurrentFramework();
         $checkboxes = $this->checkboxRepository->findByFramework($currentFramework);
 
-        return $this->render('project/show.html.twig', [
+        return $this->render('project/show.twig', [
             'project' => $project,
             'checkboxes' => $checkboxes,
         ]);

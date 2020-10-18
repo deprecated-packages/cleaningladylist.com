@@ -1,28 +1,31 @@
+@import "~bootstrap/scss/bootstrap";
+
 * {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-family: 'Poppins', sans-serif;
 }
 
-.brand-link:hover  {
-    color: #000000;
-    text-decoration: none;
-}
 .brand-link {
-    color: #000000;
-    font-size: 18px;
+    color: black;
+    font-size: 2em;
     padding: 5px;
     border-radius: 3px;
     text-decoration: none;
-    line-height:1;
+    line-height: 1;
     display: flex;
     align-items: center;
-}
 
-.brand-link img {
-    height: 45px;
-    display: block;
-    margin-right: 10px;
+    &:hover  {
+        color: #000000;
+        text-decoration: none;
+    }
+
+    img {
+        height: 4em;
+        display: block;
+        margin-right: 10px;
+    }
 }
 
 .card.complete {
